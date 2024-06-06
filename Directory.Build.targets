@@ -20,7 +20,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="$(IsLibrary) == true">
-    <LangVersion>11.0</LangVersion>
     <IsPackable>True</IsPackable>
     <EnablePackageValidation>True</EnablePackageValidation>
   </PropertyGroup>
@@ -41,7 +40,7 @@
   </ItemGroup>
   
   <ItemGroup Condition="$(IsPrimaryProject) == true">
-    <None Include="..\LICENSE" Pack="True" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="True" PackagePath="\"  />
     <None Include="..\README.md" Pack="True" PackagePath="\"/>
     <None Include="..\DESCRIPTION" Pack="True" PackagePath="\"/>
     <None Include="..\AUTHORS" Pack="True" PackagePath="\"/>
