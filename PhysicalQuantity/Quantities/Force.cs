@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu Kilonewtons
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -82,6 +84,27 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Force;
 		using TStorage = decimal;
+		public record Force : Force<TQuantity, TStorage>;
+
+		namespace Conversions.Force
+		{
+			public static class Conversions
+			{
+				public static TQuantity Newtons(this TStorage value) => TQuantity.Create(Convert.FromNewtons(value));
+				public static TStorage Newtons(this TQuantity quantity) => Convert.ToNewtons(quantity.Quantity);
+				public static TQuantity Kilonewtons(this TStorage value) => TQuantity.Create(Convert.FromKilonewtons(value));
+				public static TStorage Kilonewtons(this TQuantity quantity) => Convert.ToKilonewtons(quantity.Quantity);
+				public static TQuantity PoundsForce(this TStorage value) => TQuantity.Create(Convert.FromPoundsForce(value));
+				public static TStorage PoundsForce(this TQuantity quantity) => Convert.ToPoundsForce(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Force;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Force : Force<TQuantity, TStorage>;
 
 		namespace Conversions.Force

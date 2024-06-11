@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -92,6 +94,29 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Time;
 		using TStorage = decimal;
+		public record Time : Time<TQuantity, TStorage>;
+
+		namespace Conversions.Time
+		{
+			public static class Conversions
+			{
+				public static TQuantity Seconds(this TStorage value) => TQuantity.Create(Convert.FromSeconds(value));
+				public static TStorage Seconds(this TQuantity quantity) => Convert.ToSeconds(quantity.Quantity);
+				public static TQuantity Minutes(this TStorage value) => TQuantity.Create(Convert.FromMinutes(value));
+				public static TStorage Minutes(this TQuantity quantity) => Convert.ToMinutes(quantity.Quantity);
+				public static TQuantity Hours(this TStorage value) => TQuantity.Create(Convert.FromHours(value));
+				public static TStorage Hours(this TQuantity quantity) => Convert.ToHours(quantity.Quantity);
+				public static TQuantity Days(this TStorage value) => TQuantity.Create(Convert.FromDays(value));
+				public static TStorage Days(this TQuantity quantity) => Convert.ToDays(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Time;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Time : Time<TQuantity, TStorage>;
 
 		namespace Conversions.Time

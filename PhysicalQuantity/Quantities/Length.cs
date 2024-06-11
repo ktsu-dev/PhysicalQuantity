@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -132,6 +134,37 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Length;
 		using TStorage = decimal;
+		public record Length : Length<TQuantity, TStorage>;
+
+		namespace Conversions.Length
+		{
+			public static class Conversions
+			{
+				public static TQuantity Meters(this TStorage value) => TQuantity.Create(Convert.FromMeters(value));
+				public static TStorage Meters(this TQuantity quantity) => Convert.ToMeters(quantity.Quantity);
+				public static TQuantity Feet(this TStorage value) => TQuantity.Create(Convert.FromFeet(value));
+				public static TStorage Feet(this TQuantity quantity) => Convert.ToFeet(quantity.Quantity);
+				public static TQuantity Inches(this TStorage value) => TQuantity.Create(Convert.FromInches(value));
+				public static TStorage Inches(this TQuantity quantity) => Convert.ToInches(quantity.Quantity);
+				public static TQuantity Yards(this TStorage value) => TQuantity.Create(Convert.FromYards(value));
+				public static TStorage Yards(this TQuantity quantity) => Convert.ToYards(quantity.Quantity);
+				public static TQuantity Miles(this TStorage value) => TQuantity.Create(Convert.FromMiles(value));
+				public static TStorage Miles(this TQuantity quantity) => Convert.ToMiles(quantity.Quantity);
+				public static TQuantity Kilometers(this TStorage value) => TQuantity.Create(Convert.FromKilometers(value));
+				public static TStorage Kilometers(this TQuantity quantity) => Convert.ToKilometers(quantity.Quantity);
+				public static TQuantity Centimeters(this TStorage value) => TQuantity.Create(Convert.FromCentimeters(value));
+				public static TStorage Centimeters(this TQuantity quantity) => Convert.ToCentimeters(quantity.Quantity);
+				public static TQuantity Millimeters(this TStorage value) => TQuantity.Create(Convert.FromMillimeters(value));
+				public static TStorage Millimeters(this TQuantity quantity) => Convert.ToMillimeters(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Length;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Length : Length<TQuantity, TStorage>;
 
 		namespace Conversions.Length

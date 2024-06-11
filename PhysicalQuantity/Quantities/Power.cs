@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -92,6 +94,29 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Power;
 		using TStorage = decimal;
+		public record Power : Power<TQuantity, TStorage>;
+
+		namespace Conversions.Power
+		{
+			public static class Conversions
+			{
+				public static TQuantity Watts(this TStorage value) => TQuantity.Create(Convert.FromWatts(value));
+				public static TStorage Watts(this TQuantity quantity) => Convert.ToWatts(quantity.Quantity);
+				public static TQuantity Kilowatts(this TStorage value) => TQuantity.Create(Convert.FromKilowatts(value));
+				public static TStorage Kilowatts(this TQuantity quantity) => Convert.ToKilowatts(quantity.Quantity);
+				public static TQuantity Megawatts(this TStorage value) => TQuantity.Create(Convert.FromMegawatts(value));
+				public static TStorage Megawatts(this TQuantity quantity) => Convert.ToMegawatts(quantity.Quantity);
+				public static TQuantity Horsepower(this TStorage value) => TQuantity.Create(Convert.FromHorsepower(value));
+				public static TStorage Horsepower(this TQuantity quantity) => Convert.ToHorsepower(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Power;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Power : Power<TQuantity, TStorage>;
 
 		namespace Conversions.Power

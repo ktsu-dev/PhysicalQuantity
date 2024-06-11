@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -92,6 +94,29 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Density;
 		using TStorage = decimal;
+		public record Density : Density<TQuantity, TStorage>;
+
+		namespace Conversions.Density
+		{
+			public static class Conversions
+			{
+				public static TQuantity KilogramsPerCubicMeter(this TStorage value) => TQuantity.Create(Convert.FromKilogramsPerCubicMeter(value));
+				public static TStorage KilogramsPerCubicMeter(this TQuantity quantity) => Convert.ToKilogramsPerCubicMeter(quantity.Quantity);
+				public static TQuantity GramsPerCubicCentimeter(this TStorage value) => TQuantity.Create(Convert.FromGramsPerCubicCentimeter(value));
+				public static TStorage GramsPerCubicCentimeter(this TQuantity quantity) => Convert.ToGramsPerCubicCentimeter(quantity.Quantity);
+				public static TQuantity PoundsPerCubicFoot(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicFoot(value));
+				public static TStorage PoundsPerCubicFoot(this TQuantity quantity) => Convert.ToPoundsPerCubicFoot(quantity.Quantity);
+				public static TQuantity PoundsPerCubicInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicInch(value));
+				public static TStorage PoundsPerCubicInch(this TQuantity quantity) => Convert.ToPoundsPerCubicInch(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Density;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Density : Density<TQuantity, TStorage>;
 
 		namespace Conversions.Density

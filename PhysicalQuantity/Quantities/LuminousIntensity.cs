@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu Candelas
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -62,6 +64,23 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = LuminousIntensity;
 		using TStorage = decimal;
+		public record LuminousIntensity : LuminousIntensity<TQuantity, TStorage>;
+
+		namespace Conversions.LuminousIntensity
+		{
+			public static class Conversions
+			{
+				public static TQuantity Candelas(this TStorage value) => TQuantity.Create(Convert.FromCandelas(value));
+				public static TStorage Candelas(this TQuantity quantity) => Convert.ToCandelas(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = LuminousIntensity;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record LuminousIntensity : LuminousIntensity<TQuantity, TStorage>;
 
 		namespace Conversions.LuminousIntensity

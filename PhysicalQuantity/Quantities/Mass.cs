@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -92,6 +94,29 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Mass;
 		using TStorage = decimal;
+		public record Mass : Mass<TQuantity, TStorage>;
+
+		namespace Conversions.Mass
+		{
+			public static class Conversions
+			{
+				public static TQuantity Kilograms(this TStorage value) => TQuantity.Create(Convert.FromKilograms(value));
+				public static TStorage Kilograms(this TQuantity quantity) => Convert.ToKilograms(quantity.Quantity);
+				public static TQuantity Grams(this TStorage value) => TQuantity.Create(Convert.FromGrams(value));
+				public static TStorage Grams(this TQuantity quantity) => Convert.ToGrams(quantity.Quantity);
+				public static TQuantity Pounds(this TStorage value) => TQuantity.Create(Convert.FromPounds(value));
+				public static TStorage Pounds(this TQuantity quantity) => Convert.ToPounds(quantity.Quantity);
+				public static TQuantity Ounces(this TStorage value) => TQuantity.Create(Convert.FromOunces(value));
+				public static TStorage Ounces(this TQuantity quantity) => Convert.ToOunces(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Mass;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Mass : Mass<TQuantity, TStorage>;
 
 		namespace Conversions.Mass

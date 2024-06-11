@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu Lumens
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -62,6 +64,23 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = LuminousFlux;
 		using TStorage = decimal;
+		public record LuminousFlux : LuminousFlux<TQuantity, TStorage>;
+
+		namespace Conversions.LuminousFlux
+		{
+			public static class Conversions
+			{
+				public static TQuantity Lumens(this TStorage value) => TQuantity.Create(Convert.FromLumens(value));
+				public static TStorage Lumens(this TQuantity quantity) => Convert.ToLumens(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = LuminousFlux;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record LuminousFlux : LuminousFlux<TQuantity, TStorage>;
 
 		namespace Conversions.LuminousFlux

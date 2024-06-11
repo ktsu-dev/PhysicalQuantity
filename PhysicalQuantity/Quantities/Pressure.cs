@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu Kilopascals
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -82,6 +84,27 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Pressure;
 		using TStorage = decimal;
+		public record Pressure : Pressure<TQuantity, TStorage>;
+
+		namespace Conversions.Pressure
+		{
+			public static class Conversions
+			{
+				public static TQuantity Pascals(this TStorage value) => TQuantity.Create(Convert.FromPascals(value));
+				public static TStorage Pascals(this TQuantity quantity) => Convert.ToPascals(quantity.Quantity);
+				public static TQuantity Kilopascals(this TStorage value) => TQuantity.Create(Convert.FromKilopascals(value));
+				public static TStorage Kilopascals(this TQuantity quantity) => Convert.ToKilopascals(quantity.Quantity);
+				public static TQuantity PoundsPerSquareInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerSquareInch(value));
+				public static TStorage PoundsPerSquareInch(this TQuantity quantity) => Convert.ToPoundsPerSquareInch(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Pressure;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Pressure : Pressure<TQuantity, TStorage>;
 
 		namespace Conversions.Pressure

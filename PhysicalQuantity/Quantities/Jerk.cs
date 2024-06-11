@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -72,6 +74,25 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Jerk;
 		using TStorage = decimal;
+		public record Jerk : Jerk<TQuantity, TStorage>;
+
+		namespace Conversions.Jerk
+		{
+			public static class Conversions
+			{
+				public static TQuantity MetersPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondCubed(value));
+				public static TStorage MetersPerSecondCubed(this TQuantity quantity) => Convert.ToMetersPerSecondCubed(quantity.Quantity);
+				public static TQuantity FeetPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondCubed(value));
+				public static TStorage FeetPerSecondCubed(this TQuantity quantity) => Convert.ToFeetPerSecondCubed(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Jerk;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Jerk : Jerk<TQuantity, TStorage>;
 
 		namespace Conversions.Jerk

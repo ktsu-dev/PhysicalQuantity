@@ -73,4 +73,21 @@ namespace ktsu.io.PhysicalQuantity
 			}
 		}
 	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = AmountOfSubstance;
+		using TStorage = SignificantNumber.SignificantNumber;
+		public record AmountOfSubstance : AmountOfSubstance<TQuantity, TStorage>;
+
+		namespace Conversions.AmountOfSubstance
+		{
+			public static class Conversions
+			{
+				public static TQuantity Moles(this TStorage value) => TQuantity.Create(Convert.FromMoles(value));
+				public static TStorage Moles(this TQuantity quantity) => Convert.ToMoles(quantity.Quantity);
+			}
+		}
+	}
 }

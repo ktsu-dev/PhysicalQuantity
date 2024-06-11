@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu Illuminance Lux Footcandles
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -72,6 +74,25 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Illuminance;
 		using TStorage = decimal;
+		public record Illuminance : Illuminance<TQuantity, TStorage>;
+
+		namespace Conversions.Illuminance
+		{
+			public static class Conversions
+			{
+				public static TQuantity Lux(this TStorage value) => TQuantity.Create(Convert.FromLux(value));
+				public static TStorage Lux(this TQuantity quantity) => Convert.ToLux(quantity.Quantity);
+				public static TQuantity Footcandles(this TStorage value) => TQuantity.Create(Convert.FromFootcandles(value));
+				public static TStorage Footcandles(this TQuantity quantity) => Convert.ToFootcandles(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Illuminance;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Illuminance : Illuminance<TQuantity, TStorage>;
 
 		namespace Conversions.Illuminance

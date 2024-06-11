@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -152,6 +154,41 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Area;
 		using TStorage = decimal;
+		public record Area : Area<TQuantity, TStorage>;
+
+		namespace Conversions.Area
+		{
+			public static class Conversions
+			{
+				public static TQuantity SquareMeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMeters(value));
+				public static TStorage SquareMeters(this TQuantity quantity) => Convert.ToSquareMeters(quantity.Quantity);
+				public static TQuantity SquareFeet(this TStorage value) => TQuantity.Create(Convert.FromSquareFeet(value));
+				public static TStorage SquareFeet(this TQuantity quantity) => Convert.ToSquareFeet(quantity.Quantity);
+				public static TQuantity SquareInches(this TStorage value) => TQuantity.Create(Convert.FromSquareInches(value));
+				public static TStorage SquareInches(this TQuantity quantity) => Convert.ToSquareInches(quantity.Quantity);
+				public static TQuantity SquareCentimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareCentimeters(value));
+				public static TStorage SquareCentimeters(this TQuantity quantity) => Convert.ToSquareCentimeters(quantity.Quantity);
+				public static TQuantity SquareMillimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMillimeters(value));
+				public static TStorage SquareMillimeters(this TQuantity quantity) => Convert.ToSquareMillimeters(quantity.Quantity);
+				public static TQuantity Hectares(this TStorage value) => TQuantity.Create(Convert.FromHectares(value));
+				public static TStorage Hectares(this TQuantity quantity) => Convert.ToHectares(quantity.Quantity);
+				public static TQuantity Acres(this TStorage value) => TQuantity.Create(Convert.FromAcres(value));
+				public static TStorage Acres(this TQuantity quantity) => Convert.ToAcres(quantity.Quantity);
+				public static TQuantity SquareKilometers(this TStorage value) => TQuantity.Create(Convert.FromSquareKilometers(value));
+				public static TStorage SquareKilometers(this TQuantity quantity) => Convert.ToSquareKilometers(quantity.Quantity);
+				public static TQuantity SquareMiles(this TStorage value) => TQuantity.Create(Convert.FromSquareMiles(value));
+				public static TStorage SquareMiles(this TQuantity quantity) => Convert.ToSquareMiles(quantity.Quantity);
+				public static TQuantity SquareYards(this TStorage value) => TQuantity.Create(Convert.FromSquareYards(value));
+				public static TStorage SquareYards(this TQuantity quantity) => Convert.ToSquareYards(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Area;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Area : Area<TQuantity, TStorage>;
 
 		namespace Conversions.Area

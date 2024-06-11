@@ -1,3 +1,5 @@
+// Ignore Spelling: Gradians ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -102,6 +104,31 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = AngularVelocity;
 		using TStorage = decimal;
+		public record AngularVelocity : AngularVelocity<TQuantity, TStorage>;
+
+		namespace Conversions.AngularVelocity
+		{
+			public static class Conversions
+			{
+				public static TQuantity RadiansPerSecond(this TStorage value) => TQuantity.Create(Convert.FromRadiansPerSecond(value));
+				public static TStorage RadiansPerSecond(this TQuantity quantity) => Convert.ToRadiansPerSecond(quantity.Quantity);
+				public static TQuantity DegreesPerSecond(this TStorage value) => TQuantity.Create(Convert.FromDegreesPerSecond(value));
+				public static TStorage DegreesPerSecond(this TQuantity quantity) => Convert.ToDegreesPerSecond(quantity.Quantity);
+				public static TQuantity GradiansPerSecond(this TStorage value) => TQuantity.Create(Convert.FromGradiansPerSecond(value));
+				public static TStorage GradiansPerSecond(this TQuantity quantity) => Convert.ToGradiansPerSecond(quantity.Quantity);
+				public static TQuantity RevolutionsPerSecond(this TStorage value) => TQuantity.Create(Convert.FromRevolutionsPerSecond(value));
+				public static TStorage RevolutionsPerSecond(this TQuantity quantity) => Convert.ToRevolutionsPerSecond(quantity.Quantity);
+				public static TQuantity RevolutionsPerMinute(this TStorage value) => TQuantity.Create(Convert.FromRevolutionsPerMinute(value));
+				public static TStorage RevolutionsPerMinute(this TQuantity quantity) => Convert.ToRevolutionsPerMinute(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = AngularVelocity;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record AngularVelocity : AngularVelocity<TQuantity, TStorage>;
 
 		namespace Conversions.AngularVelocity

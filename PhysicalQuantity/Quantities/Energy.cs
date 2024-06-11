@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -85,4 +87,24 @@ namespace ktsu.io.PhysicalQuantity
 			}
 		}
 	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Energy;
+		using TStorage = SignificantNumber.SignificantNumber;
+		public record Energy : Energy<TQuantity, TStorage>;
+
+		namespace Conversions.Energy
+		{
+			public static class Conversions
+			{
+				public static TQuantity Joules(this TStorage value) => TQuantity.Create(Convert.FromJoules(value));
+				public static TStorage Joules(this TQuantity quantity) => Convert.ToJoules(quantity.Quantity);
+				public static TQuantity Kilojoules(this TStorage value) => TQuantity.Create(Convert.FromKilojoules(value));
+				public static TStorage Kilojoules(this TQuantity quantity) => Convert.ToKilojoules(quantity.Quantity);
+			}
+		}
+	}
+
 }

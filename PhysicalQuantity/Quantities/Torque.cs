@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -72,6 +74,25 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Torque;
 		using TStorage = decimal;
+		public record Torque : Torque<TQuantity, TStorage>;
+
+		namespace Conversions.Torque
+		{
+			public static class Conversions
+			{
+				public static TQuantity NewtonMeters(this TStorage value) => TQuantity.Create(Convert.FromNewtonMeters(value));
+				public static TStorage NewtonMeters(this TQuantity quantity) => Convert.ToNewtonMeters(quantity.Quantity);
+				public static TQuantity FootPounds(this TStorage value) => TQuantity.Create(Convert.FromFootPounds(value));
+				public static TStorage FootPounds(this TQuantity quantity) => Convert.ToFootPounds(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Torque;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Torque : Torque<TQuantity, TStorage>;
 
 		namespace Conversions.Torque

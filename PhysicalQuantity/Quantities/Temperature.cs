@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -82,6 +84,27 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Temperature;
 		using TStorage = decimal;
+		public record Temperature : Temperature<TQuantity, TStorage>;
+
+		namespace Conversions.Temperature
+		{
+			public static class Conversions
+			{
+				public static TQuantity Kelvins(this TStorage value) => TQuantity.Create(Convert.FromKelvins(value));
+				public static TStorage Kelvins(this TQuantity quantity) => Convert.ToKelvins(quantity.Quantity);
+				public static TQuantity Celsius(this TStorage value) => TQuantity.Create(Convert.FromCelsius(value));
+				public static TStorage Celsius(this TQuantity quantity) => Convert.ToCelsius(quantity.Quantity);
+				public static TQuantity Fahrenheit(this TStorage value) => TQuantity.Create(Convert.FromFahrenheit(value));
+				public static TStorage Fahrenheit(this TQuantity quantity) => Convert.ToFahrenheit(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Temperature;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Temperature : Temperature<TQuantity, TStorage>;
 
 		namespace Conversions.Temperature

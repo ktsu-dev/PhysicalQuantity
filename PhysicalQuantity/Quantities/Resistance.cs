@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu Kiloohms Megaohms
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -82,6 +84,27 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Resistance;
 		using TStorage = decimal;
+		public record Resistance : Resistance<TQuantity, TStorage>;
+
+		namespace Conversions.Resistance
+		{
+			public static class Conversions
+			{
+				public static TQuantity Ohms(this TStorage value) => TQuantity.Create(Convert.FromOhms(value));
+				public static TStorage Ohms(this TQuantity quantity) => Convert.ToOhms(quantity.Quantity);
+				public static TQuantity Kiloohms(this TStorage value) => TQuantity.Create(Convert.FromKiloohms(value));
+				public static TStorage Kiloohms(this TQuantity quantity) => Convert.ToKiloohms(quantity.Quantity);
+				public static TQuantity Megaohms(this TStorage value) => TQuantity.Create(Convert.FromMegaohms(value));
+				public static TStorage Megaohms(this TQuantity quantity) => Convert.ToMegaohms(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Resistance;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Resistance : Resistance<TQuantity, TStorage>;
 
 		namespace Conversions.Resistance

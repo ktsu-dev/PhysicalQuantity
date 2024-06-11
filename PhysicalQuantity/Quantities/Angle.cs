@@ -1,3 +1,5 @@
+// Ignore Spelling: Gradians ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -92,6 +94,29 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Angle;
 		using TStorage = decimal;
+		public record Angle : Angle<TQuantity, TStorage>;
+
+		namespace Conversions.Angle
+		{
+			public static class Conversions
+			{
+				public static TQuantity Radians(this TStorage value) => TQuantity.Create(Convert.FromRadians(value));
+				public static TStorage Radians(this TQuantity quantity) => Convert.ToRadians(quantity.Quantity);
+				public static TQuantity Degrees(this TStorage value) => TQuantity.Create(Convert.FromDegrees(value));
+				public static TStorage Degrees(this TQuantity quantity) => Convert.ToDegrees(quantity.Quantity);
+				public static TQuantity Gradians(this TStorage value) => TQuantity.Create(Convert.FromGradians(value));
+				public static TStorage Gradians(this TQuantity quantity) => Convert.ToGradians(quantity.Quantity);
+				public static TQuantity Revolutions(this TStorage value) => TQuantity.Create(Convert.FromRevolutions(value));
+				public static TStorage Revolutions(this TQuantity quantity) => Convert.ToRevolutions(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Angle;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Angle : Angle<TQuantity, TStorage>;
 
 		namespace Conversions.Angle

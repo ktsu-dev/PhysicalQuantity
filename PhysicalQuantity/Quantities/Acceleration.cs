@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -72,6 +74,25 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Acceleration;
 		using TStorage = decimal;
+		public record Acceleration : Acceleration<TQuantity, TStorage>;
+
+		namespace Conversions.Acceleration
+		{
+			public static class Conversions
+			{
+				public static TQuantity MetersPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondSquared(value));
+				public static TStorage MetersPerSecondSquared(this TQuantity quantity) => Convert.ToMetersPerSecondSquared(quantity.Quantity);
+				public static TQuantity FeetPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondSquared(value));
+				public static TStorage FeetPerSecondSquared(this TQuantity quantity) => Convert.ToFeetPerSecondSquared(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Acceleration;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Acceleration : Acceleration<TQuantity, TStorage>;
 
 		namespace Conversions.Acceleration

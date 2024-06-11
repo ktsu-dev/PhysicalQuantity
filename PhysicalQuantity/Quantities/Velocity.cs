@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -102,6 +104,31 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Velocity;
 		using TStorage = decimal;
+		public record Velocity : Velocity<TQuantity, TStorage>;
+
+		namespace Conversions.Velocity
+		{
+			public static class Conversions
+			{
+				public static TQuantity MetersPerSecond(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecond(value));
+				public static TStorage MetersPerSecond(this TQuantity quantity) => Convert.ToMetersPerSecond(quantity.Quantity);
+				public static TQuantity KilometersPerHour(this TStorage value) => TQuantity.Create(Convert.FromKilometersPerHour(value));
+				public static TStorage KilometersPerHour(this TQuantity quantity) => Convert.ToKilometersPerHour(quantity.Quantity);
+				public static TQuantity MilesPerHour(this TStorage value) => TQuantity.Create(Convert.FromMilesPerHour(value));
+				public static TStorage MilesPerHour(this TQuantity quantity) => Convert.ToMilesPerHour(quantity.Quantity);
+				public static TQuantity Knots(this TStorage value) => TQuantity.Create(Convert.FromKnots(value));
+				public static TStorage Knots(this TQuantity quantity) => Convert.ToKnots(quantity.Quantity);
+				public static TQuantity FeetPerSecond(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecond(value));
+				public static TStorage FeetPerSecond(this TQuantity quantity) => Convert.ToFeetPerSecond(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Velocity;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Velocity : Velocity<TQuantity, TStorage>;
 
 		namespace Conversions.Velocity

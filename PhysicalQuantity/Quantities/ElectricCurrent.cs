@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -72,6 +74,25 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = ElectricCurrent;
 		using TStorage = decimal;
+		public record ElectricCurrent : ElectricCurrent<TQuantity, TStorage>;
+
+		namespace Conversions.ElectricCurrent
+		{
+			public static class Conversions
+			{
+				public static TQuantity Amperes(this TStorage value) => TQuantity.Create(Convert.FromAmperes(value));
+				public static TStorage Amperes(this TQuantity quantity) => Convert.ToAmperes(quantity.Quantity);
+				public static TQuantity Milliamperes(this TStorage value) => TQuantity.Create(Convert.FromMilliamperes(value));
+				public static TStorage Milliamperes(this TQuantity quantity) => Convert.ToMilliamperes(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = ElectricCurrent;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record ElectricCurrent : ElectricCurrent<TQuantity, TStorage>;
 
 		namespace Conversions.ElectricCurrent

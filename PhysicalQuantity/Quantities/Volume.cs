@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity
 {
 	using System.Numerics;
@@ -102,6 +104,31 @@ namespace ktsu.io.PhysicalQuantity
 		using Generic;
 		using TQuantity = Volume;
 		using TStorage = decimal;
+		public record Volume : Volume<TQuantity, TStorage>;
+
+		namespace Conversions.Volume
+		{
+			public static class Conversions
+			{
+				public static TQuantity CubicMeters(this TStorage value) => TQuantity.Create(Convert.FromCubicMeters(value));
+				public static TStorage CubicMeters(this TQuantity quantity) => Convert.ToCubicMeters(quantity.Quantity);
+				public static TQuantity Liters(this TStorage value) => TQuantity.Create(Convert.FromLiters(value));
+				public static TStorage Liters(this TQuantity quantity) => Convert.ToLiters(quantity.Quantity);
+				public static TQuantity Milliliters(this TStorage value) => TQuantity.Create(Convert.FromMilliliters(value));
+				public static TStorage Milliliters(this TQuantity quantity) => Convert.ToMilliliters(quantity.Quantity);
+				public static TQuantity CubicInches(this TStorage value) => TQuantity.Create(Convert.FromCubicInches(value));
+				public static TStorage CubicInches(this TQuantity quantity) => Convert.ToCubicInches(quantity.Quantity);
+				public static TQuantity CubicFeet(this TStorage value) => TQuantity.Create(Convert.FromCubicFeet(value));
+				public static TStorage CubicFeet(this TQuantity quantity) => Convert.ToCubicFeet(quantity.Quantity);
+			}
+		}
+	}
+
+	namespace Significant
+	{
+		using Generic;
+		using TQuantity = Volume;
+		using TStorage = SignificantNumber.SignificantNumber;
 		public record Volume : Volume<TQuantity, TStorage>;
 
 		namespace Conversions.Volume
