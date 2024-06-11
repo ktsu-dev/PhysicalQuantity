@@ -1,3 +1,5 @@
+// Ignore Spelling: ktsu
+
 namespace ktsu.io.PhysicalQuantity;
 
 [AttributeUsage(AttributeTargets.Class)]
