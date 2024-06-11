@@ -2,4 +2,7 @@
   <PropertyGroup>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ktsu.io.SignificantNumber" Version="1.0.0" />
+  </ItemGroup>
 </Project>
