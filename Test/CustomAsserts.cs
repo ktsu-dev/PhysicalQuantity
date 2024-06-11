@@ -1,25 +1,21 @@
 namespace ktsu.io.PhysicalQuantity.Test;
 using System.Numerics;
 
+using ktsu.io.SignificantNumber;
+
 internal static class CustomAsserts
 {
 	public static void AreSignificantlyEqual<T1, T2>(T1 expected, T2 actual)
 			where T1 : INumber<T1>
 			where T2 : INumber<T2>
 	{
-		if (!Precision.SignificantlyEquals(expected, actual))
-		{
-			throw new AssertFailedException($"{nameof(CustomAsserts)}.{nameof(AreSignificantlyEqual)} Expected:<{expected}>. Actual<{actual}>.");
-		}
+		Assert.AreEqual(expected.ToSignificantNumber(), actual.ToSignificantNumber());
 	}
 
 	public static void AreSignificantlyUnequal<T1, T2>(T1 expected, T2 actual)
 			where T1 : INumber<T1>
 			where T2 : INumber<T2>
 	{
-		if (Precision.SignificantlyEquals(expected, actual))
-		{
-			throw new AssertFailedException($"{nameof(CustomAsserts)}.{nameof(AreSignificantlyEqual)} Expected:<{expected}>. Actual<{actual}>.");
-		}
+		Assert.AreNotEqual(expected.ToSignificantNumber(), actual.ToSignificantNumber());
 	}
 }
