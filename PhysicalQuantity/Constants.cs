@@ -1,6 +1,5 @@
 namespace ktsu.io.PhysicalQuantity;
 
-using System;
 using ktsu.io.SignificantNumber;
 
 internal static class Constants
@@ -26,11 +25,6 @@ internal static class Constants
 	internal static SignificantNumber Atto { get; } = 1e-18.ToSignificantNumber();
 	internal static SignificantNumber Zepto { get; } = 1e-21.ToSignificantNumber();
 	internal static SignificantNumber Yocto { get; } = 1e-24.ToSignificantNumber();
-
-	// Mathematical constants
-	internal static SignificantNumber Pi { get; } = 3.14159265358979323846m.ToSignificantNumber();
-	internal static SignificantNumber E { get; } = 2.71828182845904523536m.ToSignificantNumber();
-	internal static SignificantNumber GoldenRatio { get; } = 1.61803398874989484820m.ToSignificantNumber();
 
 	// Length conversion factors
 	internal static SignificantNumber FeetToMetersFactor { get; } = 0.3048m.ToSignificantNumber();
