@@ -1,3 +1,6 @@
+[assembly: CLSCompliant(true)]
+[assembly: System.Runtime.InteropServices.ComVisible(false)]
+
 namespace ktsu.io.PhysicalQuantity.Generic;
 
 using System.Numerics;
