@@ -1,95 +1,40 @@
-// Ignore Spelling: ktsu Candelas
+// Ignore Spelling: Candelas
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.LuminousIntensity;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a luminous intensity quantity measured in candelas.
+/// </summary>
+[SIUnit("cd", "candela", "candelas")]
+public sealed record LuminousIntensity
+	: PhysicalQuantity<LuminousIntensity>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="LuminousIntensity"/>.
+/// </summary>
+public static class LuminousIntensityConversions
 {
-	using System.Numerics;
-	using Convert = Generic.LuminousIntensityConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="LuminousIntensity"/> measured in candelas.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="LuminousIntensity"/> instance representing the specified value in candelas.</returns>
+	public static LuminousIntensity Candelas<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, LuminousIntensity>();
 
-	namespace Generic
-	{
-		[SIUnit("cd", "candela", "candelas")]
-		public record LuminousIntensity<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : LuminousIntensity<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
-
-		public static class LuminousIntensityConversions
-		{
-			public static TStorage FromCandelas<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToCandelas<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-		}
-	}
-
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = LuminousIntensity;
-		using TStorage = float;
-		public record LuminousIntensity : LuminousIntensity<TQuantity, TStorage>;
-
-		namespace Conversions.LuminousIntensity
-		{
-			public static class Conversions
-			{
-				public static TQuantity Candelas(this TStorage value) => TQuantity.Create(Convert.FromCandelas(value));
-				public static TStorage Candelas(this TQuantity quantity) => Convert.ToCandelas(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = LuminousIntensity;
-		using TStorage = double;
-		public record LuminousIntensity : LuminousIntensity<TQuantity, TStorage>;
-
-		namespace Conversions.LuminousIntensity
-		{
-			public static class Conversions
-			{
-				public static TQuantity Candelas(this TStorage value) => TQuantity.Create(Convert.FromCandelas(value));
-				public static TStorage Candelas(this TQuantity quantity) => Convert.ToCandelas(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = LuminousIntensity;
-		using TStorage = decimal;
-		public record LuminousIntensity : LuminousIntensity<TQuantity, TStorage>;
-
-		namespace Conversions.LuminousIntensity
-		{
-			public static class Conversions
-			{
-				public static TQuantity Candelas(this TStorage value) => TQuantity.Create(Convert.FromCandelas(value));
-				public static TStorage Candelas(this TQuantity quantity) => Convert.ToCandelas(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = LuminousIntensity;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record LuminousIntensity : LuminousIntensity<TQuantity, TStorage>;
-
-		namespace Conversions.LuminousIntensity
-		{
-			public static class Conversions
-			{
-				public static TQuantity Candelas(this TStorage value) => TQuantity.Create(Convert.FromCandelas(value));
-				public static TStorage Candelas(this TQuantity quantity) => Convert.ToCandelas(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="LuminousIntensity"/> value to a numeric value measured in candelas.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="LuminousIntensity"/> value to convert.</param>
+	/// <returns>The numeric value representing the luminous intensity in candelas.</returns>
+	public static TNumber Candelas<TNumber>(this LuminousIntensity value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 }

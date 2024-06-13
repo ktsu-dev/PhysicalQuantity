@@ -1,151 +1,120 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Velocity;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.SignificantNumber;
+
+/// <summary>
+/// Represents a velocity quantity measured in meters per second, feet per second, inches per second, 
+/// miles per hour, and kilometers per hour.
+/// </summary>
+[SIUnit("m/s", "meter per second", "meters per second")]
+public sealed record Velocity
+	: PhysicalQuantity<Velocity>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Velocity"/>.
+/// </summary>
+public static class VelocityConversions
 {
-	using System.Numerics;
-	using Convert = Generic.VelocityConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Velocity"/> measured in meters per second.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Velocity"/> instance representing the specified value in meters per second.</returns>
+	public static Velocity MetersPerSecond<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Velocity>();
 
-	namespace Generic
-	{
-		[SIUnit("m/s", "meter per second", "meters per second")]
-		public record Velocity<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Velocity<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Velocity"/> value to a numeric value measured in meters per second.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Velocity"/> value to convert.</param>
+	/// <returns>The numeric value representing the velocity in meters per second.</returns>
+	public static TNumber MetersPerSecond<TNumber>(this Velocity value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class VelocityConversions
-		{
-			public static TStorage FromMetersPerSecond<TStorage>(TStorage value)
-			where TStorage : INumber<TStorage>
-			=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToMetersPerSecond<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromKilometersPerHour<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.2777777777777778, 0);
-			public static TStorage ToKilometersPerHour<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.2777777777777778, 0);
-			public static TStorage FromMilesPerHour<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.44704, 0);
-			public static TStorage ToMilesPerHour<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.44704, 0);
-			public static TStorage FromKnots<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.5144444444444445, 0);
-			public static TStorage ToKnots<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.5144444444444445, 0);
-			public static TStorage FromFeetPerSecond<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.3048, 0);
-			public static TStorage ToFeetPerSecond<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.3048, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Velocity"/> measured in feet per second.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Velocity"/> instance representing the specified value in feet per second.</returns>
+	public static Velocity FeetPerSecond<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Velocity>(Constants.FeetToMetersFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Velocity;
-		using TStorage = float;
-		public record Velocity : Velocity<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Velocity"/> value to a numeric value measured in feet per second.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Velocity"/> value to convert.</param>
+	/// <returns>The numeric value representing the velocity in feet per second.</returns>
+	public static TNumber FeetPerSecond<TNumber>(this Velocity value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FeetToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Velocity
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecond(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecond(value));
-				public static TStorage MetersPerSecond(this TQuantity quantity) => Convert.ToMetersPerSecond(quantity.Quantity);
-				public static TQuantity KilometersPerHour(this TStorage value) => TQuantity.Create(Convert.FromKilometersPerHour(value));
-				public static TStorage KilometersPerHour(this TQuantity quantity) => Convert.ToKilometersPerHour(quantity.Quantity);
-				public static TQuantity MilesPerHour(this TStorage value) => TQuantity.Create(Convert.FromMilesPerHour(value));
-				public static TStorage MilesPerHour(this TQuantity quantity) => Convert.ToMilesPerHour(quantity.Quantity);
-				public static TQuantity Knots(this TStorage value) => TQuantity.Create(Convert.FromKnots(value));
-				public static TStorage Knots(this TQuantity quantity) => Convert.ToKnots(quantity.Quantity);
-				public static TQuantity FeetPerSecond(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecond(value));
-				public static TStorage FeetPerSecond(this TQuantity quantity) => Convert.ToFeetPerSecond(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Velocity"/> measured in inches per second.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Velocity"/> instance representing the specified value in inches per second.</returns>
+	public static Velocity InchesPerSecond<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Velocity>(Constants.InchesToMetersFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Velocity;
-		using TStorage = double;
-		public record Velocity : Velocity<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Velocity"/> value to a numeric value measured in inches per second.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Velocity"/> value to convert.</param>
+	/// <returns>The numeric value representing the velocity in inches per second.</returns>
+	public static TNumber InchesPerSecond<TNumber>(this Velocity value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.InchesToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Velocity
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecond(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecond(value));
-				public static TStorage MetersPerSecond(this TQuantity quantity) => Convert.ToMetersPerSecond(quantity.Quantity);
-				public static TQuantity KilometersPerHour(this TStorage value) => TQuantity.Create(Convert.FromKilometersPerHour(value));
-				public static TStorage KilometersPerHour(this TQuantity quantity) => Convert.ToKilometersPerHour(quantity.Quantity);
-				public static TQuantity MilesPerHour(this TStorage value) => TQuantity.Create(Convert.FromMilesPerHour(value));
-				public static TStorage MilesPerHour(this TQuantity quantity) => Convert.ToMilesPerHour(quantity.Quantity);
-				public static TQuantity Knots(this TStorage value) => TQuantity.Create(Convert.FromKnots(value));
-				public static TStorage Knots(this TQuantity quantity) => Convert.ToKnots(quantity.Quantity);
-				public static TQuantity FeetPerSecond(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecond(value));
-				public static TStorage FeetPerSecond(this TQuantity quantity) => Convert.ToFeetPerSecond(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Velocity"/> measured in miles per hour.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Velocity"/> instance representing the specified value in miles per hour.</returns>
+	public static Velocity MilesPerHour<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Velocity>((Constants.MilesToMetersFactor.To<double>() / Constants.HoursToSecondsFactor.To<double>()).ToSignificantNumber());
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Velocity;
-		using TStorage = decimal;
-		public record Velocity : Velocity<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Velocity"/> value to a numeric value measured in miles per hour.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Velocity"/> value to convert.</param>
+	/// <returns>The numeric value representing the velocity in miles per hour.</returns>
+	public static TNumber MilesPerHour<TNumber>(this Velocity value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber((Constants.MilesToMetersFactor.To<double>() / Constants.HoursToSecondsFactor.To<double>()).ToSignificantNumber()).To<TNumber>();
 
-		namespace Conversions.Velocity
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecond(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecond(value));
-				public static TStorage MetersPerSecond(this TQuantity quantity) => Convert.ToMetersPerSecond(quantity.Quantity);
-				public static TQuantity KilometersPerHour(this TStorage value) => TQuantity.Create(Convert.FromKilometersPerHour(value));
-				public static TStorage KilometersPerHour(this TQuantity quantity) => Convert.ToKilometersPerHour(quantity.Quantity);
-				public static TQuantity MilesPerHour(this TStorage value) => TQuantity.Create(Convert.FromMilesPerHour(value));
-				public static TStorage MilesPerHour(this TQuantity quantity) => Convert.ToMilesPerHour(quantity.Quantity);
-				public static TQuantity Knots(this TStorage value) => TQuantity.Create(Convert.FromKnots(value));
-				public static TStorage Knots(this TQuantity quantity) => Convert.ToKnots(quantity.Quantity);
-				public static TQuantity FeetPerSecond(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecond(value));
-				public static TStorage FeetPerSecond(this TQuantity quantity) => Convert.ToFeetPerSecond(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Velocity"/> measured in kilometers per hour.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Velocity"/> instance representing the specified value in kilometers per hour.</returns>
+	public static Velocity KilometersPerHour<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Velocity>((Constants.Kilo.To<double>() / Constants.HoursToSecondsFactor.To<double>()).ToSignificantNumber());
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Velocity;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Velocity : Velocity<TQuantity, TStorage>;
-
-		namespace Conversions.Velocity
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecond(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecond(value));
-				public static TStorage MetersPerSecond(this TQuantity quantity) => Convert.ToMetersPerSecond(quantity.Quantity);
-				public static TQuantity KilometersPerHour(this TStorage value) => TQuantity.Create(Convert.FromKilometersPerHour(value));
-				public static TStorage KilometersPerHour(this TQuantity quantity) => Convert.ToKilometersPerHour(quantity.Quantity);
-				public static TQuantity MilesPerHour(this TStorage value) => TQuantity.Create(Convert.FromMilesPerHour(value));
-				public static TStorage MilesPerHour(this TQuantity quantity) => Convert.ToMilesPerHour(quantity.Quantity);
-				public static TQuantity Knots(this TStorage value) => TQuantity.Create(Convert.FromKnots(value));
-				public static TStorage Knots(this TQuantity quantity) => Convert.ToKnots(quantity.Quantity);
-				public static TQuantity FeetPerSecond(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecond(value));
-				public static TStorage FeetPerSecond(this TQuantity quantity) => Convert.ToFeetPerSecond(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Velocity"/> value to a numeric value measured in kilometers per hour.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Velocity"/> value to convert.</param>
+	/// <returns>The numeric value representing the velocity in kilometers per hour.</returns>
+	public static TNumber KilometersPerHour<TNumber>(this Velocity value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber((Constants.Kilo.To<double>() / Constants.HoursToSecondsFactor.To<double>()).ToSignificantNumber()).To<TNumber>();
 }

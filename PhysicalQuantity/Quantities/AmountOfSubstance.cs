@@ -1,93 +1,120 @@
-namespace ktsu.io.PhysicalQuantity
+// Ignore Spelling: Kilomoles Millimoles Micromoles Nanomoles
+
+namespace ktsu.io.PhysicalQuantity.AmountOfSubstance;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents an amount of substance quantity measured in moles.
+/// </summary>
+[SIUnit("mol", "mole", "moles")]
+public sealed record AmountOfSubstance
+	: PhysicalQuantity<AmountOfSubstance>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="AmountOfSubstance"/>.
+/// </summary>
+public static class AmountOfSubstanceConversions
 {
-	using System.Numerics;
-	using Convert = Generic.AmountOfSubstanceConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="AmountOfSubstance"/> measured in moles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="AmountOfSubstance"/> instance representing the specified value in moles.</returns>
+	public static AmountOfSubstance Moles<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AmountOfSubstance>();
 
-	namespace Generic
-	{
-		[SIUnit("mol", "mole", "moles")]
-		public record AmountOfSubstance<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : AmountOfSubstance<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="AmountOfSubstance"/> value to a numeric value measured in moles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="AmountOfSubstance"/> value to convert.</param>
+	/// <returns>The numeric value representing the amount of substance in moles.</returns>
+	public static TNumber Moles<TNumber>(this AmountOfSubstance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class AmountOfSubstanceConversions
-		{
-			public static TStorage FromMoles<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToMoles<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="AmountOfSubstance"/> measured in kilomoles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="AmountOfSubstance"/> instance representing the specified value in kilomoles.</returns>
+	public static AmountOfSubstance Kilomoles<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AmountOfSubstance>(Constants.Kilo);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = AmountOfSubstance;
-		using TStorage = float;
-		public record AmountOfSubstance : AmountOfSubstance<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="AmountOfSubstance"/> value to a numeric value measured in kilomoles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="AmountOfSubstance"/> value to convert.</param>
+	/// <returns>The numeric value representing the amount of substance in kilomoles.</returns>
+	public static TNumber Kilomoles<TNumber>(this AmountOfSubstance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.AmountOfSubstance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Moles(this TStorage value) => TQuantity.Create(Convert.FromMoles(value));
-				public static TStorage Moles(this TQuantity quantity) => Convert.ToMoles(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="AmountOfSubstance"/> measured in millimoles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="AmountOfSubstance"/> instance representing the specified value in millimoles.</returns>
+	public static AmountOfSubstance Millimoles<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AmountOfSubstance>(Constants.Milli);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = AmountOfSubstance;
-		using TStorage = double;
-		public record AmountOfSubstance : AmountOfSubstance<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="AmountOfSubstance"/> value to a numeric value measured in millimoles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="AmountOfSubstance"/> value to convert.</param>
+	/// <returns>The numeric value representing the amount of substance in millimoles.</returns>
+	public static TNumber Millimoles<TNumber>(this AmountOfSubstance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli).To<TNumber>();
 
-		namespace Conversions.AmountOfSubstance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Moles(this TStorage value) => TQuantity.Create(Convert.FromMoles(value));
-				public static TStorage Moles(this TQuantity quantity) => Convert.ToMoles(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="AmountOfSubstance"/> measured in micromoles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="AmountOfSubstance"/> instance representing the specified value in micromoles.</returns>
+	public static AmountOfSubstance Micromoles<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AmountOfSubstance>(Constants.Micro);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = AmountOfSubstance;
-		using TStorage = decimal;
-		public record AmountOfSubstance : AmountOfSubstance<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="AmountOfSubstance"/> value to a numeric value measured in micromoles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="AmountOfSubstance"/> value to convert.</param>
+	/// <returns>The numeric value representing the amount of substance in micromoles.</returns>
+	public static TNumber Micromoles<TNumber>(this AmountOfSubstance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Micro).To<TNumber>();
 
-		namespace Conversions.AmountOfSubstance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Moles(this TStorage value) => TQuantity.Create(Convert.FromMoles(value));
-				public static TStorage Moles(this TQuantity quantity) => Convert.ToMoles(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="AmountOfSubstance"/> measured in nanomoles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="AmountOfSubstance"/> instance representing the specified value in nanomoles.</returns>
+	public static AmountOfSubstance Nanomoles<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AmountOfSubstance>(Constants.Nano);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = AmountOfSubstance;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record AmountOfSubstance : AmountOfSubstance<TQuantity, TStorage>;
-
-		namespace Conversions.AmountOfSubstance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Moles(this TStorage value) => TQuantity.Create(Convert.FromMoles(value));
-				public static TStorage Moles(this TQuantity quantity) => Convert.ToMoles(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="AmountOfSubstance"/> value to a numeric value measured in nanomoles.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="AmountOfSubstance"/> value to convert.</param>
+	/// <returns>The numeric value representing the amount of substance in nanomoles.</returns>
+	public static TNumber Nanomoles<TNumber>(this AmountOfSubstance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Nano).To<TNumber>();
 }

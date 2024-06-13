@@ -1,123 +1,118 @@
-// Ignore Spelling: ktsu Kilopascals
+namespace ktsu.io.PhysicalQuantity.Pressure;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a pressure quantity measured in pascals.
+/// </summary>
+[SIUnit("Pa", "pascal", "pascals")]
+public sealed record Pressure
+	: PhysicalQuantity<Pressure>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Pressure"/>.
+/// </summary>
+public static class PressureConversions
 {
-	using System.Numerics;
-	using Convert = Generic.PressureConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Pressure"/> measured in pascals.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Pressure"/> instance representing the specified value in pascals.</returns>
+	public static Pressure Pascals<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Pressure>();
 
-	namespace Generic
-	{
-		[SIUnit("Pa", "pascal", "pascals")]
-		public record Pressure<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Pressure<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Pressure"/> value to a numeric value measured in pascals.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Pressure"/> value to convert.</param>
+	/// <returns>The numeric value representing the pressure in pascals.</returns>
+	public static TNumber Pascals<TNumber>(this Pressure value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class PressureConversions
-		{
-			public static TStorage FromPascals<TStorage>(TStorage value)
-			where TStorage : INumber<TStorage>
-			=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToPascals<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromKilopascals<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1000, 0);
-			public static TStorage ToKilopascals<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1000, 0);
-			public static TStorage FromPoundsPerSquareInch<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 6894.76, 0);
-			public static TStorage ToPoundsPerSquareInch<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 6894.76, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Pressure"/> measured in bars.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Pressure"/> instance representing the specified value in bars.</returns>
+	public static Pressure Bars<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Pressure>(Constants.BarToPascalsFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Pressure;
-		using TStorage = float;
-		public record Pressure : Pressure<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Pressure"/> value to a numeric value measured in bars.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Pressure"/> value to convert.</param>
+	/// <returns>The numeric value representing the pressure in bars.</returns>
+	public static TNumber Bars<TNumber>(this Pressure value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.BarToPascalsFactor).To<TNumber>();
 
-		namespace Conversions.Pressure
-		{
-			public static class Conversions
-			{
-				public static TQuantity Pascals(this TStorage value) => TQuantity.Create(Convert.FromPascals(value));
-				public static TStorage Pascals(this TQuantity quantity) => Convert.ToPascals(quantity.Quantity);
-				public static TQuantity Kilopascals(this TStorage value) => TQuantity.Create(Convert.FromKilopascals(value));
-				public static TStorage Kilopascals(this TQuantity quantity) => Convert.ToKilopascals(quantity.Quantity);
-				public static TQuantity PoundsPerSquareInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerSquareInch(value));
-				public static TStorage PoundsPerSquareInch(this TQuantity quantity) => Convert.ToPoundsPerSquareInch(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Pressure"/> measured in psi (pounds per square inch).
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Pressure"/> instance representing the specified value in psi.</returns>
+	public static Pressure Psi<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Pressure>(Constants.PsiToPascalsFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Pressure;
-		using TStorage = double;
-		public record Pressure : Pressure<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Pressure"/> value to a numeric value measured in psi (pounds per square inch).
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Pressure"/> value to convert.</param>
+	/// <returns>The numeric value representing the pressure in psi.</returns>
+	public static TNumber Psi<TNumber>(this Pressure value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.PsiToPascalsFactor).To<TNumber>();
 
-		namespace Conversions.Pressure
-		{
-			public static class Conversions
-			{
-				public static TQuantity Pascals(this TStorage value) => TQuantity.Create(Convert.FromPascals(value));
-				public static TStorage Pascals(this TQuantity quantity) => Convert.ToPascals(quantity.Quantity);
-				public static TQuantity Kilopascals(this TStorage value) => TQuantity.Create(Convert.FromKilopascals(value));
-				public static TStorage Kilopascals(this TQuantity quantity) => Convert.ToKilopascals(quantity.Quantity);
-				public static TQuantity PoundsPerSquareInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerSquareInch(value));
-				public static TStorage PoundsPerSquareInch(this TQuantity quantity) => Convert.ToPoundsPerSquareInch(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Pressure"/> measured in atmospheres (atm).
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Pressure"/> instance representing the specified value in atmospheres.</returns>
+	public static Pressure Atmospheres<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Pressure>(Constants.AtmToPascalsFactor);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Pressure;
-		using TStorage = decimal;
-		public record Pressure : Pressure<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Pressure"/> value to a numeric value measured in atmospheres (atm).
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Pressure"/> value to convert.</param>
+	/// <returns>The numeric value representing the pressure in atmospheres.</returns>
+	public static TNumber Atmospheres<TNumber>(this Pressure value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.AtmToPascalsFactor).To<TNumber>();
 
-		namespace Conversions.Pressure
-		{
-			public static class Conversions
-			{
-				public static TQuantity Pascals(this TStorage value) => TQuantity.Create(Convert.FromPascals(value));
-				public static TStorage Pascals(this TQuantity quantity) => Convert.ToPascals(quantity.Quantity);
-				public static TQuantity Kilopascals(this TStorage value) => TQuantity.Create(Convert.FromKilopascals(value));
-				public static TStorage Kilopascals(this TQuantity quantity) => Convert.ToKilopascals(quantity.Quantity);
-				public static TQuantity PoundsPerSquareInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerSquareInch(value));
-				public static TStorage PoundsPerSquareInch(this TQuantity quantity) => Convert.ToPoundsPerSquareInch(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Pressure"/> measured in torr.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Pressure"/> instance representing the specified value in torr.</returns>
+	public static Pressure Torr<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Pressure>(Constants.TorrToPascalsFactor);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Pressure;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Pressure : Pressure<TQuantity, TStorage>;
-
-		namespace Conversions.Pressure
-		{
-			public static class Conversions
-			{
-				public static TQuantity Pascals(this TStorage value) => TQuantity.Create(Convert.FromPascals(value));
-				public static TStorage Pascals(this TQuantity quantity) => Convert.ToPascals(quantity.Quantity);
-				public static TQuantity Kilopascals(this TStorage value) => TQuantity.Create(Convert.FromKilopascals(value));
-				public static TStorage Kilopascals(this TQuantity quantity) => Convert.ToKilopascals(quantity.Quantity);
-				public static TQuantity PoundsPerSquareInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerSquareInch(value));
-				public static TStorage PoundsPerSquareInch(this TQuantity quantity) => Convert.ToPoundsPerSquareInch(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Pressure"/> value to a numeric value measured in torr.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Pressure"/> value to convert.</param>
+	/// <returns>The numeric value representing the pressure in torr.</returns>
+	public static TNumber Torr<TNumber>(this Pressure value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.TorrToPascalsFactor).To<TNumber>();
 }

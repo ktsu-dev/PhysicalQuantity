@@ -1,109 +1,158 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Acceleration;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents the physical quantity of acceleration.
+/// </summary>
+[SIUnit("m/s²", "meter per second squared", "meters per second squared")]
+public sealed record Acceleration
+	: PhysicalQuantity<Acceleration>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting to and from <see cref="Acceleration"/>.
+/// </summary>
+public static class AccelerationConversions
 {
-	using System.Numerics;
-	using Convert = Generic.AccelerationConversions;
+	/// <summary>
+	/// Converts a numerical value to <see cref="Acceleration"/> in meters per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Acceleration"/>.</returns>
+	public static Acceleration MetersPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Acceleration>();
 
-	namespace Generic
-	{
-		[SIUnit("m/s²", "meter per second squared", "meters per second squared")]
-		public abstract record Acceleration<TSelf, TStorage>
-		: PhysicalQuantity<TSelf, TStorage>
-		where TSelf : Acceleration<TSelf, TStorage>, new()
-		where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts an <see cref="Acceleration"/> value to a numerical value in meters per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Acceleration"/> value to convert.</param>
+	/// <returns>The numerical value in meters per second squared.</returns>
+	public static TNumber MetersPerSecondSquared<TNumber>(this Acceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class AccelerationConversions
-		{
-			public static TStorage FromMetersPerSecondSquared<TStorage>(TStorage value)
-			where TStorage : INumber<TStorage>
-			=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToMetersPerSecondSquared<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromFeetPerSecondSquared<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.3048, 0);
-			public static TStorage ToFeetPerSecondSquared<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.3048, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numerical value to <see cref="Acceleration"/> in feet per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Acceleration"/>.</returns>
+	public static Acceleration FeetPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Acceleration>(Constants.FeetToMetersFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Acceleration;
-		using TStorage = float;
-		public record Acceleration : Acceleration<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Acceleration"/> value to a numerical value in feet per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Acceleration"/> value to convert.</param>
+	/// <returns>The numerical value in feet per second squared.</returns>
+	public static TNumber FeetPerSecondSquared<TNumber>(this Acceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FeetToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Acceleration
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondSquared(value));
-				public static TStorage MetersPerSecondSquared(this TQuantity quantity) => Convert.ToMetersPerSecondSquared(quantity.Quantity);
-				public static TQuantity FeetPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondSquared(value));
-				public static TStorage FeetPerSecondSquared(this TQuantity quantity) => Convert.ToFeetPerSecondSquared(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numerical value to <see cref="Acceleration"/> in inches per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Acceleration"/>.</returns>
+	public static Acceleration InchesPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Acceleration>(Constants.InchesToMetersFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Acceleration;
-		using TStorage = double;
-		public record Acceleration : Acceleration<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Acceleration"/> value to a numerical value in inches per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Acceleration"/> value to convert.</param>
+	/// <returns>The numerical value in inches per second squared.</returns>
+	public static TNumber InchesPerSecondSquared<TNumber>(this Acceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.InchesToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Acceleration
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondSquared(value));
-				public static TStorage MetersPerSecondSquared(this TQuantity quantity) => Convert.ToMetersPerSecondSquared(quantity.Quantity);
-				public static TQuantity FeetPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondSquared(value));
-				public static TStorage FeetPerSecondSquared(this TQuantity quantity) => Convert.ToFeetPerSecondSquared(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numerical value to <see cref="Acceleration"/> in yards per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Acceleration"/>.</returns>
+	public static Acceleration YardsPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Acceleration>(Constants.YardsToMetersFactor);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Acceleration;
-		using TStorage = decimal;
-		public record Acceleration : Acceleration<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Acceleration"/> value to a numerical value in yards per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Acceleration"/> value to convert.</param>
+	/// <returns>The numerical value in yards per second squared.</returns>
+	public static TNumber YardsPerSecondSquared<TNumber>(this Acceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.YardsToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Acceleration
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondSquared(value));
-				public static TStorage MetersPerSecondSquared(this TQuantity quantity) => Convert.ToMetersPerSecondSquared(quantity.Quantity);
-				public static TQuantity FeetPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondSquared(value));
-				public static TStorage FeetPerSecondSquared(this TQuantity quantity) => Convert.ToFeetPerSecondSquared(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numerical value to <see cref="Acceleration"/> in miles per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Acceleration"/>.</returns>
+	public static Acceleration MilesPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Acceleration>(Constants.MilesToMetersFactor);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Acceleration;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Acceleration : Acceleration<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Acceleration"/> value to a numerical value in miles per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Acceleration"/> value to convert.</param>
+	/// <returns>The numerical value in miles per second squared.</returns>
+	public static TNumber MilesPerSecondSquared<TNumber>(this Acceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.MilesToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Acceleration
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondSquared(value));
-				public static TStorage MetersPerSecondSquared(this TQuantity quantity) => Convert.ToMetersPerSecondSquared(quantity.Quantity);
-				public static TQuantity FeetPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondSquared(value));
-				public static TStorage FeetPerSecondSquared(this TQuantity quantity) => Convert.ToFeetPerSecondSquared(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numerical value to <see cref="Acceleration"/> in nautical miles per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Acceleration"/>.</returns>
+	public static Acceleration NauticalMilesPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Acceleration>(Constants.NauticalMilesToMetersFactor);
+
+	/// <summary>
+	/// Converts an <see cref="Acceleration"/> value to a numerical value in nautical miles per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Acceleration"/> value to convert.</param>
+	/// <returns>The numerical value in nautical miles per second squared.</returns>
+	public static TNumber NauticalMilesPerSecondSquared<TNumber>(this Acceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.NauticalMilesToMetersFactor).To<TNumber>();
+
+	/// <summary>
+	/// Converts a numerical value to <see cref="Acceleration"/> in fathoms per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Acceleration"/>.</returns>
+	public static Acceleration FathomsPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Acceleration>(Constants.FathomsToMetersFactor);
+
+	/// <summary>
+	/// Converts an <see cref="Acceleration"/> value to a numerical value in fathoms per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Acceleration"/> value to convert.</param>
+	/// <returns>The numerical value in fathoms per second squared.</returns>
+	public static TNumber FathomsPerSecondSquared<TNumber>(this Acceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FathomsToMetersFactor).To<TNumber>();
 }

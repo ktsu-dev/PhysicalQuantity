@@ -1,123 +1,100 @@
-// Ignore Spelling: ktsu Kiloohms Megaohms
+// Ignore Spelling: Milliohms Kiloohms Megaohms
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.Resistance;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents an electrical resistance quantity measured in ohms.
+/// </summary>
+[SIUnit("Ω", "ohm", "ohms")]
+public sealed record Resistance
+	: PhysicalQuantity<Resistance>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Resistance"/>.
+/// </summary>
+public static class ResistanceConversions
 {
-	using System.Numerics;
-	using Convert = Generic.ResistanceConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Resistance"/> measured in ohms.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Resistance"/> instance representing the specified value in ohms.</returns>
+	public static Resistance Ohms<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Resistance>();
 
-	namespace Generic
-	{
-		[SIUnit("Ω", "ohm", "ohms")]
-		public record Resistance<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Resistance<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Resistance"/> value to a numeric value measured in ohms.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Resistance"/> value to convert.</param>
+	/// <returns>The numeric value representing the resistance in ohms.</returns>
+	public static TNumber Ohms<TNumber>(this Resistance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class ResistanceConversions
-		{
-			public static TStorage FromOhms<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToOhms<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromKiloohms<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1e3, 0);
-			public static TStorage ToKiloohms<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1e3, 0);
-			public static TStorage FromMegaohms<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1e6, 0);
-			public static TStorage ToMegaohms<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1e6, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Resistance"/> measured in milliohms.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Resistance"/> instance representing the specified value in milliohms.</returns>
+	public static Resistance Milliohms<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Resistance>(Constants.Milli);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Resistance;
-		using TStorage = float;
-		public record Resistance : Resistance<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Resistance"/> value to a numeric value measured in milliohms.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Resistance"/> value to convert.</param>
+	/// <returns>The numeric value representing the resistance in milliohms.</returns>
+	public static TNumber Milliohms<TNumber>(this Resistance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli).To<TNumber>();
 
-		namespace Conversions.Resistance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Ohms(this TStorage value) => TQuantity.Create(Convert.FromOhms(value));
-				public static TStorage Ohms(this TQuantity quantity) => Convert.ToOhms(quantity.Quantity);
-				public static TQuantity Kiloohms(this TStorage value) => TQuantity.Create(Convert.FromKiloohms(value));
-				public static TStorage Kiloohms(this TQuantity quantity) => Convert.ToKiloohms(quantity.Quantity);
-				public static TQuantity Megaohms(this TStorage value) => TQuantity.Create(Convert.FromMegaohms(value));
-				public static TStorage Megaohms(this TQuantity quantity) => Convert.ToMegaohms(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Resistance"/> measured in kiloohms.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Resistance"/> instance representing the specified value in kiloohms.</returns>
+	public static Resistance Kiloohms<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Resistance>(Constants.Kilo);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Resistance;
-		using TStorage = double;
-		public record Resistance : Resistance<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Resistance"/> value to a numeric value measured in kiloohms.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Resistance"/> value to convert.</param>
+	/// <returns>The numeric value representing the resistance in kiloohms.</returns>
+	public static TNumber Kiloohms<TNumber>(this Resistance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.Resistance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Ohms(this TStorage value) => TQuantity.Create(Convert.FromOhms(value));
-				public static TStorage Ohms(this TQuantity quantity) => Convert.ToOhms(quantity.Quantity);
-				public static TQuantity Kiloohms(this TStorage value) => TQuantity.Create(Convert.FromKiloohms(value));
-				public static TStorage Kiloohms(this TQuantity quantity) => Convert.ToKiloohms(quantity.Quantity);
-				public static TQuantity Megaohms(this TStorage value) => TQuantity.Create(Convert.FromMegaohms(value));
-				public static TStorage Megaohms(this TQuantity quantity) => Convert.ToMegaohms(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Resistance"/> measured in megaohms.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Resistance"/> instance representing the specified value in megaohms.</returns>
+	public static Resistance Megaohms<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Resistance>(Constants.Mega);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Resistance;
-		using TStorage = decimal;
-		public record Resistance : Resistance<TQuantity, TStorage>;
-
-		namespace Conversions.Resistance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Ohms(this TStorage value) => TQuantity.Create(Convert.FromOhms(value));
-				public static TStorage Ohms(this TQuantity quantity) => Convert.ToOhms(quantity.Quantity);
-				public static TQuantity Kiloohms(this TStorage value) => TQuantity.Create(Convert.FromKiloohms(value));
-				public static TStorage Kiloohms(this TQuantity quantity) => Convert.ToKiloohms(quantity.Quantity);
-				public static TQuantity Megaohms(this TStorage value) => TQuantity.Create(Convert.FromMegaohms(value));
-				public static TStorage Megaohms(this TQuantity quantity) => Convert.ToMegaohms(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Resistance;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Resistance : Resistance<TQuantity, TStorage>;
-
-		namespace Conversions.Resistance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Ohms(this TStorage value) => TQuantity.Create(Convert.FromOhms(value));
-				public static TStorage Ohms(this TQuantity quantity) => Convert.ToOhms(quantity.Quantity);
-				public static TQuantity Kiloohms(this TStorage value) => TQuantity.Create(Convert.FromKiloohms(value));
-				public static TStorage Kiloohms(this TQuantity quantity) => Convert.ToKiloohms(quantity.Quantity);
-				public static TQuantity Megaohms(this TStorage value) => TQuantity.Create(Convert.FromMegaohms(value));
-				public static TStorage Megaohms(this TQuantity quantity) => Convert.ToMegaohms(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Resistance"/> value to a numeric value measured in megaohms.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Resistance"/> value to convert.</param>
+	/// <returns>The numeric value representing the resistance in megaohms.</returns>
+	public static TNumber Megaohms<TNumber>(this Resistance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Mega).To<TNumber>();
 }

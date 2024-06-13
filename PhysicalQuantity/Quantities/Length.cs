@@ -1,193 +1,261 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Length;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a length physical quantity.
+/// </summary>
+[SIUnit("m", "meter", "meters")]
+public sealed record Length
+	: PhysicalQuantity<Length>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Length"/>.
+/// </summary>
+public static class LengthConversions
 {
-	using System.Numerics;
-	using Convert = Generic.LengthConversions;
+	/// <summary>
+	/// Converts a value to meters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in meters.</returns>
+	public static Length Meters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>();
 
-	namespace Generic
-	{
-		[SIUnit("m", "meter", "meters")]
-		public record Length<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Length<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in meters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in meters.</returns>
+	public static TNumber Meters<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class LengthConversions
-		{
-			public static TStorage FromMeters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToMeters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromFeet<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.3048, 0);
-			public static TStorage ToFeet<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.3048, 0);
-			public static TStorage FromInches<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.0254, 0);
-			public static TStorage ToInches<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.0254, 0);
-			public static TStorage FromYards<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.9144, 0);
-			public static TStorage ToYards<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.9144, 0);
-			public static TStorage FromMiles<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1609.344, 0);
-			public static TStorage ToMiles<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1609.344, 0);
-			public static TStorage FromKilometers<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1000, 0);
-			public static TStorage ToKilometers<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1000, 0);
-			public static TStorage FromCentimeters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.01, 0);
-			public static TStorage ToCentimeters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.01, 0);
-			public static TStorage FromMillimeters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.001, 0);
-			public static TStorage ToMillimeters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.001, 0);
-		}
-	}
+	// Metric prefixes
+	/// <summary>
+	/// Converts a value to kilometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in kilometers.</returns>
+	public static Length Kilometers<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.Kilo);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Length;
-		using TStorage = float;
-		public record Length : Length<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in kilometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in kilometers.</returns>
+	public static TNumber Kilometers<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.Length
-		{
-			public static class Conversions
-			{
-				public static TQuantity Meters(this TStorage value) => TQuantity.Create(Convert.FromMeters(value));
-				public static TStorage Meters(this TQuantity quantity) => Convert.ToMeters(quantity.Quantity);
-				public static TQuantity Feet(this TStorage value) => TQuantity.Create(Convert.FromFeet(value));
-				public static TStorage Feet(this TQuantity quantity) => Convert.ToFeet(quantity.Quantity);
-				public static TQuantity Inches(this TStorage value) => TQuantity.Create(Convert.FromInches(value));
-				public static TStorage Inches(this TQuantity quantity) => Convert.ToInches(quantity.Quantity);
-				public static TQuantity Yards(this TStorage value) => TQuantity.Create(Convert.FromYards(value));
-				public static TStorage Yards(this TQuantity quantity) => Convert.ToYards(quantity.Quantity);
-				public static TQuantity Miles(this TStorage value) => TQuantity.Create(Convert.FromMiles(value));
-				public static TStorage Miles(this TQuantity quantity) => Convert.ToMiles(quantity.Quantity);
-				public static TQuantity Kilometers(this TStorage value) => TQuantity.Create(Convert.FromKilometers(value));
-				public static TStorage Kilometers(this TQuantity quantity) => Convert.ToKilometers(quantity.Quantity);
-				public static TQuantity Centimeters(this TStorage value) => TQuantity.Create(Convert.FromCentimeters(value));
-				public static TStorage Centimeters(this TQuantity quantity) => Convert.ToCentimeters(quantity.Quantity);
-				public static TQuantity Millimeters(this TStorage value) => TQuantity.Create(Convert.FromMillimeters(value));
-				public static TStorage Millimeters(this TQuantity quantity) => Convert.ToMillimeters(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a value to centimeters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in centimeters.</returns>
+	public static Length Centimeters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.Centi);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Length;
-		using TStorage = double;
-		public record Length : Length<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in centimeters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in centimeters.</returns>
+	public static TNumber Centimeters<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Centi).To<TNumber>();
 
-		namespace Conversions.Length
-		{
-			public static class Conversions
-			{
-				public static TQuantity Meters(this TStorage value) => TQuantity.Create(Convert.FromMeters(value));
-				public static TStorage Meters(this TQuantity quantity) => Convert.ToMeters(quantity.Quantity);
-				public static TQuantity Feet(this TStorage value) => TQuantity.Create(Convert.FromFeet(value));
-				public static TStorage Feet(this TQuantity quantity) => Convert.ToFeet(quantity.Quantity);
-				public static TQuantity Inches(this TStorage value) => TQuantity.Create(Convert.FromInches(value));
-				public static TStorage Inches(this TQuantity quantity) => Convert.ToInches(quantity.Quantity);
-				public static TQuantity Yards(this TStorage value) => TQuantity.Create(Convert.FromYards(value));
-				public static TStorage Yards(this TQuantity quantity) => Convert.ToYards(quantity.Quantity);
-				public static TQuantity Miles(this TStorage value) => TQuantity.Create(Convert.FromMiles(value));
-				public static TStorage Miles(this TQuantity quantity) => Convert.ToMiles(quantity.Quantity);
-				public static TQuantity Kilometers(this TStorage value) => TQuantity.Create(Convert.FromKilometers(value));
-				public static TStorage Kilometers(this TQuantity quantity) => Convert.ToKilometers(quantity.Quantity);
-				public static TQuantity Centimeters(this TStorage value) => TQuantity.Create(Convert.FromCentimeters(value));
-				public static TStorage Centimeters(this TQuantity quantity) => Convert.ToCentimeters(quantity.Quantity);
-				public static TQuantity Millimeters(this TStorage value) => TQuantity.Create(Convert.FromMillimeters(value));
-				public static TStorage Millimeters(this TQuantity quantity) => Convert.ToMillimeters(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a value to millimeters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in millimeters.</returns>
+	public static Length Millimeters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.Milli);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Length;
-		using TStorage = decimal;
-		public record Length : Length<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in millimeters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in millimeters.</returns>
+	public static TNumber Millimeters<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli).To<TNumber>();
 
-		namespace Conversions.Length
-		{
-			public static class Conversions
-			{
-				public static TQuantity Meters(this TStorage value) => TQuantity.Create(Convert.FromMeters(value));
-				public static TStorage Meters(this TQuantity quantity) => Convert.ToMeters(quantity.Quantity);
-				public static TQuantity Feet(this TStorage value) => TQuantity.Create(Convert.FromFeet(value));
-				public static TStorage Feet(this TQuantity quantity) => Convert.ToFeet(quantity.Quantity);
-				public static TQuantity Inches(this TStorage value) => TQuantity.Create(Convert.FromInches(value));
-				public static TStorage Inches(this TQuantity quantity) => Convert.ToInches(quantity.Quantity);
-				public static TQuantity Yards(this TStorage value) => TQuantity.Create(Convert.FromYards(value));
-				public static TStorage Yards(this TQuantity quantity) => Convert.ToYards(quantity.Quantity);
-				public static TQuantity Miles(this TStorage value) => TQuantity.Create(Convert.FromMiles(value));
-				public static TStorage Miles(this TQuantity quantity) => Convert.ToMiles(quantity.Quantity);
-				public static TQuantity Kilometers(this TStorage value) => TQuantity.Create(Convert.FromKilometers(value));
-				public static TStorage Kilometers(this TQuantity quantity) => Convert.ToKilometers(quantity.Quantity);
-				public static TQuantity Centimeters(this TStorage value) => TQuantity.Create(Convert.FromCentimeters(value));
-				public static TStorage Centimeters(this TQuantity quantity) => Convert.ToCentimeters(quantity.Quantity);
-				public static TQuantity Millimeters(this TStorage value) => TQuantity.Create(Convert.FromMillimeters(value));
-				public static TStorage Millimeters(this TQuantity quantity) => Convert.ToMillimeters(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a value to micrometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in micrometers.</returns>
+	public static Length Micrometers<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.Micro);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Length;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Length : Length<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in micrometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in micrometers.</returns>
+	public static TNumber Micrometers<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Micro).To<TNumber>();
 
-		namespace Conversions.Length
-		{
-			public static class Conversions
-			{
-				public static TQuantity Meters(this TStorage value) => TQuantity.Create(Convert.FromMeters(value));
-				public static TStorage Meters(this TQuantity quantity) => Convert.ToMeters(quantity.Quantity);
-				public static TQuantity Feet(this TStorage value) => TQuantity.Create(Convert.FromFeet(value));
-				public static TStorage Feet(this TQuantity quantity) => Convert.ToFeet(quantity.Quantity);
-				public static TQuantity Inches(this TStorage value) => TQuantity.Create(Convert.FromInches(value));
-				public static TStorage Inches(this TQuantity quantity) => Convert.ToInches(quantity.Quantity);
-				public static TQuantity Yards(this TStorage value) => TQuantity.Create(Convert.FromYards(value));
-				public static TStorage Yards(this TQuantity quantity) => Convert.ToYards(quantity.Quantity);
-				public static TQuantity Miles(this TStorage value) => TQuantity.Create(Convert.FromMiles(value));
-				public static TStorage Miles(this TQuantity quantity) => Convert.ToMiles(quantity.Quantity);
-				public static TQuantity Kilometers(this TStorage value) => TQuantity.Create(Convert.FromKilometers(value));
-				public static TStorage Kilometers(this TQuantity quantity) => Convert.ToKilometers(quantity.Quantity);
-				public static TQuantity Centimeters(this TStorage value) => TQuantity.Create(Convert.FromCentimeters(value));
-				public static TStorage Centimeters(this TQuantity quantity) => Convert.ToCentimeters(quantity.Quantity);
-				public static TQuantity Millimeters(this TStorage value) => TQuantity.Create(Convert.FromMillimeters(value));
-				public static TStorage Millimeters(this TQuantity quantity) => Convert.ToMillimeters(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a value to nanometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in nanometers.</returns>
+	public static Length Nanometers<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.Nano);
+
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in nanometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in nanometers.</returns>
+	public static TNumber Nanometers<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Nano).To<TNumber>();
+
+	// Imperial and other conversions
+	/// <summary>
+	/// Converts a value to feet.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in feet.</returns>
+	public static Length Feet<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.FeetToMetersFactor);
+
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in feet.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in feet.</returns>
+	public static TNumber Feet<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FeetToMetersFactor).To<TNumber>();
+
+	/// <summary>
+	/// Converts a value to inches.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in inches.</returns>
+	public static Length Inches<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.InchesToMetersFactor);
+
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in inches.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in inches.</returns>
+	public static TNumber Inches<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.InchesToMetersFactor).To<TNumber>();
+
+	/// <summary>
+	/// Converts a value to yards.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in yards.</returns>
+	public static Length Yards<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.YardsToMetersFactor);
+
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in yards.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in yards.</returns>
+	public static TNumber Yards<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.YardsToMetersFactor).To<TNumber>();
+
+	/// <summary>
+	/// Converts a value to miles.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in miles.</returns>
+	public static Length Miles<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.MilesToMetersFactor);
+
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in miles.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in miles.</returns>
+	public static TNumber Miles<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.MilesToMetersFactor).To<TNumber>();
+
+	/// <summary>
+	/// Converts a value to nautical miles.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in nautical miles.</returns>
+	public static Length NauticalMiles<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.NauticalMilesToMetersFactor);
+
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in nautical miles.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in nautical miles.</returns>
+	public static TNumber NauticalMiles<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.NauticalMilesToMetersFactor).To<TNumber>();
+
+	/// <summary>
+	/// Converts a value to fathoms.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the value to convert.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Length"/> representing the value in fathoms.</returns>
+	public static Length Fathoms<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Length>(Constants.FathomsToMetersFactor);
+
+	/// <summary>
+	/// Converts a <see cref="Length"/> to a numeric value in fathoms.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numeric value.</typeparam>
+	/// <param name="value">The <see cref="Length"/> to convert.</param>
+	/// <returns>The numeric value in fathoms.</returns>
+	public static TNumber Fathoms<TNumber>(this Length value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FathomsToMetersFactor).To<TNumber>();
 }

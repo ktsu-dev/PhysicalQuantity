@@ -1,137 +1,140 @@
-// Ignore Spelling: ktsu
+// Ignore Spelling: Gigawatts
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.Power;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a power quantity measured in watts.
+/// </summary>
+[SIUnit("W", "watt", "watts")]
+public sealed record Power
+	: PhysicalQuantity<Power>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Power"/>.
+/// </summary>
+public static class PowerConversions
 {
-	using System.Numerics;
-	using Convert = Generic.PowerConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Power"/> measured in watts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Power"/> instance representing the specified value in watts.</returns>
+	public static Power Watts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Power>();
 
-	namespace Generic
-	{
-		[SIUnit("W", "watt", "watts")]
-		public record Power<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Power<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Power"/> value to a numeric value measured in watts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Power"/> value to convert.</param>
+	/// <returns>The numeric value representing the power in watts.</returns>
+	public static TNumber Watts<TNumber>(this Power value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class PowerConversions
-		{
-			public static TStorage FromWatts<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToWatts<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromKilowatts<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1e3, 0);
-			public static TStorage ToKilowatts<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1e3, 0);
-			public static TStorage FromMegawatts<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1e6, 0);
-			public static TStorage ToMegawatts<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1e6, 0);
-			public static TStorage FromHorsepower<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 745.69987158227022, 0);
-			public static TStorage ToHorsepower<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 745.69987158227022, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Power"/> measured in horsepower.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Power"/> instance representing the specified value in horsepower.</returns>
+	public static Power Horsepower<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Power>(Constants.HorsepowerToWattsFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Power;
-		using TStorage = float;
-		public record Power : Power<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Power"/> value to a numeric value measured in horsepower.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Power"/> value to convert.</param>
+	/// <returns>The numeric value representing the power in horsepower.</returns>
+	public static TNumber Horsepower<TNumber>(this Power value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.HorsepowerToWattsFactor).To<TNumber>();
 
-		namespace Conversions.Power
-		{
-			public static class Conversions
-			{
-				public static TQuantity Watts(this TStorage value) => TQuantity.Create(Convert.FromWatts(value));
-				public static TStorage Watts(this TQuantity quantity) => Convert.ToWatts(quantity.Quantity);
-				public static TQuantity Kilowatts(this TStorage value) => TQuantity.Create(Convert.FromKilowatts(value));
-				public static TStorage Kilowatts(this TQuantity quantity) => Convert.ToKilowatts(quantity.Quantity);
-				public static TQuantity Megawatts(this TStorage value) => TQuantity.Create(Convert.FromMegawatts(value));
-				public static TStorage Megawatts(this TQuantity quantity) => Convert.ToMegawatts(quantity.Quantity);
-				public static TQuantity Horsepower(this TStorage value) => TQuantity.Create(Convert.FromHorsepower(value));
-				public static TStorage Horsepower(this TQuantity quantity) => Convert.ToHorsepower(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Power"/> measured in metric horsepower.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Power"/> instance representing the specified value in metric horsepower.</returns>
+	public static Power MetricHorsepower<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Power>(Constants.MetricHorsePowerToWattsFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Power;
-		using TStorage = double;
-		public record Power : Power<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Power"/> value to a numeric value measured in metric horsepower.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Power"/> value to convert.</param>
+	/// <returns>The numeric value representing the power in metric horsepower.</returns>
+	public static TNumber MetricHorsepower<TNumber>(this Power value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.MetricHorsePowerToWattsFactor).To<TNumber>();
 
-		namespace Conversions.Power
-		{
-			public static class Conversions
-			{
-				public static TQuantity Watts(this TStorage value) => TQuantity.Create(Convert.FromWatts(value));
-				public static TStorage Watts(this TQuantity quantity) => Convert.ToWatts(quantity.Quantity);
-				public static TQuantity Kilowatts(this TStorage value) => TQuantity.Create(Convert.FromKilowatts(value));
-				public static TStorage Kilowatts(this TQuantity quantity) => Convert.ToKilowatts(quantity.Quantity);
-				public static TQuantity Megawatts(this TStorage value) => TQuantity.Create(Convert.FromMegawatts(value));
-				public static TStorage Megawatts(this TQuantity quantity) => Convert.ToMegawatts(quantity.Quantity);
-				public static TQuantity Horsepower(this TStorage value) => TQuantity.Create(Convert.FromHorsepower(value));
-				public static TStorage Horsepower(this TQuantity quantity) => Convert.ToHorsepower(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Power"/> measured in kilowatts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Power"/> instance representing the specified value in kilowatts.</returns>
+	public static Power Kilowatts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Power>(Constants.Kilo);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Power;
-		using TStorage = decimal;
-		public record Power : Power<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Power"/> value to a numeric value measured in kilowatts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Power"/> value to convert.</param>
+	/// <returns>The numeric value representing the power in kilowatts.</returns>
+	public static TNumber Kilowatts<TNumber>(this Power value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.Power
-		{
-			public static class Conversions
-			{
-				public static TQuantity Watts(this TStorage value) => TQuantity.Create(Convert.FromWatts(value));
-				public static TStorage Watts(this TQuantity quantity) => Convert.ToWatts(quantity.Quantity);
-				public static TQuantity Kilowatts(this TStorage value) => TQuantity.Create(Convert.FromKilowatts(value));
-				public static TStorage Kilowatts(this TQuantity quantity) => Convert.ToKilowatts(quantity.Quantity);
-				public static TQuantity Megawatts(this TStorage value) => TQuantity.Create(Convert.FromMegawatts(value));
-				public static TStorage Megawatts(this TQuantity quantity) => Convert.ToMegawatts(quantity.Quantity);
-				public static TQuantity Horsepower(this TStorage value) => TQuantity.Create(Convert.FromHorsepower(value));
-				public static TStorage Horsepower(this TQuantity quantity) => Convert.ToHorsepower(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Power"/> measured in megawatts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Power"/> instance representing the specified value in megawatts.</returns>
+	public static Power Megawatts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Power>(Constants.Mega);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Power;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Power : Power<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Power"/> value to a numeric value measured in megawatts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Power"/> value to convert.</param>
+	/// <returns>The numeric value representing the power in megawatts.</returns>
+	public static TNumber Megawatts<TNumber>(this Power value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Mega).To<TNumber>();
 
-		namespace Conversions.Power
-		{
-			public static class Conversions
-			{
-				public static TQuantity Watts(this TStorage value) => TQuantity.Create(Convert.FromWatts(value));
-				public static TStorage Watts(this TQuantity quantity) => Convert.ToWatts(quantity.Quantity);
-				public static TQuantity Kilowatts(this TStorage value) => TQuantity.Create(Convert.FromKilowatts(value));
-				public static TStorage Kilowatts(this TQuantity quantity) => Convert.ToKilowatts(quantity.Quantity);
-				public static TQuantity Megawatts(this TStorage value) => TQuantity.Create(Convert.FromMegawatts(value));
-				public static TStorage Megawatts(this TQuantity quantity) => Convert.ToMegawatts(quantity.Quantity);
-				public static TQuantity Horsepower(this TStorage value) => TQuantity.Create(Convert.FromHorsepower(value));
-				public static TStorage Horsepower(this TQuantity quantity) => Convert.ToHorsepower(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Power"/> measured in gigawatts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Power"/> instance representing the specified value in gigawatts.</returns>
+	public static Power Gigawatts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Power>(Constants.Giga);
+
+	/// <summary>
+	/// Converts a <see cref="Power"/> value to a numeric value measured in gigawatts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Power"/> value to convert.</param>
+	/// <returns>The numeric value representing the power in gigawatts.</returns>
+	public static TNumber Gigawatts<TNumber>(this Power value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Giga).To<TNumber>();
 }

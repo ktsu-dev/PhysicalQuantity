@@ -1,151 +1,118 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Volume;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a volume quantity measured in cubic meters, liters, milliliters, cubic feet, and cubic inches.
+/// </summary>
+[SIUnit("m³", "cubic meter", "cubic meters")]
+public sealed record Volume
+	: PhysicalQuantity<Volume>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Volume"/>.
+/// </summary>
+public static class VolumeConversions
 {
-	using System.Numerics;
-	using Convert = Generic.VolumeConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Volume"/> measured in cubic meters.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Volume"/> instance representing the specified value in cubic meters.</returns>
+	public static Volume CubicMeters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Volume>();
 
-	namespace Generic
-	{
-		[SIUnit("m³", "cubic meter", "cubic meters")]
-		public record Volume<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Volume<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Volume"/> value to a numeric value measured in cubic meters.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Volume"/> value to convert.</param>
+	/// <returns>The numeric value representing the volume in cubic meters.</returns>
+	public static TNumber CubicMeters<TNumber>(this Volume value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class VolumeConversions
-		{
-			public static TStorage FromCubicMeters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToCubicMeters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromLiters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.001, 0);
-			public static TStorage ToLiters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.001, 0);
-			public static TStorage FromMilliliters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1E-6, 0);
-			public static TStorage ToMilliliters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1E-6, 0);
-			public static TStorage FromCubicInches<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.000016387064, 0);
-			public static TStorage ToCubicInches<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.000016387064, 0);
-			public static TStorage FromCubicFeet<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.028316846592, 0);
-			public static TStorage ToCubicFeet<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.028316846592, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Volume"/> measured in liters.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Volume"/> instance representing the specified value in liters.</returns>
+	public static Volume Liters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Volume>(Constants.Milli);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Volume;
-		using TStorage = float;
-		public record Volume : Volume<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Volume"/> value to a numeric value measured in liters.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Volume"/> value to convert.</param>
+	/// <returns>The numeric value representing the volume in liters.</returns>
+	public static TNumber Liters<TNumber>(this Volume value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli).To<TNumber>();
 
-		namespace Conversions.Volume
-		{
-			public static class Conversions
-			{
-				public static TQuantity CubicMeters(this TStorage value) => TQuantity.Create(Convert.FromCubicMeters(value));
-				public static TStorage CubicMeters(this TQuantity quantity) => Convert.ToCubicMeters(quantity.Quantity);
-				public static TQuantity Liters(this TStorage value) => TQuantity.Create(Convert.FromLiters(value));
-				public static TStorage Liters(this TQuantity quantity) => Convert.ToLiters(quantity.Quantity);
-				public static TQuantity Milliliters(this TStorage value) => TQuantity.Create(Convert.FromMilliliters(value));
-				public static TStorage Milliliters(this TQuantity quantity) => Convert.ToMilliliters(quantity.Quantity);
-				public static TQuantity CubicInches(this TStorage value) => TQuantity.Create(Convert.FromCubicInches(value));
-				public static TStorage CubicInches(this TQuantity quantity) => Convert.ToCubicInches(quantity.Quantity);
-				public static TQuantity CubicFeet(this TStorage value) => TQuantity.Create(Convert.FromCubicFeet(value));
-				public static TStorage CubicFeet(this TQuantity quantity) => Convert.ToCubicFeet(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Volume"/> measured in milliliters.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Volume"/> instance representing the specified value in milliliters.</returns>
+	public static Volume Milliliters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Volume>(Constants.Micro);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Volume;
-		using TStorage = double;
-		public record Volume : Volume<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Volume"/> value to a numeric value measured in milliliters.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Volume"/> value to convert.</param>
+	/// <returns>The numeric value representing the volume in milliliters.</returns>
+	public static TNumber Milliliters<TNumber>(this Volume value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Micro).To<TNumber>();
 
-		namespace Conversions.Volume
-		{
-			public static class Conversions
-			{
-				public static TQuantity CubicMeters(this TStorage value) => TQuantity.Create(Convert.FromCubicMeters(value));
-				public static TStorage CubicMeters(this TQuantity quantity) => Convert.ToCubicMeters(quantity.Quantity);
-				public static TQuantity Liters(this TStorage value) => TQuantity.Create(Convert.FromLiters(value));
-				public static TStorage Liters(this TQuantity quantity) => Convert.ToLiters(quantity.Quantity);
-				public static TQuantity Milliliters(this TStorage value) => TQuantity.Create(Convert.FromMilliliters(value));
-				public static TStorage Milliliters(this TQuantity quantity) => Convert.ToMilliliters(quantity.Quantity);
-				public static TQuantity CubicInches(this TStorage value) => TQuantity.Create(Convert.FromCubicInches(value));
-				public static TStorage CubicInches(this TQuantity quantity) => Convert.ToCubicInches(quantity.Quantity);
-				public static TQuantity CubicFeet(this TStorage value) => TQuantity.Create(Convert.FromCubicFeet(value));
-				public static TStorage CubicFeet(this TQuantity quantity) => Convert.ToCubicFeet(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Volume"/> measured in cubic feet.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Volume"/> instance representing the specified value in cubic feet.</returns>
+	public static Volume CubicFeet<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Volume>(Constants.FeetToMetersFactor.Cubed());
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Volume;
-		using TStorage = decimal;
-		public record Volume : Volume<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Volume"/> value to a numeric value measured in cubic feet.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Volume"/> value to convert.</param>
+	/// <returns>The numeric value representing the volume in cubic feet.</returns>
+	public static TNumber CubicFeet<TNumber>(this Volume value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FeetToMetersFactor.Cubed()).To<TNumber>();
 
-		namespace Conversions.Volume
-		{
-			public static class Conversions
-			{
-				public static TQuantity CubicMeters(this TStorage value) => TQuantity.Create(Convert.FromCubicMeters(value));
-				public static TStorage CubicMeters(this TQuantity quantity) => Convert.ToCubicMeters(quantity.Quantity);
-				public static TQuantity Liters(this TStorage value) => TQuantity.Create(Convert.FromLiters(value));
-				public static TStorage Liters(this TQuantity quantity) => Convert.ToLiters(quantity.Quantity);
-				public static TQuantity Milliliters(this TStorage value) => TQuantity.Create(Convert.FromMilliliters(value));
-				public static TStorage Milliliters(this TQuantity quantity) => Convert.ToMilliliters(quantity.Quantity);
-				public static TQuantity CubicInches(this TStorage value) => TQuantity.Create(Convert.FromCubicInches(value));
-				public static TStorage CubicInches(this TQuantity quantity) => Convert.ToCubicInches(quantity.Quantity);
-				public static TQuantity CubicFeet(this TStorage value) => TQuantity.Create(Convert.FromCubicFeet(value));
-				public static TStorage CubicFeet(this TQuantity quantity) => Convert.ToCubicFeet(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Volume"/> measured in cubic inches.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Volume"/> instance representing the specified value in cubic inches.</returns>
+	public static Volume CubicInches<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Volume>(Constants.InchesToMetersFactor.Cubed());
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Volume;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Volume : Volume<TQuantity, TStorage>;
-
-		namespace Conversions.Volume
-		{
-			public static class Conversions
-			{
-				public static TQuantity CubicMeters(this TStorage value) => TQuantity.Create(Convert.FromCubicMeters(value));
-				public static TStorage CubicMeters(this TQuantity quantity) => Convert.ToCubicMeters(quantity.Quantity);
-				public static TQuantity Liters(this TStorage value) => TQuantity.Create(Convert.FromLiters(value));
-				public static TStorage Liters(this TQuantity quantity) => Convert.ToLiters(quantity.Quantity);
-				public static TQuantity Milliliters(this TStorage value) => TQuantity.Create(Convert.FromMilliliters(value));
-				public static TStorage Milliliters(this TQuantity quantity) => Convert.ToMilliliters(quantity.Quantity);
-				public static TQuantity CubicInches(this TStorage value) => TQuantity.Create(Convert.FromCubicInches(value));
-				public static TStorage CubicInches(this TQuantity quantity) => Convert.ToCubicInches(quantity.Quantity);
-				public static TQuantity CubicFeet(this TStorage value) => TQuantity.Create(Convert.FromCubicFeet(value));
-				public static TStorage CubicFeet(this TQuantity quantity) => Convert.ToCubicFeet(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Volume"/> value to a numeric value measured in cubic inches.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Volume"/> value to convert.</param>
+	/// <returns>The numeric value representing the volume in cubic inches.</returns>
+	public static TNumber CubicInches<TNumber>(this Volume value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.InchesToMetersFactor.Cubed()).To<TNumber>();
 }

@@ -1,109 +1,140 @@
-// Ignore Spelling: ktsu
+// Ignore Spelling: Nanovolts Megavolts
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.ElectricPotential;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents an electric potential quantity measured in volts.
+/// </summary>
+[SIUnit("V", "volt", "volts")]
+public sealed record ElectricPotential
+	: PhysicalQuantity<ElectricPotential>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="ElectricPotential"/>.
+/// </summary>
+public static class ElectricPotentialConversions
 {
-	using System.Numerics;
-	using Convert = Generic.ElectricPotentialConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricPotential"/> measured in volts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricPotential"/> instance representing the specified value in volts.</returns>
+	public static ElectricPotential Volts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricPotential>();
 
-	namespace Generic
-	{
-		[SIUnit("V", "volt", "volts")]
-		public record ElectricPotential<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : ElectricPotential<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts an <see cref="ElectricPotential"/> value to a numeric value measured in volts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricPotential"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric potential in volts.</returns>
+	public static TNumber Volts<TNumber>(this ElectricPotential value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class ElectricPotentialConversions
-		{
-			public static TStorage FromVolts<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToVolts<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromMillivolts<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1e-3, 0);
-			public static TStorage ToMillivolts<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1e-3, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricPotential"/> measured in millivolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricPotential"/> instance representing the specified value in millivolts.</returns>
+	public static ElectricPotential Millivolts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricPotential>(Constants.Milli);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = ElectricPotential;
-		using TStorage = float;
-		public record ElectricPotential : ElectricPotential<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="ElectricPotential"/> value to a numeric value measured in millivolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricPotential"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric potential in millivolts.</returns>
+	public static TNumber Millivolts<TNumber>(this ElectricPotential value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli).To<TNumber>();
 
-		namespace Conversions.ElectricPotential
-		{
-			public static class Conversions
-			{
-				public static TQuantity Volts(this TStorage value) => TQuantity.Create(Convert.FromVolts(value));
-				public static TStorage Volts(this TQuantity quantity) => Convert.ToVolts(quantity.Quantity);
-				public static TQuantity Millivolts(this TStorage value) => TQuantity.Create(Convert.FromMillivolts(value));
-				public static TStorage Millivolts(this TQuantity quantity) => Convert.ToMillivolts(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricPotential"/> measured in microvolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricPotential"/> instance representing the specified value in microvolts.</returns>
+	public static ElectricPotential Microvolts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricPotential>(Constants.Micro);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = ElectricPotential;
-		using TStorage = double;
-		public record ElectricPotential : ElectricPotential<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="ElectricPotential"/> value to a numeric value measured in microvolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricPotential"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric potential in microvolts.</returns>
+	public static TNumber Microvolts<TNumber>(this ElectricPotential value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Micro).To<TNumber>();
 
-		namespace Conversions.ElectricPotential
-		{
-			public static class Conversions
-			{
-				public static TQuantity Volts(this TStorage value) => TQuantity.Create(Convert.FromVolts(value));
-				public static TStorage Volts(this TQuantity quantity) => Convert.ToVolts(quantity.Quantity);
-				public static TQuantity Millivolts(this TStorage value) => TQuantity.Create(Convert.FromMillivolts(value));
-				public static TStorage Millivolts(this TQuantity quantity) => Convert.ToMillivolts(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricPotential"/> measured in nanovolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricPotential"/> instance representing the specified value in nanovolts.</returns>
+	public static ElectricPotential Nanovolts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricPotential>(Constants.Nano);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = ElectricPotential;
-		using TStorage = decimal;
-		public record ElectricPotential : ElectricPotential<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="ElectricPotential"/> value to a numeric value measured in nanovolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricPotential"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric potential in nanovolts.</returns>
+	public static TNumber Nanovolts<TNumber>(this ElectricPotential value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Nano).To<TNumber>();
 
-		namespace Conversions.ElectricPotential
-		{
-			public static class Conversions
-			{
-				public static TQuantity Volts(this TStorage value) => TQuantity.Create(Convert.FromVolts(value));
-				public static TStorage Volts(this TQuantity quantity) => Convert.ToVolts(quantity.Quantity);
-				public static TQuantity Millivolts(this TStorage value) => TQuantity.Create(Convert.FromMillivolts(value));
-				public static TStorage Millivolts(this TQuantity quantity) => Convert.ToMillivolts(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricPotential"/> measured in kilovolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricPotential"/> instance representing the specified value in kilovolts.</returns>
+	public static ElectricPotential Kilovolts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricPotential>(Constants.Kilo);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = ElectricPotential;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record ElectricPotential : ElectricPotential<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="ElectricPotential"/> value to a numeric value measured in kilovolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricPotential"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric potential in kilovolts.</returns>
+	public static TNumber Kilovolts<TNumber>(this ElectricPotential value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.ElectricPotential
-		{
-			public static class Conversions
-			{
-				public static TQuantity Volts(this TStorage value) => TQuantity.Create(Convert.FromVolts(value));
-				public static TStorage Volts(this TQuantity quantity) => Convert.ToVolts(quantity.Quantity);
-				public static TQuantity Millivolts(this TStorage value) => TQuantity.Create(Convert.FromMillivolts(value));
-				public static TStorage Millivolts(this TQuantity quantity) => Convert.ToMillivolts(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricPotential"/> measured in megavolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricPotential"/> instance representing the specified value in megavolts.</returns>
+	public static ElectricPotential Megavolts<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricPotential>(Constants.Mega);
+
+	/// <summary>
+	/// Converts an <see cref="ElectricPotential"/> value to a numeric value measured in megavolts.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricPotential"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric potential in megavolts.</returns>
+	public static TNumber Megavolts<TNumber>(this ElectricPotential value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Mega).To<TNumber>();
 }

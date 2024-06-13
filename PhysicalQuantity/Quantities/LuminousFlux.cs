@@ -1,95 +1,40 @@
-// Ignore Spelling: ktsu Lumens
+// Ignore Spelling: Lumens
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.LuminousFlux;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a luminous flux quantity measured in lumens.
+/// </summary>
+[SIUnit("lm", "lumen", "lumens")]
+public sealed record LuminousFlux
+	: PhysicalQuantity<LuminousFlux>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="LuminousFlux"/>.
+/// </summary>
+public static class LuminousFluxConversions
 {
-	using System.Numerics;
-	using Convert = Generic.LuminousFluxConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="LuminousFlux"/> measured in lumens.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="LuminousFlux"/> instance representing the specified value in lumens.</returns>
+	public static LuminousFlux Lumens<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, LuminousFlux>();
 
-	namespace Generic
-	{
-		[SIUnit("lm", "lumen", "lumens")]
-		public record LuminousFlux<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : LuminousFlux<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
-
-		public static class LuminousFluxConversions
-		{
-			public static TStorage FromLumens<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToLumens<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-		}
-	}
-
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = LuminousFlux;
-		using TStorage = float;
-		public record LuminousFlux : LuminousFlux<TQuantity, TStorage>;
-
-		namespace Conversions.LuminousFlux
-		{
-			public static class Conversions
-			{
-				public static TQuantity Lumens(this TStorage value) => TQuantity.Create(Convert.FromLumens(value));
-				public static TStorage Lumens(this TQuantity quantity) => Convert.ToLumens(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = LuminousFlux;
-		using TStorage = double;
-		public record LuminousFlux : LuminousFlux<TQuantity, TStorage>;
-
-		namespace Conversions.LuminousFlux
-		{
-			public static class Conversions
-			{
-				public static TQuantity Lumens(this TStorage value) => TQuantity.Create(Convert.FromLumens(value));
-				public static TStorage Lumens(this TQuantity quantity) => Convert.ToLumens(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = LuminousFlux;
-		using TStorage = decimal;
-		public record LuminousFlux : LuminousFlux<TQuantity, TStorage>;
-
-		namespace Conversions.LuminousFlux
-		{
-			public static class Conversions
-			{
-				public static TQuantity Lumens(this TStorage value) => TQuantity.Create(Convert.FromLumens(value));
-				public static TStorage Lumens(this TQuantity quantity) => Convert.ToLumens(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = LuminousFlux;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record LuminousFlux : LuminousFlux<TQuantity, TStorage>;
-
-		namespace Conversions.LuminousFlux
-		{
-			public static class Conversions
-			{
-				public static TQuantity Lumens(this TStorage value) => TQuantity.Create(Convert.FromLumens(value));
-				public static TStorage Lumens(this TQuantity quantity) => Convert.ToLumens(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="LuminousFlux"/> value to a numeric value measured in lumens.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="LuminousFlux"/> value to convert.</param>
+	/// <returns>The numeric value representing the luminous flux in lumens.</returns>
+	public static TNumber Lumens<TNumber>(this LuminousFlux value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 }

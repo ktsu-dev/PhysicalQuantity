@@ -1,109 +1,62 @@
-// Ignore Spelling: ktsu Illuminance Lux Footcandles
+// Ignore Spelling: Lux Illuminance
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.Illuminance;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a physical quantity of illuminance.
+/// </summary>
+[SIUnit("lx", "lux", "lux")]
+public sealed record Illuminance
+	: PhysicalQuantity<Illuminance>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting numerical values to and from <see cref="Illuminance"/>.
+/// </summary>
+public static class IlluminanceConversions
 {
-	using System.Numerics;
-	using Convert = Generic.IlluminanceConversions;
+	// Base unit: Lux
+	/// <summary>
+	/// Converts a numerical value to <see cref="Illuminance"/> in lux.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>The converted <see cref="Illuminance"/> value.</returns>
+	public static Illuminance Lux<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Illuminance>();
 
-	namespace Generic
-	{
-		[SIUnit("lx", "lux", "lux")]
-		public record Illuminance<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Illuminance<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Illuminance"/> value to a numerical value in lux.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Illuminance"/> value to convert.</param>
+	/// <returns>The converted numerical value in lux.</returns>
+	public static TNumber Lux<TNumber>(this Illuminance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class IlluminanceConversions
-		{
-			public static TStorage FromLux<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToLux<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromFootcandles<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 10.76391, 0);
-			public static TStorage ToFootcandles<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 10.76391, 0);
-		}
-	}
+	// Foot-candle
+	/// <summary>
+	/// Converts a numerical value to <see cref="Illuminance"/> in foot-candles.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>The converted <see cref="Illuminance"/> value in foot-candles.</returns>
+	public static Illuminance FootCandle<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Illuminance>(Constants.FootCandleToLuxFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Illuminance;
-		using TStorage = float;
-		public record Illuminance : Illuminance<TQuantity, TStorage>;
-
-		namespace Conversions.Illuminance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Lux(this TStorage value) => TQuantity.Create(Convert.FromLux(value));
-				public static TStorage Lux(this TQuantity quantity) => Convert.ToLux(quantity.Quantity);
-				public static TQuantity Footcandles(this TStorage value) => TQuantity.Create(Convert.FromFootcandles(value));
-				public static TStorage Footcandles(this TQuantity quantity) => Convert.ToFootcandles(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Illuminance;
-		using TStorage = double;
-		public record Illuminance : Illuminance<TQuantity, TStorage>;
-
-		namespace Conversions.Illuminance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Lux(this TStorage value) => TQuantity.Create(Convert.FromLux(value));
-				public static TStorage Lux(this TQuantity quantity) => Convert.ToLux(quantity.Quantity);
-				public static TQuantity Footcandles(this TStorage value) => TQuantity.Create(Convert.FromFootcandles(value));
-				public static TStorage Footcandles(this TQuantity quantity) => Convert.ToFootcandles(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Illuminance;
-		using TStorage = decimal;
-		public record Illuminance : Illuminance<TQuantity, TStorage>;
-
-		namespace Conversions.Illuminance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Lux(this TStorage value) => TQuantity.Create(Convert.FromLux(value));
-				public static TStorage Lux(this TQuantity quantity) => Convert.ToLux(quantity.Quantity);
-				public static TQuantity Footcandles(this TStorage value) => TQuantity.Create(Convert.FromFootcandles(value));
-				public static TStorage Footcandles(this TQuantity quantity) => Convert.ToFootcandles(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Illuminance;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Illuminance : Illuminance<TQuantity, TStorage>;
-
-		namespace Conversions.Illuminance
-		{
-			public static class Conversions
-			{
-				public static TQuantity Lux(this TStorage value) => TQuantity.Create(Convert.FromLux(value));
-				public static TStorage Lux(this TQuantity quantity) => Convert.ToLux(quantity.Quantity);
-				public static TQuantity Footcandles(this TStorage value) => TQuantity.Create(Convert.FromFootcandles(value));
-				public static TStorage Footcandles(this TQuantity quantity) => Convert.ToFootcandles(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Illuminance"/> value to a numerical value in foot-candles.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Illuminance"/> value to convert.</param>
+	/// <returns>The converted numerical value in foot-candles.</returns>
+	public static TNumber FootCandle<TNumber>(this Illuminance value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FootCandleToLuxFactor).To<TNumber>();
 }

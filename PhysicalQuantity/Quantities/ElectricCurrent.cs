@@ -1,109 +1,140 @@
-// Ignore Spelling: ktsu
+// Ignore Spelling: Microamperes Nanoamperes Kiloamperes Megaamperes
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.ElectricCurrent;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents an electric current quantity measured in amperes.
+/// </summary>
+[SIUnit("A", "ampere", "amperes")]
+public sealed record ElectricCurrent
+	: PhysicalQuantity<ElectricCurrent>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="ElectricCurrent"/>.
+/// </summary>
+public static class ElectricCurrentConversions
 {
-	using System.Numerics;
-	using Convert = Generic.ElectricCurrentConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricCurrent"/> measured in amperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricCurrent"/> instance representing the specified value in amperes.</returns>
+	public static ElectricCurrent Amperes<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricCurrent>();
 
-	namespace Generic
-	{
-		[SIUnit("A", "ampere", "amperes")]
-		public record ElectricCurrent<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : ElectricCurrent<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts an <see cref="ElectricCurrent"/> value to a numeric value measured in amperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricCurrent"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric current in amperes.</returns>
+	public static TNumber Amperes<TNumber>(this ElectricCurrent value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class ElectricCurrentConversions
-		{
-			public static TStorage FromAmperes<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToAmperes<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromMilliamperes<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1e-3, 0);
-			public static TStorage ToMilliamperes<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1e-3, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricCurrent"/> measured in milliamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricCurrent"/> instance representing the specified value in milliamperes.</returns>
+	public static ElectricCurrent Milliamperes<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricCurrent>(Constants.Milli);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = ElectricCurrent;
-		using TStorage = float;
-		public record ElectricCurrent : ElectricCurrent<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="ElectricCurrent"/> value to a numeric value measured in milliamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricCurrent"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric current in milliamperes.</returns>
+	public static TNumber Milliamperes<TNumber>(this ElectricCurrent value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli).To<TNumber>();
 
-		namespace Conversions.ElectricCurrent
-		{
-			public static class Conversions
-			{
-				public static TQuantity Amperes(this TStorage value) => TQuantity.Create(Convert.FromAmperes(value));
-				public static TStorage Amperes(this TQuantity quantity) => Convert.ToAmperes(quantity.Quantity);
-				public static TQuantity Milliamperes(this TStorage value) => TQuantity.Create(Convert.FromMilliamperes(value));
-				public static TStorage Milliamperes(this TQuantity quantity) => Convert.ToMilliamperes(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricCurrent"/> measured in microamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricCurrent"/> instance representing the specified value in microamperes.</returns>
+	public static ElectricCurrent Microamperes<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricCurrent>(Constants.Micro);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = ElectricCurrent;
-		using TStorage = double;
-		public record ElectricCurrent : ElectricCurrent<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="ElectricCurrent"/> value to a numeric value measured in microamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricCurrent"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric current in microamperes.</returns>
+	public static TNumber Microamperes<TNumber>(this ElectricCurrent value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Micro).To<TNumber>();
 
-		namespace Conversions.ElectricCurrent
-		{
-			public static class Conversions
-			{
-				public static TQuantity Amperes(this TStorage value) => TQuantity.Create(Convert.FromAmperes(value));
-				public static TStorage Amperes(this TQuantity quantity) => Convert.ToAmperes(quantity.Quantity);
-				public static TQuantity Milliamperes(this TStorage value) => TQuantity.Create(Convert.FromMilliamperes(value));
-				public static TStorage Milliamperes(this TQuantity quantity) => Convert.ToMilliamperes(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricCurrent"/> measured in nanoamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricCurrent"/> instance representing the specified value in nanoamperes.</returns>
+	public static ElectricCurrent Nanoamperes<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricCurrent>(Constants.Nano);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = ElectricCurrent;
-		using TStorage = decimal;
-		public record ElectricCurrent : ElectricCurrent<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="ElectricCurrent"/> value to a numeric value measured in nanoamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricCurrent"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric current in nanoamperes.</returns>
+	public static TNumber Nanoamperes<TNumber>(this ElectricCurrent value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Nano).To<TNumber>();
 
-		namespace Conversions.ElectricCurrent
-		{
-			public static class Conversions
-			{
-				public static TQuantity Amperes(this TStorage value) => TQuantity.Create(Convert.FromAmperes(value));
-				public static TStorage Amperes(this TQuantity quantity) => Convert.ToAmperes(quantity.Quantity);
-				public static TQuantity Milliamperes(this TStorage value) => TQuantity.Create(Convert.FromMilliamperes(value));
-				public static TStorage Milliamperes(this TQuantity quantity) => Convert.ToMilliamperes(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricCurrent"/> measured in kiloamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricCurrent"/> instance representing the specified value in kiloamperes.</returns>
+	public static ElectricCurrent Kiloamperes<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricCurrent>(Constants.Kilo);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = ElectricCurrent;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record ElectricCurrent : ElectricCurrent<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="ElectricCurrent"/> value to a numeric value measured in kiloamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricCurrent"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric current in kiloamperes.</returns>
+	public static TNumber Kiloamperes<TNumber>(this ElectricCurrent value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.ElectricCurrent
-		{
-			public static class Conversions
-			{
-				public static TQuantity Amperes(this TStorage value) => TQuantity.Create(Convert.FromAmperes(value));
-				public static TStorage Amperes(this TQuantity quantity) => Convert.ToAmperes(quantity.Quantity);
-				public static TQuantity Milliamperes(this TStorage value) => TQuantity.Create(Convert.FromMilliamperes(value));
-				public static TStorage Milliamperes(this TQuantity quantity) => Convert.ToMilliamperes(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="ElectricCurrent"/> measured in megaamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="ElectricCurrent"/> instance representing the specified value in megaamperes.</returns>
+	public static ElectricCurrent Megaamperes<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, ElectricCurrent>(Constants.Mega);
+
+	/// <summary>
+	/// Converts an <see cref="ElectricCurrent"/> value to a numeric value measured in megaamperes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="ElectricCurrent"/> value to convert.</param>
+	/// <returns>The numeric value representing the electric current in megaamperes.</returns>
+	public static TNumber Megaamperes<TNumber>(this ElectricCurrent value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Mega).To<TNumber>();
 }

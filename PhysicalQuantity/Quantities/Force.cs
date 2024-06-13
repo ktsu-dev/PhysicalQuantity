@@ -1,123 +1,120 @@
-// Ignore Spelling: ktsu Kilonewtons
+// Ignore Spelling: Kilonewtons Millinewtons Micronewtons
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.Force;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a force quantity measured in newtons.
+/// </summary>
+[SIUnit("N", "newton", "newtons")]
+public sealed record Force
+	: PhysicalQuantity<Force>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Force"/>.
+/// </summary>
+public static class ForceConversions
 {
-	using System.Numerics;
-	using Convert = Generic.ForceConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Force"/> measured in newtons.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="Force"/> instance representing the specified value in newtons.</returns>
+	public static Force Newtons<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Force>();
 
-	namespace Generic
-	{
-		[SIUnit("N", "newton", "newtons")]
-		public record Force<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Force<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts an <see cref="Force"/> value to a numeric value measured in newtons.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Force"/> value to convert.</param>
+	/// <returns>The numeric value representing the force in newtons.</returns>
+	public static TNumber Newtons<TNumber>(this Force value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class ForceConversions
-		{
-			public static TStorage FromNewtons<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToNewtons<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromKilonewtons<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1e3, 0);
-			public static TStorage ToKilonewtons<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1e3, 0);
-			public static TStorage FromPoundsForce<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 4.4482216152605, 0);
-			public static TStorage ToPoundsForce<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 4.4482216152605, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Force"/> measured in kilonewtons.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="Force"/> instance representing the specified value in kilonewtons.</returns>
+	public static Force Kilonewtons<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Force>(Constants.Kilo);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Force;
-		using TStorage = float;
-		public record Force : Force<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Force"/> value to a numeric value measured in kilonewtons.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Force"/> value to convert.</param>
+	/// <returns>The numeric value representing the force in kilonewtons.</returns>
+	public static TNumber Kilonewtons<TNumber>(this Force value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.Force
-		{
-			public static class Conversions
-			{
-				public static TQuantity Newtons(this TStorage value) => TQuantity.Create(Convert.FromNewtons(value));
-				public static TStorage Newtons(this TQuantity quantity) => Convert.ToNewtons(quantity.Quantity);
-				public static TQuantity Kilonewtons(this TStorage value) => TQuantity.Create(Convert.FromKilonewtons(value));
-				public static TStorage Kilonewtons(this TQuantity quantity) => Convert.ToKilonewtons(quantity.Quantity);
-				public static TQuantity PoundsForce(this TStorage value) => TQuantity.Create(Convert.FromPoundsForce(value));
-				public static TStorage PoundsForce(this TQuantity quantity) => Convert.ToPoundsForce(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Force"/> measured in millinewtons.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="Force"/> instance representing the specified value in millinewtons.</returns>
+	public static Force Millinewtons<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Force>(Constants.Milli);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Force;
-		using TStorage = double;
-		public record Force : Force<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Force"/> value to a numeric value measured in millinewtons.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Force"/> value to convert.</param>
+	/// <returns>The numeric value representing the force in millinewtons.</returns>
+	public static TNumber Millinewtons<TNumber>(this Force value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli).To<TNumber>();
 
-		namespace Conversions.Force
-		{
-			public static class Conversions
-			{
-				public static TQuantity Newtons(this TStorage value) => TQuantity.Create(Convert.FromNewtons(value));
-				public static TStorage Newtons(this TQuantity quantity) => Convert.ToNewtons(quantity.Quantity);
-				public static TQuantity Kilonewtons(this TStorage value) => TQuantity.Create(Convert.FromKilonewtons(value));
-				public static TStorage Kilonewtons(this TQuantity quantity) => Convert.ToKilonewtons(quantity.Quantity);
-				public static TQuantity PoundsForce(this TStorage value) => TQuantity.Create(Convert.FromPoundsForce(value));
-				public static TStorage PoundsForce(this TQuantity quantity) => Convert.ToPoundsForce(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Force"/> measured in micronewtons.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="Force"/> instance representing the specified value in micronewtons.</returns>
+	public static Force Micronewtons<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Force>(Constants.Micro);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Force;
-		using TStorage = decimal;
-		public record Force : Force<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Force"/> value to a numeric value measured in micronewtons.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Force"/> value to convert.</param>
+	/// <returns>The numeric value representing the force in micronewtons.</returns>
+	public static TNumber Micronewtons<TNumber>(this Force value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Micro).To<TNumber>();
 
-		namespace Conversions.Force
-		{
-			public static class Conversions
-			{
-				public static TQuantity Newtons(this TStorage value) => TQuantity.Create(Convert.FromNewtons(value));
-				public static TStorage Newtons(this TQuantity quantity) => Convert.ToNewtons(quantity.Quantity);
-				public static TQuantity Kilonewtons(this TStorage value) => TQuantity.Create(Convert.FromKilonewtons(value));
-				public static TStorage Kilonewtons(this TQuantity quantity) => Convert.ToKilonewtons(quantity.Quantity);
-				public static TQuantity PoundsForce(this TStorage value) => TQuantity.Create(Convert.FromPoundsForce(value));
-				public static TStorage PoundsForce(this TQuantity quantity) => Convert.ToPoundsForce(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Force"/> measured in pounds-force.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>An <see cref="Force"/> instance representing the specified value in pounds-force.</returns>
+	public static Force PoundsForce<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Force>(Constants.PoundsForceToNewtonsFactor);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Force;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Force : Force<TQuantity, TStorage>;
-
-		namespace Conversions.Force
-		{
-			public static class Conversions
-			{
-				public static TQuantity Newtons(this TStorage value) => TQuantity.Create(Convert.FromNewtons(value));
-				public static TStorage Newtons(this TQuantity quantity) => Convert.ToNewtons(quantity.Quantity);
-				public static TQuantity Kilonewtons(this TStorage value) => TQuantity.Create(Convert.FromKilonewtons(value));
-				public static TStorage Kilonewtons(this TQuantity quantity) => Convert.ToKilonewtons(quantity.Quantity);
-				public static TQuantity PoundsForce(this TStorage value) => TQuantity.Create(Convert.FromPoundsForce(value));
-				public static TStorage PoundsForce(this TQuantity quantity) => Convert.ToPoundsForce(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts an <see cref="Force"/> value to a numeric value measured in pounds-force.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Force"/> value to convert.</param>
+	/// <returns>The numeric value representing the force in pounds-force.</returns>
+	public static TNumber PoundsForce<TNumber>(this Force value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.PoundsForceToNewtonsFactor).To<TNumber>();
 }

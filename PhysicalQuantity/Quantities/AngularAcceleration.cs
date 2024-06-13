@@ -1,137 +1,142 @@
-// Ignore Spelling: Gradians ktsu
+// Ignore Spelling: Gradians
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.AngularAcceleration;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+[SIUnit("rad/s²", "radian per second squared", "radians per second squared")]
+public sealed record AngularAcceleration : PhysicalQuantity<AngularAcceleration>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting numerical values to and from <see cref="AngularAcceleration"/> quantities.
+/// </summary>
+public static class AngularAccelerationConversions
 {
-	using System.Numerics;
-	using Convert = Generic.AngularAccelerationConversions;
+	// Base unit: Radians per second squared
+	/// <summary>
+	/// Converts a numerical value to <see cref="AngularAcceleration"/> in radians per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="AngularAcceleration"/>.</returns>
+	public static AngularAcceleration RadiansPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AngularAcceleration>();
 
-	namespace Generic
-	{
-		[SIUnit("rad/s²", "radian per second squared", "radians per second squared")]
-		public record AngularAcceleration<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : AngularAcceleration<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts an <see cref="AngularAcceleration"/> value to a numerical value in radians per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="AngularAcceleration"/> value to convert.</param>
+	/// <returns>The numerical value in radians per second squared.</returns>
+	public static TNumber RadiansPerSecondSquared<TNumber>(this AngularAcceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class AngularAccelerationConversions
-		{
-			public static TStorage FromRadiansPerSecondSquared<TStorage>(TStorage value)
-			where TStorage : INumber<TStorage>
-			=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToRadiansPerSecondSquared<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromDegreesPerSecondSquared<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, Math.PI / 180, 0);
-			public static TStorage ToDegreesPerSecondSquared<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, Math.PI / 180, 0);
-			public static TStorage FromGradiansPerSecondSquared<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, Math.PI / 200, 0);
-			public static TStorage ToGradiansPerSecondSquared<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, Math.PI / 200, 0);
-			public static TStorage FromRevolutionsPerSecondSquared<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 2 * Math.PI, 0);
-			public static TStorage ToRevolutionsPerSecondSquared<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 2 * Math.PI, 0);
-		}
-	}
+	// Degrees per second squared
+	/// <summary>
+	/// Converts a numerical value to <see cref="AngularAcceleration"/> in degrees per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="AngularAcceleration"/>.</returns>
+	public static AngularAcceleration DegreesPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AngularAcceleration>(Constants.DegreesToRadiansFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = AngularAcceleration;
-		using TStorage = float;
-		public record AngularAcceleration : AngularAcceleration<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="AngularAcceleration"/> value to a numerical value in degrees per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="AngularAcceleration"/> value to convert.</param>
+	/// <returns>The numerical value in degrees per second squared.</returns>
+	public static TNumber DegreesPerSecondSquared<TNumber>(this AngularAcceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.DegreesToRadiansFactor).To<TNumber>();
 
-		namespace Conversions.AngularAcceleration
-		{
-			public static class Conversions
-			{
-				public static TQuantity RadiansPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromRadiansPerSecondSquared(value));
-				public static TStorage RadiansPerSecondSquared(this TQuantity quantity) => Convert.ToRadiansPerSecondSquared(quantity.Quantity);
-				public static TQuantity DegreesPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromDegreesPerSecondSquared(value));
-				public static TStorage DegreesPerSecondSquared(this TQuantity quantity) => Convert.ToDegreesPerSecondSquared(quantity.Quantity);
-				public static TQuantity GradiansPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromGradiansPerSecondSquared(value));
-				public static TStorage GradiansPerSecondSquared(this TQuantity quantity) => Convert.ToGradiansPerSecondSquared(quantity.Quantity);
-				public static TQuantity RevolutionsPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromRevolutionsPerSecondSquared(value));
-				public static TStorage RevolutionsPerSecondSquared(this TQuantity quantity) => Convert.ToRevolutionsPerSecondSquared(quantity.Quantity);
-			}
-		}
-	}
+	// Gradians per second squared
+	/// <summary>
+	/// Converts a numerical value to <see cref="AngularAcceleration"/> in gradians per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="AngularAcceleration"/>.</returns>
+	public static AngularAcceleration GradiansPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AngularAcceleration>(Constants.GradiansToRadiansFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = AngularAcceleration;
-		using TStorage = double;
-		public record AngularAcceleration : AngularAcceleration<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="AngularAcceleration"/> value to a numerical value in gradians per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="AngularAcceleration"/> value to convert.</param>
+	/// <returns>The numerical value in gradians per second squared.</returns>
+	public static TNumber GradiansPerSecondSquared<TNumber>(this AngularAcceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.GradiansToRadiansFactor).To<TNumber>();
 
-		namespace Conversions.AngularAcceleration
-		{
-			public static class Conversions
-			{
-				public static TQuantity RadiansPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromRadiansPerSecondSquared(value));
-				public static TStorage RadiansPerSecondSquared(this TQuantity quantity) => Convert.ToRadiansPerSecondSquared(quantity.Quantity);
-				public static TQuantity DegreesPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromDegreesPerSecondSquared(value));
-				public static TStorage DegreesPerSecondSquared(this TQuantity quantity) => Convert.ToDegreesPerSecondSquared(quantity.Quantity);
-				public static TQuantity GradiansPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromGradiansPerSecondSquared(value));
-				public static TStorage GradiansPerSecondSquared(this TQuantity quantity) => Convert.ToGradiansPerSecondSquared(quantity.Quantity);
-				public static TQuantity RevolutionsPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromRevolutionsPerSecondSquared(value));
-				public static TStorage RevolutionsPerSecondSquared(this TQuantity quantity) => Convert.ToRevolutionsPerSecondSquared(quantity.Quantity);
-			}
-		}
-	}
+	// Revolutions per second squared
+	/// <summary>
+	/// Converts a numerical value to <see cref="AngularAcceleration"/> in revolutions per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="AngularAcceleration"/>.</returns>
+	public static AngularAcceleration RevolutionsPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AngularAcceleration>(Constants.RevolutionsToRadiansFactor);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = AngularAcceleration;
-		using TStorage = decimal;
-		public record AngularAcceleration : AngularAcceleration<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="AngularAcceleration"/> value to a numerical value in revolutions per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="AngularAcceleration"/> value to convert.</param>
+	/// <returns>The numerical value in revolutions per second squared.</returns>
+	public static TNumber RevolutionsPerSecondSquared<TNumber>(this AngularAcceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.RevolutionsToRadiansFactor).To<TNumber>();
 
-		namespace Conversions.AngularAcceleration
-		{
-			public static class Conversions
-			{
-				public static TQuantity RadiansPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromRadiansPerSecondSquared(value));
-				public static TStorage RadiansPerSecondSquared(this TQuantity quantity) => Convert.ToRadiansPerSecondSquared(quantity.Quantity);
-				public static TQuantity DegreesPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromDegreesPerSecondSquared(value));
-				public static TStorage DegreesPerSecondSquared(this TQuantity quantity) => Convert.ToDegreesPerSecondSquared(quantity.Quantity);
-				public static TQuantity GradiansPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromGradiansPerSecondSquared(value));
-				public static TStorage GradiansPerSecondSquared(this TQuantity quantity) => Convert.ToGradiansPerSecondSquared(quantity.Quantity);
-				public static TQuantity RevolutionsPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromRevolutionsPerSecondSquared(value));
-				public static TStorage RevolutionsPerSecondSquared(this TQuantity quantity) => Convert.ToRevolutionsPerSecondSquared(quantity.Quantity);
-			}
-		}
-	}
+	// Cycles per second squared
+	/// <summary>
+	/// Converts a numerical value to <see cref="AngularAcceleration"/> in cycles per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="AngularAcceleration"/>.</returns>
+	public static AngularAcceleration CyclesPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AngularAcceleration>(Constants.CyclesToRadiansFactor);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = AngularAcceleration;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record AngularAcceleration : AngularAcceleration<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="AngularAcceleration"/> value to a numerical value in cycles per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="AngularAcceleration"/> value to convert.</param>
+	/// <returns>The numerical value in cycles per second squared.</returns>
+	public static TNumber CyclesPerSecondSquared<TNumber>(this AngularAcceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.CyclesToRadiansFactor).To<TNumber>();
 
-		namespace Conversions.AngularAcceleration
-		{
-			public static class Conversions
-			{
-				public static TQuantity RadiansPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromRadiansPerSecondSquared(value));
-				public static TStorage RadiansPerSecondSquared(this TQuantity quantity) => Convert.ToRadiansPerSecondSquared(quantity.Quantity);
-				public static TQuantity DegreesPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromDegreesPerSecondSquared(value));
-				public static TStorage DegreesPerSecondSquared(this TQuantity quantity) => Convert.ToDegreesPerSecondSquared(quantity.Quantity);
-				public static TQuantity GradiansPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromGradiansPerSecondSquared(value));
-				public static TStorage GradiansPerSecondSquared(this TQuantity quantity) => Convert.ToGradiansPerSecondSquared(quantity.Quantity);
-				public static TQuantity RevolutionsPerSecondSquared(this TStorage value) => TQuantity.Create(Convert.FromRevolutionsPerSecondSquared(value));
-				public static TStorage RevolutionsPerSecondSquared(this TQuantity quantity) => Convert.ToRevolutionsPerSecondSquared(quantity.Quantity);
-			}
-		}
-	}
+	// Turns per second squared
+	/// <summary>
+	/// Converts a numerical value to <see cref="AngularAcceleration"/> in turns per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="AngularAcceleration"/>.</returns>
+	public static AngularAcceleration TurnsPerSecondSquared<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, AngularAcceleration>(Constants.TurnsToRadiansFactor);
+
+	/// <summary>
+	/// Converts an <see cref="AngularAcceleration"/> value to a numerical value in turns per second squared.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="AngularAcceleration"/> value to convert.</param>
+	/// <returns>The numerical value in turns per second squared.</returns>
+	public static TNumber TurnsPerSecondSquared<TNumber>(this AngularAcceleration value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.TurnsToRadiansFactor).To<TNumber>();
 }

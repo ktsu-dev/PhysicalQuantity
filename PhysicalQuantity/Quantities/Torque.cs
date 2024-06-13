@@ -1,109 +1,78 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Torque;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a torque quantity measured in newton meters, foot-pounds, and pound-inches.
+/// </summary>
+[SIUnit("Nm", "newton meter", "newton meters")]
+public sealed record Torque
+	: PhysicalQuantity<Torque>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Torque"/>.
+/// </summary>
+public static class TorqueConversions
 {
-	using System.Numerics;
-	using Convert = Generic.TorqueConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Torque"/> measured in newton meters.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Torque"/> instance representing the specified value in newton meters.</returns>
+	public static Torque NewtonMeters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Torque>();
 
-	namespace Generic
-	{
-		[SIUnit("N·m", "newton meter", "newton meters")]
-		public record Torque<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Torque<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Torque"/> value to a numeric value measured in newton meters.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Torque"/> value to convert.</param>
+	/// <returns>The numeric value representing the torque in newton meters.</returns>
+	public static TNumber NewtonMeters<TNumber>(this Torque value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class TorqueConversions
-		{
-			public static TStorage FromNewtonMeters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToNewtonMeters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromFootPounds<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1.3558179483314004, 0);
-			public static TStorage ToFootPounds<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1.3558179483314004, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Torque"/> measured in foot-pounds.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Torque"/> instance representing the specified value in foot-pounds.</returns>
+	public static Torque FootPounds<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Torque>(Constants.FootPoundsToNewtonMetersFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Torque;
-		using TStorage = float;
-		public record Torque : Torque<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Torque"/> value to a numeric value measured in foot-pounds.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Torque"/> value to convert.</param>
+	/// <returns>The numeric value representing the torque in foot-pounds.</returns>
+	public static TNumber FootPounds<TNumber>(this Torque value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FootPoundsToNewtonMetersFactor).To<TNumber>();
 
-		namespace Conversions.Torque
-		{
-			public static class Conversions
-			{
-				public static TQuantity NewtonMeters(this TStorage value) => TQuantity.Create(Convert.FromNewtonMeters(value));
-				public static TStorage NewtonMeters(this TQuantity quantity) => Convert.ToNewtonMeters(quantity.Quantity);
-				public static TQuantity FootPounds(this TStorage value) => TQuantity.Create(Convert.FromFootPounds(value));
-				public static TStorage FootPounds(this TQuantity quantity) => Convert.ToFootPounds(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Torque"/> measured in pound-inches.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Torque"/> instance representing the specified value in pound-inches.</returns>
+	public static Torque PoundInches<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Torque>(Constants.PoundInchesToNewtonMetersFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Torque;
-		using TStorage = double;
-		public record Torque : Torque<TQuantity, TStorage>;
-
-		namespace Conversions.Torque
-		{
-			public static class Conversions
-			{
-				public static TQuantity NewtonMeters(this TStorage value) => TQuantity.Create(Convert.FromNewtonMeters(value));
-				public static TStorage NewtonMeters(this TQuantity quantity) => Convert.ToNewtonMeters(quantity.Quantity);
-				public static TQuantity FootPounds(this TStorage value) => TQuantity.Create(Convert.FromFootPounds(value));
-				public static TStorage FootPounds(this TQuantity quantity) => Convert.ToFootPounds(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Torque;
-		using TStorage = decimal;
-		public record Torque : Torque<TQuantity, TStorage>;
-
-		namespace Conversions.Torque
-		{
-			public static class Conversions
-			{
-				public static TQuantity NewtonMeters(this TStorage value) => TQuantity.Create(Convert.FromNewtonMeters(value));
-				public static TStorage NewtonMeters(this TQuantity quantity) => Convert.ToNewtonMeters(quantity.Quantity);
-				public static TQuantity FootPounds(this TStorage value) => TQuantity.Create(Convert.FromFootPounds(value));
-				public static TStorage FootPounds(this TQuantity quantity) => Convert.ToFootPounds(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Torque;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Torque : Torque<TQuantity, TStorage>;
-
-		namespace Conversions.Torque
-		{
-			public static class Conversions
-			{
-				public static TQuantity NewtonMeters(this TStorage value) => TQuantity.Create(Convert.FromNewtonMeters(value));
-				public static TStorage NewtonMeters(this TQuantity quantity) => Convert.ToNewtonMeters(quantity.Quantity);
-				public static TQuantity FootPounds(this TStorage value) => TQuantity.Create(Convert.FromFootPounds(value));
-				public static TStorage FootPounds(this TQuantity quantity) => Convert.ToFootPounds(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Torque"/> value to a numeric value measured in pound-inches.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Torque"/> value to convert.</param>
+	/// <returns>The numeric value representing the torque in pound-inches.</returns>
+	public static TNumber PoundInches<TNumber>(this Torque value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.PoundInchesToNewtonMetersFactor).To<TNumber>();
 }

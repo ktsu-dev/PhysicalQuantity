@@ -1,123 +1,78 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Temperature;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a temperature quantity measured in Kelvin, degrees Celsius, and degrees Fahrenheit.
+/// </summary>
+[SIUnit("K", "kelvin", "kelvins")]
+public sealed record Temperature
+	: PhysicalQuantity<Temperature>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Temperature"/>.
+/// </summary>
+public static class TemperatureConversions
 {
-	using System.Numerics;
-	using Convert = Generic.TemperatureConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Temperature"/> measured in Kelvin.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Temperature"/> instance representing the specified value in Kelvin.</returns>
+	public static Temperature Kelvin<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Temperature>();
 
-	namespace Generic
-	{
-		[SIUnit("K", "kelvin", "kelvins")]
-		public record Temperature<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Temperature<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Temperature"/> value to a numeric value measured in Kelvin.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Temperature"/> value to convert.</param>
+	/// <returns>The numeric value representing the temperature in Kelvin.</returns>
+	public static TNumber Kelvin<TNumber>(this Temperature value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class TemperatureConversions
-		{
-			public static TStorage FromKelvins<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToKelvins<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromCelsius<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 273.15);
-			public static TStorage ToCelsius<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 273.15);
-			public static TStorage FromFahrenheit<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 5 / 9.0, 255.3722222222222);
-			public static TStorage ToFahrenheit<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 5 / 9.0, 255.3722222222222);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Temperature"/> measured in degrees Celsius.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Temperature"/> instance representing the specified value in degrees Celsius.</returns>
+	public static Temperature Celsius<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Temperature>(Constants.CelsiusToKelvinFactor, Constants.CelsiusToKelvinOffset);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Temperature;
-		using TStorage = float;
-		public record Temperature : Temperature<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Temperature"/> value to a numeric value measured in degrees Celsius.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Temperature"/> value to convert.</param>
+	/// <returns>The numeric value representing the temperature in degrees Celsius.</returns>
+	public static TNumber Celsius<TNumber>(this Temperature value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.CelsiusToKelvinFactor, Constants.CelsiusToKelvinOffset).To<TNumber>();
 
-		namespace Conversions.Temperature
-		{
-			public static class Conversions
-			{
-				public static TQuantity Kelvins(this TStorage value) => TQuantity.Create(Convert.FromKelvins(value));
-				public static TStorage Kelvins(this TQuantity quantity) => Convert.ToKelvins(quantity.Quantity);
-				public static TQuantity Celsius(this TStorage value) => TQuantity.Create(Convert.FromCelsius(value));
-				public static TStorage Celsius(this TQuantity quantity) => Convert.ToCelsius(quantity.Quantity);
-				public static TQuantity Fahrenheit(this TStorage value) => TQuantity.Create(Convert.FromFahrenheit(value));
-				public static TStorage Fahrenheit(this TQuantity quantity) => Convert.ToFahrenheit(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Temperature"/> measured in degrees Fahrenheit.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Temperature"/> instance representing the specified value in degrees Fahrenheit.</returns>
+	public static Temperature Fahrenheit<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Temperature>(Constants.FahrenheitToKelvinFactor, Constants.FahrenheitToKelvinOffset);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Temperature;
-		using TStorage = double;
-		public record Temperature : Temperature<TQuantity, TStorage>;
-
-		namespace Conversions.Temperature
-		{
-			public static class Conversions
-			{
-				public static TQuantity Kelvins(this TStorage value) => TQuantity.Create(Convert.FromKelvins(value));
-				public static TStorage Kelvins(this TQuantity quantity) => Convert.ToKelvins(quantity.Quantity);
-				public static TQuantity Celsius(this TStorage value) => TQuantity.Create(Convert.FromCelsius(value));
-				public static TStorage Celsius(this TQuantity quantity) => Convert.ToCelsius(quantity.Quantity);
-				public static TQuantity Fahrenheit(this TStorage value) => TQuantity.Create(Convert.FromFahrenheit(value));
-				public static TStorage Fahrenheit(this TQuantity quantity) => Convert.ToFahrenheit(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Temperature;
-		using TStorage = decimal;
-		public record Temperature : Temperature<TQuantity, TStorage>;
-
-		namespace Conversions.Temperature
-		{
-			public static class Conversions
-			{
-				public static TQuantity Kelvins(this TStorage value) => TQuantity.Create(Convert.FromKelvins(value));
-				public static TStorage Kelvins(this TQuantity quantity) => Convert.ToKelvins(quantity.Quantity);
-				public static TQuantity Celsius(this TStorage value) => TQuantity.Create(Convert.FromCelsius(value));
-				public static TStorage Celsius(this TQuantity quantity) => Convert.ToCelsius(quantity.Quantity);
-				public static TQuantity Fahrenheit(this TStorage value) => TQuantity.Create(Convert.FromFahrenheit(value));
-				public static TStorage Fahrenheit(this TQuantity quantity) => Convert.ToFahrenheit(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Temperature;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Temperature : Temperature<TQuantity, TStorage>;
-
-		namespace Conversions.Temperature
-		{
-			public static class Conversions
-			{
-				public static TQuantity Kelvins(this TStorage value) => TQuantity.Create(Convert.FromKelvins(value));
-				public static TStorage Kelvins(this TQuantity quantity) => Convert.ToKelvins(quantity.Quantity);
-				public static TQuantity Celsius(this TStorage value) => TQuantity.Create(Convert.FromCelsius(value));
-				public static TStorage Celsius(this TQuantity quantity) => Convert.ToCelsius(quantity.Quantity);
-				public static TQuantity Fahrenheit(this TStorage value) => TQuantity.Create(Convert.FromFahrenheit(value));
-				public static TStorage Fahrenheit(this TQuantity quantity) => Convert.ToFahrenheit(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Temperature"/> value to a numeric value measured in degrees Fahrenheit.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Temperature"/> value to convert.</param>
+	/// <returns>The numeric value representing the temperature in degrees Fahrenheit.</returns>
+	public static TNumber Fahrenheit<TNumber>(this Temperature value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FahrenheitToKelvinFactor, Constants.FahrenheitToKelvinOffset).To<TNumber>();
 }

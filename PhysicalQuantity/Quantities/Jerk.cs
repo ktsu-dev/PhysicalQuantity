@@ -1,109 +1,57 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Jerk;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+[SIUnit("m/s³", "meter per second cubed", "meters per second cubed")]
+public sealed record Jerk
+	: PhysicalQuantity<Jerk>
+{ }
+
+public static class JerkConversions
 {
-	using System.Numerics;
-	using Convert = Generic.JerkConversions;
+	// Base unit: Meters per second cubed
+	public static Jerk MetersPerSecondCubed<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Jerk>();
 
-	namespace Generic
-	{
-		[SIUnit("m/s³", "meter per second cubed", "meters per second cubed")]
-		public record Jerk<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Jerk<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	public static TNumber MetersPerSecondCubed<TNumber>(this Jerk value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class JerkConversions
-		{
-			public static TStorage FromMetersPerSecondCubed<TStorage>(TStorage value)
-			where TStorage : INumber<TStorage>
-			=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToMetersPerSecondCubed<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromFeetPerSecondCubed<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.3048, 0);
-			public static TStorage ToFeetPerSecondCubed<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.3048, 0);
-		}
-	}
+	// Feet per second cubed
+	public static Jerk FeetPerSecondCubed<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Jerk>(Constants.FeetToMetersFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Jerk;
-		using TStorage = float;
-		public record Jerk : Jerk<TQuantity, TStorage>;
+	public static TNumber FeetPerSecondCubed<TNumber>(this Jerk value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FeetToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Jerk
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondCubed(value));
-				public static TStorage MetersPerSecondCubed(this TQuantity quantity) => Convert.ToMetersPerSecondCubed(quantity.Quantity);
-				public static TQuantity FeetPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondCubed(value));
-				public static TStorage FeetPerSecondCubed(this TQuantity quantity) => Convert.ToFeetPerSecondCubed(quantity.Quantity);
-			}
-		}
-	}
+	// Inches per second cubed
+	public static Jerk InchesPerSecondCubed<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Jerk>(Constants.InchesToMetersFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Jerk;
-		using TStorage = double;
-		public record Jerk : Jerk<TQuantity, TStorage>;
+	public static TNumber InchesPerSecondCubed<TNumber>(this Jerk value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.InchesToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Jerk
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondCubed(value));
-				public static TStorage MetersPerSecondCubed(this TQuantity quantity) => Convert.ToMetersPerSecondCubed(quantity.Quantity);
-				public static TQuantity FeetPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondCubed(value));
-				public static TStorage FeetPerSecondCubed(this TQuantity quantity) => Convert.ToFeetPerSecondCubed(quantity.Quantity);
-			}
-		}
-	}
+	// Yards per second cubed
+	public static Jerk YardsPerSecondCubed<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Jerk>(Constants.YardsToMetersFactor);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Jerk;
-		using TStorage = decimal;
-		public record Jerk : Jerk<TQuantity, TStorage>;
+	public static TNumber YardsPerSecondCubed<TNumber>(this Jerk value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.YardsToMetersFactor).To<TNumber>();
 
-		namespace Conversions.Jerk
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondCubed(value));
-				public static TStorage MetersPerSecondCubed(this TQuantity quantity) => Convert.ToMetersPerSecondCubed(quantity.Quantity);
-				public static TQuantity FeetPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondCubed(value));
-				public static TStorage FeetPerSecondCubed(this TQuantity quantity) => Convert.ToFeetPerSecondCubed(quantity.Quantity);
-			}
-		}
-	}
+	// Miles per second cubed
+	public static Jerk MilesPerSecondCubed<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Jerk>(Constants.MilesToMetersFactor);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Jerk;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Jerk : Jerk<TQuantity, TStorage>;
-
-		namespace Conversions.Jerk
-		{
-			public static class Conversions
-			{
-				public static TQuantity MetersPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromMetersPerSecondCubed(value));
-				public static TStorage MetersPerSecondCubed(this TQuantity quantity) => Convert.ToMetersPerSecondCubed(quantity.Quantity);
-				public static TQuantity FeetPerSecondCubed(this TStorage value) => TQuantity.Create(Convert.FromFeetPerSecondCubed(value));
-				public static TStorage FeetPerSecondCubed(this TQuantity quantity) => Convert.ToFeetPerSecondCubed(quantity.Quantity);
-			}
-		}
-	}
+	public static TNumber MilesPerSecondCubed<TNumber>(this Jerk value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.MilesToMetersFactor).To<TNumber>();
 }

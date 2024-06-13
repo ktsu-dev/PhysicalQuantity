@@ -1,137 +1,142 @@
-// Ignore Spelling: Gradians ktsu
+// Ignore Spelling: Gradians
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.Angle;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+[SIUnit("rad", "radian", "radians")]
+public sealed record Angle : PhysicalQuantity<Angle>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting numerical values to and from <see cref="Angle"/> quantities.
+/// </summary>
+public static class AngleConversions
 {
-	using System.Numerics;
-	using Convert = Generic.AngleConversions;
+	// Base unit: Radians
+	/// <summary>
+	/// Converts a numerical value to <see cref="Angle"/> in radians.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Angle"/>.</returns>
+	public static Angle Radians<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Angle>();
 
-	namespace Generic
-	{
-		[SIUnit("rad", "radian", "radians")]
-		public record Angle<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Angle<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts an <see cref="Angle"/> value to a numerical value in radians.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Angle"/> value to convert.</param>
+	/// <returns>The numerical value in radians.</returns>
+	public static TNumber Radians<TNumber>(this Angle value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class AngleConversions
-		{
-			public static TStorage FromRadians<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToRadians<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromDegrees<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, Math.PI / 180, 0);
-			public static TStorage ToDegrees<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, Math.PI / 180, 0);
-			public static TStorage FromGradians<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, Math.PI / 200, 0);
-			public static TStorage ToGradians<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, Math.PI / 200, 0);
-			public static TStorage FromRevolutions<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 2 * Math.PI, 0);
-			public static TStorage ToRevolutions<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 2 * Math.PI, 0);
-		}
-	}
+	// Degrees
+	/// <summary>
+	/// Converts a numerical value to <see cref="Angle"/> in degrees.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Angle"/>.</returns>
+	public static Angle Degrees<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Angle>(Constants.DegreesToRadiansFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Angle;
-		using TStorage = float;
-		public record Angle : Angle<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Angle"/> value to a numerical value in degrees.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Angle"/> value to convert.</param>
+	/// <returns>The numerical value in degrees.</returns>
+	public static TNumber Degrees<TNumber>(this Angle value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.DegreesToRadiansFactor).To<TNumber>();
 
-		namespace Conversions.Angle
-		{
-			public static class Conversions
-			{
-				public static TQuantity Radians(this TStorage value) => TQuantity.Create(Convert.FromRadians(value));
-				public static TStorage Radians(this TQuantity quantity) => Convert.ToRadians(quantity.Quantity);
-				public static TQuantity Degrees(this TStorage value) => TQuantity.Create(Convert.FromDegrees(value));
-				public static TStorage Degrees(this TQuantity quantity) => Convert.ToDegrees(quantity.Quantity);
-				public static TQuantity Gradians(this TStorage value) => TQuantity.Create(Convert.FromGradians(value));
-				public static TStorage Gradians(this TQuantity quantity) => Convert.ToGradians(quantity.Quantity);
-				public static TQuantity Revolutions(this TStorage value) => TQuantity.Create(Convert.FromRevolutions(value));
-				public static TStorage Revolutions(this TQuantity quantity) => Convert.ToRevolutions(quantity.Quantity);
-			}
-		}
-	}
+	// Gradians
+	/// <summary>
+	/// Converts a numerical value to <see cref="Angle"/> in gradians.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Angle"/>.</returns>
+	public static Angle Gradians<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Angle>(Constants.GradiansToRadiansFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Angle;
-		using TStorage = double;
-		public record Angle : Angle<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Angle"/> value to a numerical value in gradians.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Angle"/> value to convert.</param>
+	/// <returns>The numerical value in gradians.</returns>
+	public static TNumber Gradians<TNumber>(this Angle value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.GradiansToRadiansFactor).To<TNumber>();
 
-		namespace Conversions.Angle
-		{
-			public static class Conversions
-			{
-				public static TQuantity Radians(this TStorage value) => TQuantity.Create(Convert.FromRadians(value));
-				public static TStorage Radians(this TQuantity quantity) => Convert.ToRadians(quantity.Quantity);
-				public static TQuantity Degrees(this TStorage value) => TQuantity.Create(Convert.FromDegrees(value));
-				public static TStorage Degrees(this TQuantity quantity) => Convert.ToDegrees(quantity.Quantity);
-				public static TQuantity Gradians(this TStorage value) => TQuantity.Create(Convert.FromGradians(value));
-				public static TStorage Gradians(this TQuantity quantity) => Convert.ToGradians(quantity.Quantity);
-				public static TQuantity Revolutions(this TStorage value) => TQuantity.Create(Convert.FromRevolutions(value));
-				public static TStorage Revolutions(this TQuantity quantity) => Convert.ToRevolutions(quantity.Quantity);
-			}
-		}
-	}
+	// Minutes
+	/// <summary>
+	/// Converts a numerical value to <see cref="Angle"/> in arcminutes.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Angle"/>.</returns>
+	public static Angle ArcMinutes<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Angle>(Constants.MinutesToRadiansFactor);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Angle;
-		using TStorage = decimal;
-		public record Angle : Angle<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Angle"/> value to a numerical value in arcminutes.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Angle"/> value to convert.</param>
+	/// <returns>The numerical value in arcminutes.</returns>
+	public static TNumber ArcMinutes<TNumber>(this Angle value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.MinutesToRadiansFactor).To<TNumber>();
 
-		namespace Conversions.Angle
-		{
-			public static class Conversions
-			{
-				public static TQuantity Radians(this TStorage value) => TQuantity.Create(Convert.FromRadians(value));
-				public static TStorage Radians(this TQuantity quantity) => Convert.ToRadians(quantity.Quantity);
-				public static TQuantity Degrees(this TStorage value) => TQuantity.Create(Convert.FromDegrees(value));
-				public static TStorage Degrees(this TQuantity quantity) => Convert.ToDegrees(quantity.Quantity);
-				public static TQuantity Gradians(this TStorage value) => TQuantity.Create(Convert.FromGradians(value));
-				public static TStorage Gradians(this TQuantity quantity) => Convert.ToGradians(quantity.Quantity);
-				public static TQuantity Revolutions(this TStorage value) => TQuantity.Create(Convert.FromRevolutions(value));
-				public static TStorage Revolutions(this TQuantity quantity) => Convert.ToRevolutions(quantity.Quantity);
-			}
-		}
-	}
+	// Seconds
+	/// <summary>
+	/// Converts a numerical value to <see cref="Angle"/> in arcseconds.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Angle"/>.</returns>
+	public static Angle ArcSeconds<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Angle>(Constants.SecondsToRadiansFactor);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Angle;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Angle : Angle<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Angle"/> value to a numerical value in arcseconds.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Angle"/> value to convert.</param>
+	/// <returns>The numerical value in arcseconds.</returns>
+	public static TNumber ArcSeconds<TNumber>(this Angle value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.SecondsToRadiansFactor).To<TNumber>();
 
-		namespace Conversions.Angle
-		{
-			public static class Conversions
-			{
-				public static TQuantity Radians(this TStorage value) => TQuantity.Create(Convert.FromRadians(value));
-				public static TStorage Radians(this TQuantity quantity) => Convert.ToRadians(quantity.Quantity);
-				public static TQuantity Degrees(this TStorage value) => TQuantity.Create(Convert.FromDegrees(value));
-				public static TStorage Degrees(this TQuantity quantity) => Convert.ToDegrees(quantity.Quantity);
-				public static TQuantity Gradians(this TStorage value) => TQuantity.Create(Convert.FromGradians(value));
-				public static TStorage Gradians(this TQuantity quantity) => Convert.ToGradians(quantity.Quantity);
-				public static TQuantity Revolutions(this TStorage value) => TQuantity.Create(Convert.FromRevolutions(value));
-				public static TStorage Revolutions(this TQuantity quantity) => Convert.ToRevolutions(quantity.Quantity);
-			}
-		}
-	}
+	// Revolutions
+	/// <summary>
+	/// Converts a numerical value to <see cref="Angle"/> in revolutions.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Angle"/>.</returns>
+	public static Angle Revolutions<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Angle>(Constants.RevolutionsToRadiansFactor);
+
+	/// <summary>
+	/// Converts an <see cref="Angle"/> value to a numerical value in revolutions.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Angle"/> value to convert.</param>
+	/// <returns>The numerical value in revolutions.</returns>
+	public static TNumber Revolutions<TNumber>(this Angle value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.RevolutionsToRadiansFactor).To<TNumber>();
 }

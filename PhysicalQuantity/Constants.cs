@@ -2,6 +2,9 @@ namespace ktsu.io.PhysicalQuantity;
 
 using ktsu.io.SignificantNumber;
 
+/// <summary>
+/// Provides conversion factors for various physical quantities and metric prefixes.
+/// </summary>
 internal static class Constants
 {
 	// Metric prefixes
@@ -33,10 +36,6 @@ internal static class Constants
 	internal static SignificantNumber MilesToMetersFactor { get; } = 1609.344m.ToSignificantNumber();
 	internal static SignificantNumber NauticalMilesToMetersFactor { get; } = 1852m.ToSignificantNumber();
 	internal static SignificantNumber FathomsToMetersFactor { get; } = 1.8288m.ToSignificantNumber();
-	internal static SignificantNumber ChainsToMetersFactor { get; } = 20.1168m.ToSignificantNumber();
-	internal static SignificantNumber RodsToMetersFactor { get; } = 5.0292m.ToSignificantNumber();
-	internal static SignificantNumber FurlongsToMetersFactor { get; } = 201.168m.ToSignificantNumber();
-	internal static SignificantNumber LeaguesToMetersFactor { get; } = 4828.032m.ToSignificantNumber();
 	internal static SignificantNumber AstronomicalUnitsToMetersFactor { get; } = 1.495978707e11m.ToSignificantNumber();
 	internal static SignificantNumber LightYearsToMetersFactor { get; } = 9.4607304725808e15m.ToSignificantNumber();
 	internal static SignificantNumber ParsecsToMetersFactor { get; } = 3.08567758149137e16m.ToSignificantNumber();
@@ -94,4 +93,8 @@ internal static class Constants
 	// Torque conversion factors
 	internal static SignificantNumber FootPoundsToNewtonMetersFactor { get; } = 1.3558179483314004m.ToSignificantNumber();
 	internal static SignificantNumber PoundInchesToNewtonMetersFactor { get; } = 0.1130057188312m.ToSignificantNumber();
+
+	// Illuminance conversion factors
+	internal static SignificantNumber FootCandleToLuxFactor { get; } = 10.763910416709722m.ToSignificantNumber();
+
 }

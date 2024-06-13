@@ -1,137 +1,98 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Time;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a time quantity measured in seconds, minutes, hours, and days.
+/// </summary>
+[SIUnit("s", "second", "seconds")]
+public sealed record Time
+	: PhysicalQuantity<Time>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Time"/>.
+/// </summary>
+public static class TimeConversions
 {
-	using System.Numerics;
-	using Convert = Generic.TimeConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Time"/> measured in seconds.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Time"/> instance representing the specified value in seconds.</returns>
+	public static Time Seconds<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Time>();
 
-	namespace Generic
-	{
-		[SIUnit("s", "second", "seconds")]
-		public record Time<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Time<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Time"/> value to a numeric value measured in seconds.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Time"/> value to convert.</param>
+	/// <returns>The numeric value representing the time in seconds.</returns>
+	public static TNumber Seconds<TNumber>(this Time value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class TimeConversions
-		{
-			public static TStorage FromSeconds<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToSeconds<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromMinutes<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 60, 0);
-			public static TStorage ToMinutes<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 60, 0);
-			public static TStorage FromHours<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 3600, 0);
-			public static TStorage ToHours<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 3600, 0);
-			public static TStorage FromDays<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 86400, 0);
-			public static TStorage ToDays<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 86400, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Time"/> measured in minutes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Time"/> instance representing the specified value in minutes.</returns>
+	public static Time Minutes<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Time>(Constants.MinutesToSecondsFactor);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Time;
-		using TStorage = float;
-		public record Time : Time<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Time"/> value to a numeric value measured in minutes.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Time"/> value to convert.</param>
+	/// <returns>The numeric value representing the time in minutes.</returns>
+	public static TNumber Minutes<TNumber>(this Time value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.MinutesToSecondsFactor).To<TNumber>();
 
-		namespace Conversions.Time
-		{
-			public static class Conversions
-			{
-				public static TQuantity Seconds(this TStorage value) => TQuantity.Create(Convert.FromSeconds(value));
-				public static TStorage Seconds(this TQuantity quantity) => Convert.ToSeconds(quantity.Quantity);
-				public static TQuantity Minutes(this TStorage value) => TQuantity.Create(Convert.FromMinutes(value));
-				public static TStorage Minutes(this TQuantity quantity) => Convert.ToMinutes(quantity.Quantity);
-				public static TQuantity Hours(this TStorage value) => TQuantity.Create(Convert.FromHours(value));
-				public static TStorage Hours(this TQuantity quantity) => Convert.ToHours(quantity.Quantity);
-				public static TQuantity Days(this TStorage value) => TQuantity.Create(Convert.FromDays(value));
-				public static TStorage Days(this TQuantity quantity) => Convert.ToDays(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Time"/> measured in hours.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Time"/> instance representing the specified value in hours.</returns>
+	public static Time Hours<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Time>(Constants.HoursToSecondsFactor);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Time;
-		using TStorage = double;
-		public record Time : Time<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Time"/> value to a numeric value measured in hours.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Time"/> value to convert.</param>
+	/// <returns>The numeric value representing the time in hours.</returns>
+	public static TNumber Hours<TNumber>(this Time value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.HoursToSecondsFactor).To<TNumber>();
 
-		namespace Conversions.Time
-		{
-			public static class Conversions
-			{
-				public static TQuantity Seconds(this TStorage value) => TQuantity.Create(Convert.FromSeconds(value));
-				public static TStorage Seconds(this TQuantity quantity) => Convert.ToSeconds(quantity.Quantity);
-				public static TQuantity Minutes(this TStorage value) => TQuantity.Create(Convert.FromMinutes(value));
-				public static TStorage Minutes(this TQuantity quantity) => Convert.ToMinutes(quantity.Quantity);
-				public static TQuantity Hours(this TStorage value) => TQuantity.Create(Convert.FromHours(value));
-				public static TStorage Hours(this TQuantity quantity) => Convert.ToHours(quantity.Quantity);
-				public static TQuantity Days(this TStorage value) => TQuantity.Create(Convert.FromDays(value));
-				public static TStorage Days(this TQuantity quantity) => Convert.ToDays(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Time"/> measured in days.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Time"/> instance representing the specified value in days.</returns>
+	public static Time Days<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Time>(Constants.DaysToSecondsFactor);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Time;
-		using TStorage = decimal;
-		public record Time : Time<TQuantity, TStorage>;
-
-		namespace Conversions.Time
-		{
-			public static class Conversions
-			{
-				public static TQuantity Seconds(this TStorage value) => TQuantity.Create(Convert.FromSeconds(value));
-				public static TStorage Seconds(this TQuantity quantity) => Convert.ToSeconds(quantity.Quantity);
-				public static TQuantity Minutes(this TStorage value) => TQuantity.Create(Convert.FromMinutes(value));
-				public static TStorage Minutes(this TQuantity quantity) => Convert.ToMinutes(quantity.Quantity);
-				public static TQuantity Hours(this TStorage value) => TQuantity.Create(Convert.FromHours(value));
-				public static TStorage Hours(this TQuantity quantity) => Convert.ToHours(quantity.Quantity);
-				public static TQuantity Days(this TStorage value) => TQuantity.Create(Convert.FromDays(value));
-				public static TStorage Days(this TQuantity quantity) => Convert.ToDays(quantity.Quantity);
-			}
-		}
-	}
-
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Time;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Time : Time<TQuantity, TStorage>;
-
-		namespace Conversions.Time
-		{
-			public static class Conversions
-			{
-				public static TQuantity Seconds(this TStorage value) => TQuantity.Create(Convert.FromSeconds(value));
-				public static TStorage Seconds(this TQuantity quantity) => Convert.ToSeconds(quantity.Quantity);
-				public static TQuantity Minutes(this TStorage value) => TQuantity.Create(Convert.FromMinutes(value));
-				public static TStorage Minutes(this TQuantity quantity) => Convert.ToMinutes(quantity.Quantity);
-				public static TQuantity Hours(this TStorage value) => TQuantity.Create(Convert.FromHours(value));
-				public static TStorage Hours(this TQuantity quantity) => Convert.ToHours(quantity.Quantity);
-				public static TQuantity Days(this TStorage value) => TQuantity.Create(Convert.FromDays(value));
-				public static TStorage Days(this TQuantity quantity) => Convert.ToDays(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Time"/> value to a numeric value measured in days.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Time"/> value to convert.</param>
+	/// <returns>The numeric value representing the time in days.</returns>
+	public static TNumber Days<TNumber>(this Time value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.DaysToSecondsFactor).To<TNumber>();
 }

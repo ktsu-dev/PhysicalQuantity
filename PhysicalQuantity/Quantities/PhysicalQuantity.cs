@@ -1,54 +1,110 @@
-// Ignore Spelling: ktsu
-
 namespace ktsu.io.PhysicalQuantity.Generic;
 
 using System.Numerics;
 using System.Reflection;
 using ktsu.io.PhysicalQuantity;
 using ktsu.io.SemanticQuantity;
+using ktsu.io.SignificantNumber;
 
-public abstract record PhysicalQuantity<TSelf, TStorage>
-	: SemanticQuantity<TSelf, TStorage>
-	where TSelf : PhysicalQuantity<TSelf, TStorage>, new()
-	where TStorage : INumber<TStorage>
+/// <summary>
+/// Represents a physical quantity with a specific unit of measurement.
+/// </summary>
+/// <typeparam name="TSelf">The type of the derived class.</typeparam>
+public abstract record PhysicalQuantity<TSelf>
+	: SemanticQuantity<TSelf, SignificantNumber>
+	where TSelf : PhysicalQuantity<TSelf>, new()
 {
 	private static SIUnitAttribute SIUnitAttribute { get; } = typeof(TSelf).GetCustomAttribute<SIUnitAttribute>() ?? new SIUnitAttribute(string.Empty, string.Empty, string.Empty);
 
+	/// <summary>
+	/// Returns a string representation of the physical quantity, including its unit symbol and name.
+	/// </summary>
+	/// <returns>A string that represents the physical quantity.</returns>
 	public sealed override string ToString()
 	{
 		string symbolComponent = string.IsNullOrWhiteSpace(SIUnitAttribute.Symbol) ? string.Empty : $" {SIUnitAttribute.Symbol}";
-		var absQuantity = TStorage.Abs(Quantity);
-		bool isPlural = absQuantity.CompareTo(TStorage.One) > 0;
+		var absQuantity = Quantity.Abs();
+		bool isPlural = absQuantity > 1.ToSignificantNumber();
 		string pluralComponent = isPlural ? SIUnitAttribute.Plural : SIUnitAttribute.Singular;
 		string nameComponent = string.IsNullOrWhiteSpace(pluralComponent) ? string.Empty : $" ({pluralComponent})";
 		return $"{Quantity}{symbolComponent}{nameComponent}";
 	}
-
-	//public static TStorage ConvertToStorage<T1, T2>(TSelf quantity, T1 factor, T2 offset)
-	//	where T1 : INumber<T1>
-	//	where T2 : INumber<T2>
-	//	=> (quantity.Quantity - TStorage.CreateChecked(offset)) / TStorage.CreateChecked(factor);
-
-	//public static TSelf ConvertFromStorage<T1, T2>(TStorage value, T1 factor, T2 offset)
-	//	where T1 : INumber<T1>
-	//	where T2 : INumber<T2>
-	//	=> Create<TSelf>((value * TStorage.CreateChecked(factor)) + TStorage.CreateChecked(offset));
-
-
-
 }
 
+/// <summary>
+/// Provides static methods for converting values to and from physical quantities.
+/// </summary>
 public static class PhysicalQuantity
 {
-	public static TStorage ConvertToSIQuantity<TStorage, T1, T2>(TStorage value, T1 factor, T2 offset)
-		where TStorage : INumber<TStorage>
-		where T1 : INumber<T1>
-		where T2 : INumber<T2>
-		=> (value * TStorage.CreateChecked(factor)) + TStorage.CreateChecked(offset);
+	/// <summary>
+	/// Converts a numeric value to a specific physical quantity type with a given conversion factor and offset.
+	/// </summary>
+	/// <typeparam name="TInput">The type of the input numeric value.</typeparam>
+	/// <typeparam name="TQuantity">The type of the physical quantity to convert to.</typeparam>
+	/// <param name="value">The numeric value to convert.</param>
+	/// <param name="factor">The conversion factor to apply.</param>
+	/// <param name="offset">The conversion offset to apply.</param>
+	/// <returns>A new instance of the specified physical quantity type.</returns>
+	public static TQuantity ConvertToQuantity<TInput, TQuantity>(this TInput value, SignificantNumber factor, SignificantNumber offset)
+		where TQuantity : PhysicalQuantity<TQuantity>, new()
+		where TInput : INumber<TInput>
+		=> PhysicalQuantity<TQuantity>.Create((value.ToSignificantNumber() * factor.ToSignificantNumber()) + offset.ToSignificantNumber());
 
-	public static TStorage ConvertToArbitraryQuantity<TStorage, T1, T2>(TStorage value, T1 factor, T2 offset)
-		where TStorage : INumber<TStorage>
-		where T1 : INumber<T1>
-		where T2 : INumber<T2>
-		=> (value - TStorage.CreateChecked(offset)) / TStorage.CreateChecked(factor);
+	/// <summary>
+	/// Converts a numeric value to a specific physical quantity type with a given conversion factor.
+	/// </summary>
+	/// <typeparam name="TInput">The type of the input numeric value.</typeparam>
+	/// <typeparam name="TQuantity">The type of the physical quantity to convert to.</typeparam>
+	/// <param name="value">The numeric value to convert.</param>
+	/// <param name="factor">The conversion factor to apply.</param>
+	/// <returns>A new instance of the specified physical quantity type.</returns>
+	public static TQuantity ConvertToQuantity<TInput, TQuantity>(this TInput value, SignificantNumber factor)
+		where TQuantity : PhysicalQuantity<TQuantity>, new()
+		where TInput : INumber<TInput>
+		=> PhysicalQuantity<TQuantity>.Create(value.ToSignificantNumber() * factor.ToSignificantNumber());
+
+	/// <summary>
+	/// Converts a numeric value to a specific physical quantity type without any conversion factor or offset.
+	/// </summary>
+	/// <typeparam name="TInput">The type of the input numeric value.</typeparam>
+	/// <typeparam name="TQuantity">The type of the physical quantity to convert to.</typeparam>
+	/// <param name="value">The numeric value to convert.</param>
+	/// <returns>A new instance of the specified physical quantity type.</returns>
+	public static TQuantity ConvertToQuantity<TInput, TQuantity>(this TInput value)
+		where TQuantity : PhysicalQuantity<TQuantity>, new()
+		where TInput : INumber<TInput>
+		=> PhysicalQuantity<TQuantity>.Create(value.ToSignificantNumber());
+
+	/// <summary>
+	/// Converts a physical quantity to a numeric value with a given conversion factor and offset.
+	/// </summary>
+	/// <typeparam name="TQuantity">The type of the physical quantity to convert from.</typeparam>
+	/// <param name="value">The physical quantity to convert.</param>
+	/// <param name="factor">The conversion factor to apply.</param>
+	/// <param name="offset">The conversion offset to apply.</param>
+	/// <returns>The numeric value representing the converted physical quantity.</returns>
+	public static SignificantNumber ConvertToNumber<TQuantity>(this TQuantity value, SignificantNumber factor, SignificantNumber offset)
+		where TQuantity : PhysicalQuantity<TQuantity>, new()
+		=> (value.Quantity.ToSignificantNumber() - offset.ToSignificantNumber()) / factor.ToSignificantNumber();
+
+	/// <summary>
+	/// Converts a physical quantity to a numeric value with a given conversion factor.
+	/// </summary>
+	/// <typeparam name="TQuantity">The type of the physical quantity to convert from.</typeparam>
+	/// <param name="value">The physical quantity to convert.</param>
+	/// <param name="factor">The conversion factor to apply.</param>
+	/// <returns>The numeric value representing the converted physical quantity.</returns>
+	public static SignificantNumber ConvertToNumber<TQuantity>(this TQuantity value, SignificantNumber factor)
+		where TQuantity : PhysicalQuantity<TQuantity>, new()
+		=> value.Quantity.ToSignificantNumber() / factor.ToSignificantNumber();
+
+	/// <summary>
+	/// Converts a physical quantity to a numeric value without any conversion factor or offset.
+	/// </summary>
+	/// <typeparam name="TQuantity">The type of the physical quantity to convert from.</typeparam>
+	/// <param name="value">The physical quantity to convert.</param>
+	/// <returns>The numeric value representing the converted physical quantity.</returns>
+	public static SignificantNumber ConvertToNumber<TQuantity>(this TQuantity value)
+		where TQuantity : PhysicalQuantity<TQuantity>, new()
+		=> value.Quantity;
 }

@@ -1,137 +1,120 @@
-// Ignore Spelling: ktsu
+// Ignore Spelling: Micrograms Nanograms
 
-namespace ktsu.io.PhysicalQuantity
+namespace ktsu.io.PhysicalQuantity.Density;
+
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+
+/// <summary>
+/// Represents a density quantity measured in kilograms per cubic meter.
+/// </summary>
+[SIUnit("kg/m³", "kilogram per cubic meter", "kilograms per cubic meter")]
+public sealed record Density
+	: PhysicalQuantity<Density>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting values to and from <see cref="Density"/>.
+/// </summary>
+public static class DensityConversions
 {
-	using System.Numerics;
-	using Convert = Generic.DensityConversions;
+	/// <summary>
+	/// Converts a numeric value to <see cref="Density"/> measured in kilograms per cubic meter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Density"/> instance representing the specified value in kilograms per cubic meter.</returns>
+	public static Density KilogramsPerCubicMeter<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Density>();
 
-	namespace Generic
-	{
-		[SIUnit("kg/m³", "kilogram per cubic meter", "kilograms per cubic meter")]
-		public record Density<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Density<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts a <see cref="Density"/> value to a numeric value measured in kilograms per cubic meter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Density"/> value to convert.</param>
+	/// <returns>The numeric value representing the density in kilograms per cubic meter.</returns>
+	public static TNumber KilogramsPerCubicMeter<TNumber>(this Density value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class DensityConversions
-		{
-			public static TStorage FromKilogramsPerCubicMeter<TStorage>(TStorage value)
-			where TStorage : INumber<TStorage>
-			=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToKilogramsPerCubicMeter<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromGramsPerCubicCentimeter<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1000, 0);
-			public static TStorage ToGramsPerCubicCentimeter<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1000, 0);
-			public static TStorage FromPoundsPerCubicFoot<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 16.0184634, 0);
-			public static TStorage ToPoundsPerCubicFoot<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 16.0184634, 0);
-			public static TStorage FromPoundsPerCubicInch<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 27679.9047, 0);
-			public static TStorage ToPoundsPerCubicInch<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 27679.9047, 0);
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Density"/> measured in grams per cubic centimeter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Density"/> instance representing the specified value in grams per cubic centimeter.</returns>
+	public static Density GramsPerCubicCentimeter<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Density>(Constants.Kilo);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Density;
-		using TStorage = float;
-		public record Density : Density<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Density"/> value to a numeric value measured in grams per cubic centimeter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Density"/> value to convert.</param>
+	/// <returns>The numeric value representing the density in grams per cubic centimeter.</returns>
+	public static TNumber GramsPerCubicCentimeter<TNumber>(this Density value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.Density
-		{
-			public static class Conversions
-			{
-				public static TQuantity KilogramsPerCubicMeter(this TStorage value) => TQuantity.Create(Convert.FromKilogramsPerCubicMeter(value));
-				public static TStorage KilogramsPerCubicMeter(this TQuantity quantity) => Convert.ToKilogramsPerCubicMeter(quantity.Quantity);
-				public static TQuantity GramsPerCubicCentimeter(this TStorage value) => TQuantity.Create(Convert.FromGramsPerCubicCentimeter(value));
-				public static TStorage GramsPerCubicCentimeter(this TQuantity quantity) => Convert.ToGramsPerCubicCentimeter(quantity.Quantity);
-				public static TQuantity PoundsPerCubicFoot(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicFoot(value));
-				public static TStorage PoundsPerCubicFoot(this TQuantity quantity) => Convert.ToPoundsPerCubicFoot(quantity.Quantity);
-				public static TQuantity PoundsPerCubicInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicInch(value));
-				public static TStorage PoundsPerCubicInch(this TQuantity quantity) => Convert.ToPoundsPerCubicInch(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Density"/> measured in milligrams per cubic meter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Density"/> instance representing the specified value in milligrams per cubic meter.</returns>
+	public static Density MilligramsPerCubicMeter<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Density>(Constants.Milli);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Density;
-		using TStorage = double;
-		public record Density : Density<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Density"/> value to a numeric value measured in milligrams per cubic meter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Density"/> value to convert.</param>
+	/// <returns>The numeric value representing the density in milligrams per cubic meter.</returns>
+	public static TNumber MilligramsPerCubicMeter<TNumber>(this Density value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli).To<TNumber>();
 
-		namespace Conversions.Density
-		{
-			public static class Conversions
-			{
-				public static TQuantity KilogramsPerCubicMeter(this TStorage value) => TQuantity.Create(Convert.FromKilogramsPerCubicMeter(value));
-				public static TStorage KilogramsPerCubicMeter(this TQuantity quantity) => Convert.ToKilogramsPerCubicMeter(quantity.Quantity);
-				public static TQuantity GramsPerCubicCentimeter(this TStorage value) => TQuantity.Create(Convert.FromGramsPerCubicCentimeter(value));
-				public static TStorage GramsPerCubicCentimeter(this TQuantity quantity) => Convert.ToGramsPerCubicCentimeter(quantity.Quantity);
-				public static TQuantity PoundsPerCubicFoot(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicFoot(value));
-				public static TStorage PoundsPerCubicFoot(this TQuantity quantity) => Convert.ToPoundsPerCubicFoot(quantity.Quantity);
-				public static TQuantity PoundsPerCubicInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicInch(value));
-				public static TStorage PoundsPerCubicInch(this TQuantity quantity) => Convert.ToPoundsPerCubicInch(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Density"/> measured in micrograms per cubic meter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Density"/> instance representing the specified value in micrograms per cubic meter.</returns>
+	public static Density MicrogramsPerCubicMeter<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Density>(Constants.Micro);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Density;
-		using TStorage = decimal;
-		public record Density : Density<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts a <see cref="Density"/> value to a numeric value measured in micrograms per cubic meter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Density"/> value to convert.</param>
+	/// <returns>The numeric value representing the density in micrograms per cubic meter.</returns>
+	public static TNumber MicrogramsPerCubicMeter<TNumber>(this Density value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Micro).To<TNumber>();
 
-		namespace Conversions.Density
-		{
-			public static class Conversions
-			{
-				public static TQuantity KilogramsPerCubicMeter(this TStorage value) => TQuantity.Create(Convert.FromKilogramsPerCubicMeter(value));
-				public static TStorage KilogramsPerCubicMeter(this TQuantity quantity) => Convert.ToKilogramsPerCubicMeter(quantity.Quantity);
-				public static TQuantity GramsPerCubicCentimeter(this TStorage value) => TQuantity.Create(Convert.FromGramsPerCubicCentimeter(value));
-				public static TStorage GramsPerCubicCentimeter(this TQuantity quantity) => Convert.ToGramsPerCubicCentimeter(quantity.Quantity);
-				public static TQuantity PoundsPerCubicFoot(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicFoot(value));
-				public static TStorage PoundsPerCubicFoot(this TQuantity quantity) => Convert.ToPoundsPerCubicFoot(quantity.Quantity);
-				public static TQuantity PoundsPerCubicInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicInch(value));
-				public static TStorage PoundsPerCubicInch(this TQuantity quantity) => Convert.ToPoundsPerCubicInch(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a numeric value to <see cref="Density"/> measured in nanograms per cubic meter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Density"/> instance representing the specified value in nanograms per cubic meter.</returns>
+	public static Density NanogramsPerCubicMeter<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Density>(Constants.Nano);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Density;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Density : Density<TQuantity, TStorage>;
-
-		namespace Conversions.Density
-		{
-			public static class Conversions
-			{
-				public static TQuantity KilogramsPerCubicMeter(this TStorage value) => TQuantity.Create(Convert.FromKilogramsPerCubicMeter(value));
-				public static TStorage KilogramsPerCubicMeter(this TQuantity quantity) => Convert.ToKilogramsPerCubicMeter(quantity.Quantity);
-				public static TQuantity GramsPerCubicCentimeter(this TStorage value) => TQuantity.Create(Convert.FromGramsPerCubicCentimeter(value));
-				public static TStorage GramsPerCubicCentimeter(this TQuantity quantity) => Convert.ToGramsPerCubicCentimeter(quantity.Quantity);
-				public static TQuantity PoundsPerCubicFoot(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicFoot(value));
-				public static TStorage PoundsPerCubicFoot(this TQuantity quantity) => Convert.ToPoundsPerCubicFoot(quantity.Quantity);
-				public static TQuantity PoundsPerCubicInch(this TStorage value) => TQuantity.Create(Convert.FromPoundsPerCubicInch(value));
-				public static TStorage PoundsPerCubicInch(this TQuantity quantity) => Convert.ToPoundsPerCubicInch(quantity.Quantity);
-			}
-		}
-	}
+	/// <summary>
+	/// Converts a <see cref="Density"/> value to a numeric value measured in nanograms per cubic meter.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Density"/> value to convert.</param>
+	/// <returns>The numeric value representing the density in nanograms per cubic meter.</returns>
+	public static TNumber NanogramsPerCubicMeter<TNumber>(this Density value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Nano).To<TNumber>();
 }

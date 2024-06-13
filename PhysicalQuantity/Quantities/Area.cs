@@ -1,221 +1,246 @@
-// Ignore Spelling: ktsu
+namespace ktsu.io.PhysicalQuantity.Area;
 
-namespace ktsu.io.PhysicalQuantity
+using System.Numerics;
+using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.SignificantNumber;
+
+[SIUnit("m²", "square meter", "square meters")]
+public sealed record Area : PhysicalQuantity<Area>
+{ }
+
+/// <summary>
+/// Provides extension methods for converting numerical values to and from <see cref="Area"/> quantities.
+/// </summary>
+public static class AreaConversions
 {
-	using System.Numerics;
-	using Convert = Generic.AreaConversions;
+	// Base unit: Square meters
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square meters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareMeters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>();
 
-	namespace Generic
-	{
-		[SIUnit("m²", "square meter", "square meters")]
-		public record Area<TSelf, TStorage>
-			: PhysicalQuantity<TSelf, TStorage>
-			where TSelf : Area<TSelf, TStorage>, new()
-			where TStorage : INumber<TStorage>
-		{ }
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square meters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square meters.</returns>
+	public static TNumber SquareMeters<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber().To<TNumber>();
 
-		public static class AreaConversions
-		{
-			public static TStorage FromSquareMeters<TStorage>(TStorage value)
-			where TStorage : INumber<TStorage>
-			=> PhysicalQuantity.ConvertToSIQuantity(value, 1, 0);
-			public static TStorage ToSquareMeters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1, 0);
-			public static TStorage FromSquareFeet<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.09290304, 0);
-			public static TStorage ToSquareFeet<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.09290304, 0);
-			public static TStorage FromSquareInches<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.00064516, 0);
-			public static TStorage ToSquareInches<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.00064516, 0);
-			public static TStorage FromSquareCentimeters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.0001, 0);
-			public static TStorage ToSquareCentimeters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.0001, 0);
-			public static TStorage FromSquareMillimeters<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.000001, 0);
-			public static TStorage ToSquareMillimeters<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.000001, 0);
-			public static TStorage FromHectares<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 10000, 0);
-			public static TStorage ToHectares<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 10000, 0);
-			public static TStorage FromAcres<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 4046.8564224, 0);
-			public static TStorage ToAcres<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 4046.8564224, 0);
-			public static TStorage FromSquareKilometers<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 1000000, 0);
-			public static TStorage ToSquareKilometers<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 1000000, 0);
-			public static TStorage FromSquareMiles<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 2589988.110336, 0);
-			public static TStorage ToSquareMiles<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 2589988.110336, 0);
-			public static TStorage FromSquareYards<TStorage>(TStorage value)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToSIQuantity(value, 0.83612736, 0);
-			public static TStorage ToSquareYards<TStorage>(TStorage quantity)
-				where TStorage : INumber<TStorage>
-				=> PhysicalQuantity.ConvertToArbitraryQuantity(quantity, 0.83612736, 0);
-		}
-	}
+	// Square kilometers
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square kilometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareKilometers<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.Kilo * Constants.Kilo);
 
-	namespace Single
-	{
-		using Generic;
-		using TQuantity = Area;
-		using TStorage = float;
-		public record Area : Area<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square kilometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square kilometers.</returns>
+	public static TNumber SquareKilometers<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Kilo * Constants.Kilo).To<TNumber>();
 
-		namespace Conversions.Area
-		{
-			public static class Conversions
-			{
-				public static TQuantity SquareMeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMeters(value));
-				public static TStorage SquareMeters(this TQuantity quantity) => Convert.ToSquareMeters(quantity.Quantity);
-				public static TQuantity SquareFeet(this TStorage value) => TQuantity.Create(Convert.FromSquareFeet(value));
-				public static TStorage SquareFeet(this TQuantity quantity) => Convert.ToSquareFeet(quantity.Quantity);
-				public static TQuantity SquareInches(this TStorage value) => TQuantity.Create(Convert.FromSquareInches(value));
-				public static TStorage SquareInches(this TQuantity quantity) => Convert.ToSquareInches(quantity.Quantity);
-				public static TQuantity SquareCentimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareCentimeters(value));
-				public static TStorage SquareCentimeters(this TQuantity quantity) => Convert.ToSquareCentimeters(quantity.Quantity);
-				public static TQuantity SquareMillimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMillimeters(value));
-				public static TStorage SquareMillimeters(this TQuantity quantity) => Convert.ToSquareMillimeters(quantity.Quantity);
-				public static TQuantity Hectares(this TStorage value) => TQuantity.Create(Convert.FromHectares(value));
-				public static TStorage Hectares(this TQuantity quantity) => Convert.ToHectares(quantity.Quantity);
-				public static TQuantity Acres(this TStorage value) => TQuantity.Create(Convert.FromAcres(value));
-				public static TStorage Acres(this TQuantity quantity) => Convert.ToAcres(quantity.Quantity);
-				public static TQuantity SquareKilometers(this TStorage value) => TQuantity.Create(Convert.FromSquareKilometers(value));
-				public static TStorage SquareKilometers(this TQuantity quantity) => Convert.ToSquareKilometers(quantity.Quantity);
-				public static TQuantity SquareMiles(this TStorage value) => TQuantity.Create(Convert.FromSquareMiles(value));
-				public static TStorage SquareMiles(this TQuantity quantity) => Convert.ToSquareMiles(quantity.Quantity);
-				public static TQuantity SquareYards(this TStorage value) => TQuantity.Create(Convert.FromSquareYards(value));
-				public static TStorage SquareYards(this TQuantity quantity) => Convert.ToSquareYards(quantity.Quantity);
-			}
-		}
-	}
+	// Square centimeters
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square centimeters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareCentimeters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.Centi * Constants.Centi);
 
-	namespace Double
-	{
-		using Generic;
-		using TQuantity = Area;
-		using TStorage = double;
-		public record Area : Area<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square centimeters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square centimeters.</returns>
+	public static TNumber SquareCentimeters<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Centi * Constants.Centi).To<TNumber>();
 
-		namespace Conversions.Area
-		{
-			public static class Conversions
-			{
-				public static TQuantity SquareMeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMeters(value));
-				public static TStorage SquareMeters(this TQuantity quantity) => Convert.ToSquareMeters(quantity.Quantity);
-				public static TQuantity SquareFeet(this TStorage value) => TQuantity.Create(Convert.FromSquareFeet(value));
-				public static TStorage SquareFeet(this TQuantity quantity) => Convert.ToSquareFeet(quantity.Quantity);
-				public static TQuantity SquareInches(this TStorage value) => TQuantity.Create(Convert.FromSquareInches(value));
-				public static TStorage SquareInches(this TQuantity quantity) => Convert.ToSquareInches(quantity.Quantity);
-				public static TQuantity SquareCentimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareCentimeters(value));
-				public static TStorage SquareCentimeters(this TQuantity quantity) => Convert.ToSquareCentimeters(quantity.Quantity);
-				public static TQuantity SquareMillimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMillimeters(value));
-				public static TStorage SquareMillimeters(this TQuantity quantity) => Convert.ToSquareMillimeters(quantity.Quantity);
-				public static TQuantity Hectares(this TStorage value) => TQuantity.Create(Convert.FromHectares(value));
-				public static TStorage Hectares(this TQuantity quantity) => Convert.ToHectares(quantity.Quantity);
-				public static TQuantity Acres(this TStorage value) => TQuantity.Create(Convert.FromAcres(value));
-				public static TStorage Acres(this TQuantity quantity) => Convert.ToAcres(quantity.Quantity);
-				public static TQuantity SquareKilometers(this TStorage value) => TQuantity.Create(Convert.FromSquareKilometers(value));
-				public static TStorage SquareKilometers(this TQuantity quantity) => Convert.ToSquareKilometers(quantity.Quantity);
-				public static TQuantity SquareMiles(this TStorage value) => TQuantity.Create(Convert.FromSquareMiles(value));
-				public static TStorage SquareMiles(this TQuantity quantity) => Convert.ToSquareMiles(quantity.Quantity);
-				public static TQuantity SquareYards(this TStorage value) => TQuantity.Create(Convert.FromSquareYards(value));
-				public static TStorage SquareYards(this TQuantity quantity) => Convert.ToSquareYards(quantity.Quantity);
-			}
-		}
-	}
+	// Square millimeters
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square millimeters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareMillimeters<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.Milli * Constants.Milli);
 
-	namespace Decimal
-	{
-		using Generic;
-		using TQuantity = Area;
-		using TStorage = decimal;
-		public record Area : Area<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square millimeters.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square millimeters.</returns>
+	public static TNumber SquareMillimeters<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Milli * Constants.Milli).To<TNumber>();
 
-		namespace Conversions.Area
-		{
-			public static class Conversions
-			{
-				public static TQuantity SquareMeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMeters(value));
-				public static TStorage SquareMeters(this TQuantity quantity) => Convert.ToSquareMeters(quantity.Quantity);
-				public static TQuantity SquareFeet(this TStorage value) => TQuantity.Create(Convert.FromSquareFeet(value));
-				public static TStorage SquareFeet(this TQuantity quantity) => Convert.ToSquareFeet(quantity.Quantity);
-				public static TQuantity SquareInches(this TStorage value) => TQuantity.Create(Convert.FromSquareInches(value));
-				public static TStorage SquareInches(this TQuantity quantity) => Convert.ToSquareInches(quantity.Quantity);
-				public static TQuantity SquareCentimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareCentimeters(value));
-				public static TStorage SquareCentimeters(this TQuantity quantity) => Convert.ToSquareCentimeters(quantity.Quantity);
-				public static TQuantity SquareMillimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMillimeters(value));
-				public static TStorage SquareMillimeters(this TQuantity quantity) => Convert.ToSquareMillimeters(quantity.Quantity);
-				public static TQuantity Hectares(this TStorage value) => TQuantity.Create(Convert.FromHectares(value));
-				public static TStorage Hectares(this TQuantity quantity) => Convert.ToHectares(quantity.Quantity);
-				public static TQuantity Acres(this TStorage value) => TQuantity.Create(Convert.FromAcres(value));
-				public static TStorage Acres(this TQuantity quantity) => Convert.ToAcres(quantity.Quantity);
-				public static TQuantity SquareKilometers(this TStorage value) => TQuantity.Create(Convert.FromSquareKilometers(value));
-				public static TStorage SquareKilometers(this TQuantity quantity) => Convert.ToSquareKilometers(quantity.Quantity);
-				public static TQuantity SquareMiles(this TStorage value) => TQuantity.Create(Convert.FromSquareMiles(value));
-				public static TStorage SquareMiles(this TQuantity quantity) => Convert.ToSquareMiles(quantity.Quantity);
-				public static TQuantity SquareYards(this TStorage value) => TQuantity.Create(Convert.FromSquareYards(value));
-				public static TStorage SquareYards(this TQuantity quantity) => Convert.ToSquareYards(quantity.Quantity);
-			}
-		}
-	}
+	// Square micrometers
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square micrometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareMicrometers<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.Micro * Constants.Micro);
 
-	namespace Significant
-	{
-		using Generic;
-		using TQuantity = Area;
-		using TStorage = SignificantNumber.SignificantNumber;
-		public record Area : Area<TQuantity, TStorage>;
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square micrometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square micrometers.</returns>
+	public static TNumber SquareMicrometers<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Micro * Constants.Micro).To<TNumber>();
 
-		namespace Conversions.Area
-		{
-			public static class Conversions
-			{
-				public static TQuantity SquareMeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMeters(value));
-				public static TStorage SquareMeters(this TQuantity quantity) => Convert.ToSquareMeters(quantity.Quantity);
-				public static TQuantity SquareFeet(this TStorage value) => TQuantity.Create(Convert.FromSquareFeet(value));
-				public static TStorage SquareFeet(this TQuantity quantity) => Convert.ToSquareFeet(quantity.Quantity);
-				public static TQuantity SquareInches(this TStorage value) => TQuantity.Create(Convert.FromSquareInches(value));
-				public static TStorage SquareInches(this TQuantity quantity) => Convert.ToSquareInches(quantity.Quantity);
-				public static TQuantity SquareCentimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareCentimeters(value));
-				public static TStorage SquareCentimeters(this TQuantity quantity) => Convert.ToSquareCentimeters(quantity.Quantity);
-				public static TQuantity SquareMillimeters(this TStorage value) => TQuantity.Create(Convert.FromSquareMillimeters(value));
-				public static TStorage SquareMillimeters(this TQuantity quantity) => Convert.ToSquareMillimeters(quantity.Quantity);
-				public static TQuantity Hectares(this TStorage value) => TQuantity.Create(Convert.FromHectares(value));
-				public static TStorage Hectares(this TQuantity quantity) => Convert.ToHectares(quantity.Quantity);
-				public static TQuantity Acres(this TStorage value) => TQuantity.Create(Convert.FromAcres(value));
-				public static TStorage Acres(this TQuantity quantity) => Convert.ToAcres(quantity.Quantity);
-				public static TQuantity SquareKilometers(this TStorage value) => TQuantity.Create(Convert.FromSquareKilometers(value));
-				public static TStorage SquareKilometers(this TQuantity quantity) => Convert.ToSquareKilometers(quantity.Quantity);
-				public static TQuantity SquareMiles(this TStorage value) => TQuantity.Create(Convert.FromSquareMiles(value));
-				public static TStorage SquareMiles(this TQuantity quantity) => Convert.ToSquareMiles(quantity.Quantity);
-				public static TQuantity SquareYards(this TStorage value) => TQuantity.Create(Convert.FromSquareYards(value));
-				public static TStorage SquareYards(this TQuantity quantity) => Convert.ToSquareYards(quantity.Quantity);
-			}
-		}
-	}
+	// Square nanometers
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square nanometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareNanometers<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.Nano * Constants.Nano);
+
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square nanometers.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square nanometers.</returns>
+	public static TNumber SquareNanometers<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Nano * Constants.Nano).To<TNumber>();
+
+	// Hectares
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in hectares.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area Hectares<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.Hecto * Constants.Hecto);
+
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in hectares.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in hectares.</returns>
+	public static TNumber Hectares<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.Hecto * Constants.Hecto).To<TNumber>();
+
+	// Acres
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in acres.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area Acres<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(4046.8564224m.ToSignificantNumber());
+
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in acres.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in acres.</returns>
+	public static TNumber Acres<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(4046.8564224m.ToSignificantNumber()).To<TNumber>();
+
+	// Square feet
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square feet.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareFeet<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.FeetToMetersFactor * Constants.FeetToMetersFactor);
+
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square feet.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square feet.</returns>
+	public static TNumber SquareFeet<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.FeetToMetersFactor * Constants.FeetToMetersFactor).To<TNumber>();
+
+	// Square inches
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square inches.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareInches<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.InchesToMetersFactor * Constants.InchesToMetersFactor);
+
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square inches.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square inches.</returns>
+	public static TNumber SquareInches<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.InchesToMetersFactor * Constants.InchesToMetersFactor).To<TNumber>();
+
+	// Square yards
+	/// <summary>
+	/// Converts a numerical value to <see cref="Area"/> in square yards.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The numerical value to convert.</param>
+	/// <returns>An instance of <see cref="Area"/>.</returns>
+	public static Area SquareYards<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.YardsToMetersFactor * Constants.YardsToMetersFactor);
+
+	/// <summary>
+	/// Converts an <see cref="Area"/> value to a numerical value in square yards.
+	/// </summary>
+	/// <typeparam name="TNumber">The type of the numerical value.</typeparam>
+	/// <param name="value">The <see cref="Area"/> value to convert.</param>
+	/// <returns>The numerical value in square yards.</returns>
+	public static TNumber SquareYards<TNumber>(this Area value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.YardsToMetersFactor * Constants.YardsToMetersFactor).To<TNumber>();
 }
