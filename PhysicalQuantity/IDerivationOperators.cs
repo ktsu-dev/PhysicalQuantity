@@ -9,5 +9,5 @@ public interface IDerivationOperators<TSelf, TOther, TResult>
 	where TOther : PhysicalQuantity<TOther>, new()
 	where TResult : PhysicalQuantity<TResult>, new()
 {
-	public static TResult operator /(IDerivationOperators<TSelf, TOther, TResult> left, TOther right) => PhysicalQuantity<TSelf>.Divide<TResult>((PhysicalQuantity<TSelf>)left, right);
+	public static TResult operator /(IDerivationOperators<TSelf, TOther, TResult> left, TOther right) => PhysicalQuantity<TSelf>.Divide<TResult>((TSelf)left, right);
 }
