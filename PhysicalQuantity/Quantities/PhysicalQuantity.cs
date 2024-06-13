@@ -3,6 +3,7 @@
 
 namespace ktsu.io.PhysicalQuantity.Generic;
 
+using System;
 using System.Numerics;
 using System.Reflection;
 using ktsu.io.PhysicalQuantity;
@@ -88,7 +89,11 @@ public static class PhysicalQuantity
 	/// <returns>The numeric value representing the converted physical quantity.</returns>
 	public static SignificantNumber ConvertToNumber<TQuantity>(this TQuantity value, SignificantNumber factor, SignificantNumber offset)
 		where TQuantity : PhysicalQuantity<TQuantity>, new()
-		=> (value.Quantity.ToSignificantNumber() - offset.ToSignificantNumber()) / factor.ToSignificantNumber();
+	{
+		ArgumentNullException.ThrowIfNull(value);
+
+		return (value.Quantity.ToSignificantNumber() - offset.ToSignificantNumber()) / factor.ToSignificantNumber();
+	}
 
 	/// <summary>
 	/// Converts a physical quantity to a numeric value with a given conversion factor.
@@ -99,7 +104,11 @@ public static class PhysicalQuantity
 	/// <returns>The numeric value representing the converted physical quantity.</returns>
 	public static SignificantNumber ConvertToNumber<TQuantity>(this TQuantity value, SignificantNumber factor)
 		where TQuantity : PhysicalQuantity<TQuantity>, new()
-		=> value.Quantity.ToSignificantNumber() / factor.ToSignificantNumber();
+	{
+		ArgumentNullException.ThrowIfNull(value);
+
+		return value.Quantity.ToSignificantNumber() / factor.ToSignificantNumber();
+	}
 
 	/// <summary>
 	/// Converts a physical quantity to a numeric value without any conversion factor or offset.
@@ -109,5 +118,9 @@ public static class PhysicalQuantity
 	/// <returns>The numeric value representing the converted physical quantity.</returns>
 	public static SignificantNumber ConvertToNumber<TQuantity>(this TQuantity value)
 		where TQuantity : PhysicalQuantity<TQuantity>, new()
-		=> value.Quantity;
+	{
+		ArgumentNullException.ThrowIfNull(value);
+
+		return value.Quantity;
+	}
 }
