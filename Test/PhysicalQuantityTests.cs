@@ -56,10 +56,13 @@ public class PhysicalQuantityTests
 	[TestMethod]
 	public void TestAngleConversions()
 	{
-		var value = 180.ToSignificantNumber();
-		Assert.AreEqual(value, value.Degrees().Degrees<SignificantNumber>());
-		Assert.AreEqual(value * 0.017453292519943295.ToSignificantNumber(), value.Degrees().Radians<SignificantNumber>());
-		Assert.AreEqual(value * 0.0027777777777777778.ToSignificantNumber(), value.Degrees().Revolutions<SignificantNumber>());
+		var value = 3.ToSignificantNumber();
+		Assert.AreEqual(value, value.Radians().Radians<SignificantNumber>());
+		Assert.AreEqual(value * 57.2957795.ToSignificantNumber(), value.Radians().Degrees<SignificantNumber>());
+		Assert.AreEqual(value * 0.15915494.ToSignificantNumber(), value.Radians().Revolutions<SignificantNumber>());
+		Assert.AreEqual(value * 3437.74677.ToSignificantNumber(), value.Radians().ArcMinutes<SignificantNumber>());
+		Assert.AreEqual(value * 206264.806.ToSignificantNumber(), value.Radians().ArcSeconds<SignificantNumber>());
+		Assert.AreEqual(value * 63.6619772.ToSignificantNumber(), value.Radians().Gradians<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -149,6 +152,7 @@ public class PhysicalQuantityTests
 		Assert.AreEqual(value / 1000.ToSignificantNumber(), value.Newtons().Kilonewtons<SignificantNumber>());
 		Assert.AreEqual(value * 1000.ToSignificantNumber(), value.Newtons().Millinewtons<SignificantNumber>());
 		Assert.AreEqual(value * 1e6.ToSignificantNumber(), value.Newtons().Micronewtons<SignificantNumber>());
+		Assert.AreEqual(value / 4.4482216152605.ToSignificantNumber(), value.Newtons().PoundsForce<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -210,6 +214,7 @@ public class PhysicalQuantityTests
 		Assert.AreEqual(value / 0.45359237.ToSignificantNumber(), value.Kilograms().Pounds<SignificantNumber>());
 		Assert.AreEqual(value / 1000.ToSignificantNumber(), value.Kilograms().MetricTons<SignificantNumber>());
 		Assert.AreEqual(value * 1e6.ToSignificantNumber(), value.Kilograms().Milligrams<SignificantNumber>());
+		Assert.AreEqual(value / 6.35029318.ToSignificantNumber(), value.Kilograms().Stones<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -226,6 +231,10 @@ public class PhysicalQuantityTests
 	{
 		var value = 1000.ToSignificantNumber();
 		Assert.AreEqual(value, value.Pascals().Pascals<SignificantNumber>());
+		Assert.AreEqual(value / 1e5.ToSignificantNumber(), value.Pascals().Bars<SignificantNumber>());
+		Assert.AreEqual(value / 6894.757293168361.ToSignificantNumber(), value.Pascals().Psi<SignificantNumber>());
+		Assert.AreEqual(value / 101325.ToSignificantNumber(), value.Pascals().Atmospheres<SignificantNumber>());
+		Assert.AreEqual(value / 133.32236842105263.ToSignificantNumber(), value.Pascals().Torr<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -261,6 +270,8 @@ public class PhysicalQuantityTests
 	{
 		var value = 10.ToSignificantNumber();
 		Assert.AreEqual(value, value.NewtonMeters().NewtonMeters<SignificantNumber>());
+		Assert.AreEqual(value / 1.3558179483314004.ToSignificantNumber(), value.NewtonMeters().FootPounds<SignificantNumber>());
+		Assert.AreEqual(value / 0.1130057188312.ToSignificantNumber(), value.NewtonMeters().PoundInches<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -269,14 +280,19 @@ public class PhysicalQuantityTests
 		var value = 10.ToSignificantNumber();
 		Assert.AreEqual(value, value.MetersPerSecond().MetersPerSecond<SignificantNumber>());
 		Assert.AreEqual(value * 3.6.ToSignificantNumber(), value.MetersPerSecond().KilometersPerHour<SignificantNumber>());
+		Assert.AreEqual(value / 0.44704.ToSignificantNumber(), value.MetersPerSecond().MilesPerHour<SignificantNumber>());
+		Assert.AreEqual(value / 0.3048.ToSignificantNumber(), value.MetersPerSecond().FeetPerSecond<SignificantNumber>());
+		Assert.AreEqual(value / 0.0254.ToSignificantNumber(), value.MetersPerSecond().InchesPerSecond<SignificantNumber>());
 	}
 
 	[TestMethod]
 	public void TestVolumeConversions()
 	{
-		var value = 1.ToSignificantNumber();
+		var value = 10.ToSignificantNumber();
 		Assert.AreEqual(value, value.CubicMeters().CubicMeters<SignificantNumber>());
 		Assert.AreEqual(value * 1000.ToSignificantNumber(), value.CubicMeters().Liters<SignificantNumber>());
 		Assert.AreEqual(value * 1e6.ToSignificantNumber(), value.CubicMeters().Milliliters<SignificantNumber>());
+		Assert.AreEqual(value * 35.314666721.ToSignificantNumber(), value.CubicMeters().CubicFeet<SignificantNumber>());
+		Assert.AreEqual(value * 61023.744094732284.ToSignificantNumber(), value.CubicMeters().CubicInches<SignificantNumber>());
 	}
 }
