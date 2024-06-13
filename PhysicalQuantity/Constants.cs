@@ -97,4 +97,6 @@ internal static class Constants
 	// Illuminance conversion factors
 	internal static SignificantNumber FootCandleToLuxFactor { get; } = 10.763910416709722m.ToSignificantNumber();
 
+	// Area conversion factors
+	internal static SignificantNumber AcresToSquareMetersFactor { get; } = 4046.8564224m.ToSignificantNumber();
 }

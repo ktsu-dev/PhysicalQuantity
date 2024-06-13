@@ -2,7 +2,6 @@ namespace ktsu.io.PhysicalQuantity.Area;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.SignificantNumber;
 
 [SIUnit("m²", "square meter", "square meters")]
 public sealed record Area : PhysicalQuantity<Area>
@@ -169,7 +168,7 @@ public static class AreaConversions
 	/// <returns>An instance of <see cref="Area"/>.</returns>
 	public static Area Acres<TNumber>(this TNumber value)
 		where TNumber : INumber<TNumber>
-		=> value.ConvertToQuantity<TNumber, Area>(4046.8564224m.ToSignificantNumber());
+		=> value.ConvertToQuantity<TNumber, Area>(Constants.AcresToSquareMetersFactor);
 
 	/// <summary>
 	/// Converts an <see cref="Area"/> value to a numerical value in acres.
@@ -179,7 +178,7 @@ public static class AreaConversions
 	/// <returns>The numerical value in acres.</returns>
 	public static TNumber Acres<TNumber>(this Area value)
 		where TNumber : INumber<TNumber>
-		=> value.ConvertToNumber(4046.8564224m.ToSignificantNumber()).To<TNumber>();
+		=> value.ConvertToNumber(Constants.AcresToSquareMetersFactor).To<TNumber>();
 
 	// Square feet
 	/// <summary>
