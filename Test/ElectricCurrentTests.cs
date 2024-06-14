@@ -1,5 +1,6 @@
 namespace ktsu.io.PhysicalQuantity.Tests;
 
+using ktsu.io.PhysicalQuantity.Charge;
 using ktsu.io.PhysicalQuantity.ElectricCurrent;
 using ktsu.io.PhysicalQuantity.Time;
 using ktsu.io.SignificantNumber;
@@ -18,27 +19,27 @@ public class ElectricCurrentTests
 		Assert.AreEqual(value * 1e9.ToSignificantNumber(), value.Amperes().Nanoamperes<SignificantNumber>());
 	}
 
-	//[TestMethod]
-	//public void TestElectricCurrentIntegration()
-	//{
-	//	var charge = 10.Coulombs();
-	//	var time = 5.Seconds();
-	//	var current = charge / time;
+	[TestMethod]
+	public void TestElectricCurrentIntegration()
+	{
+		var charge = 10.Coulombs();
+		var time = 5.Seconds();
+		var current = charge * time;
 
-	//	Assert.AreEqual(2.0.ToSignificantNumber(), current.Amperes<SignificantNumber>());
-	//}
+		Assert.AreEqual(2.0.ToSignificantNumber(), current.Amperes<SignificantNumber>());
+	}
 
-	//[TestMethod]
-	//public void TestElectricCurrentDerivative()
-	//{
-	//	var current = 2.Amperes();
-	//	var time = 5.Seconds();
-	//	var charge = current * time;
+	[TestMethod]
+	public void TestElectricCurrentDerivative()
+	{
+		var current = 2.Amperes();
+		var time = 5.Seconds();
+		var charge = current * time;
 
-	//	Assert.AreEqual(10.0.ToSignificantNumber(), charge.Coulombs<SignificantNumber>());
+		Assert.AreEqual(10.0.ToSignificantNumber(), charge.Coulombs<SignificantNumber>());
 
-	//	charge = time * current;
+		charge = time * current;
 
-	//	Assert.AreEqual(10.0.ToSignificantNumber(), charge.Coulombs<SignificantNumber>());
-	//}
+		Assert.AreEqual(10.0.ToSignificantNumber(), charge.Coulombs<SignificantNumber>());
+	}
 }

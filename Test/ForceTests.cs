@@ -2,7 +2,6 @@ namespace ktsu.io.PhysicalQuantity.Tests;
 
 using ktsu.io.PhysicalQuantity.Acceleration;
 using ktsu.io.PhysicalQuantity.Force;
-using ktsu.io.PhysicalQuantity.Length;
 using ktsu.io.PhysicalQuantity.Mass;
 using ktsu.io.SignificantNumber;
 
