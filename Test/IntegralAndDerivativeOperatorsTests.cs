@@ -1,13 +1,19 @@
 namespace ktsu.io.PhysicalQuantity.Tests;
 
 using ktsu.io.PhysicalQuantity.Acceleration;
+using ktsu.io.PhysicalQuantity.AngularAcceleration;
+using ktsu.io.PhysicalQuantity.AngularVelocity;
 using ktsu.io.PhysicalQuantity.Area;
+using ktsu.io.PhysicalQuantity.Density;
+using ktsu.io.PhysicalQuantity.ElectricCurrent;
+using ktsu.io.PhysicalQuantity.ElectricPotential;
 using ktsu.io.PhysicalQuantity.Energy;
 using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Length;
 using ktsu.io.PhysicalQuantity.Mass;
 using ktsu.io.PhysicalQuantity.Power;
 using ktsu.io.PhysicalQuantity.Pressure;
+using ktsu.io.PhysicalQuantity.Resistance;
 using ktsu.io.PhysicalQuantity.Time;
 using ktsu.io.PhysicalQuantity.Velocity;
 using ktsu.io.PhysicalQuantity.Volume;
@@ -127,6 +133,26 @@ public class IntegralAndDerivativeOperatorsTests
 	}
 
 	[TestMethod]
+	public void TestMassIntegration()
+	{
+		var density = 2.KilogramsPerCubicMeter();
+		var volume = 3.CubicMeters();
+		var mass = density * volume;
+
+		Assert.AreEqual(6.0.ToSignificantNumber(), mass.Kilograms<SignificantNumber>());
+	}
+
+	[TestMethod]
+	public void TestResistanceIntegration()
+	{
+		var voltage = 10.Volts();
+		var current = 2.Amperes();
+		var resistance = voltage / current;
+
+		Assert.AreEqual(5.0.ToSignificantNumber(), resistance.Ohms<SignificantNumber>());
+	}
+
+	[TestMethod]
 	public void TestAreaDerivative()
 	{
 		var area = 200.SquareMeters();
@@ -174,5 +200,45 @@ public class IntegralAndDerivativeOperatorsTests
 		var area = volume / length;
 
 		Assert.AreEqual(10.0.ToSignificantNumber(), area.SquareMeters<SignificantNumber>());
+	}
+
+	[TestMethod]
+	public void TestMassDerivative()
+	{
+		var mass = 10.Kilograms();
+		var volume = 2.CubicMeters();
+		var density = mass / volume;
+
+		Assert.AreEqual(5.0.ToSignificantNumber(), density.KilogramsPerCubicMeter<SignificantNumber>());
+	}
+
+	[TestMethod]
+	public void TestResistanceDerivative()
+	{
+		var resistance = 5.Ohms();
+		var current = 2.Amperes();
+		var voltage = resistance * current;
+
+		Assert.AreEqual(10.0.ToSignificantNumber(), voltage.Volts<SignificantNumber>());
+	}
+
+	[TestMethod]
+	public void TestAngularVelocityIntegration()
+	{
+		var angularAcceleration = 2.RadiansPerSecondSquared();
+		var time = 3.Seconds();
+		var angularVelocity = angularAcceleration * time;
+
+		Assert.AreEqual(6.0.ToSignificantNumber(), angularVelocity.RadiansPerSecond<SignificantNumber>());
+	}
+
+	[TestMethod]
+	public void TestAngularAccelerationDerivative()
+	{
+		var angularVelocity = 6.RadiansPerSecond();
+		var time = 3.Seconds();
+		var angularAcceleration = angularVelocity / time;
+
+		Assert.AreEqual(2.0.ToSignificantNumber(), angularAcceleration.RadiansPerSecondSquared<SignificantNumber>());
 	}
 }

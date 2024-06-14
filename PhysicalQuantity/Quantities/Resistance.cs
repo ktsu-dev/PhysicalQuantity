@@ -3,6 +3,8 @@
 namespace ktsu.io.PhysicalQuantity.Resistance;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.ElectricCurrent;
+using ktsu.io.PhysicalQuantity.ElectricPotential;
 using ktsu.io.PhysicalQuantity.Generic;
 
 /// <summary>
@@ -11,7 +13,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("Ω", "ohm", "ohms")]
 public sealed record Resistance
 	: PhysicalQuantity<Resistance>
-{ }
+	, IIntegralOperators<Resistance, ElectricCurrent, ElectricPotential>
+{
+	public static ElectricPotential operator *(Resistance left, ElectricCurrent right) => (IIntegralOperators<Resistance, ElectricCurrent, ElectricPotential>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Resistance"/>.

@@ -3,7 +3,9 @@
 namespace ktsu.io.PhysicalQuantity.ElectricCurrent;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.ElectricPotential;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Resistance;
 
 /// <summary>
 /// Represents an electric current quantity measured in amperes.
@@ -11,7 +13,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("A", "ampere", "amperes")]
 public sealed record ElectricCurrent
 	: PhysicalQuantity<ElectricCurrent>
-{ }
+	, IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>
+{
+	public static ElectricPotential operator *(ElectricCurrent left, Resistance right) => (IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="ElectricCurrent"/>.

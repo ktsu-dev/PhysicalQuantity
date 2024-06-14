@@ -3,7 +3,9 @@
 namespace ktsu.io.PhysicalQuantity.ElectricPotential;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.ElectricCurrent;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Resistance;
 
 /// <summary>
 /// Represents an electric potential quantity measured in volts.
@@ -11,7 +13,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("V", "volt", "volts")]
 public sealed record ElectricPotential
 	: PhysicalQuantity<ElectricPotential>
-{ }
+	, IDerivativeOperators<ElectricPotential, ElectricCurrent, Resistance>
+{
+	public static Resistance operator /(ElectricPotential left, ElectricCurrent right) => (IDerivativeOperators<ElectricPotential, ElectricCurrent, Resistance>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="ElectricPotential"/>.
