@@ -71,6 +71,72 @@ float massInPounds = massInKilograms.Pounds<float>();
 Console.WriteLine($"{massInKilograms} is equal to {massInPounds} pounds");
 ```
 
+### Integrating and Deriving Quantities
+
+The `PhysicalQuantity` library supports operations for integrating and deriving physical quantities, making it easier to work with quantities that result from these operations.
+
+#### Deriving Quantities
+
+To derive a quantity, you can use the appropriate operators provided by the `IIntegrationOperators` interface. For example, deriving velocity from distance and time:
+
+```csharp
+using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.Time;
+using ktsu.io.PhysicalQuantity.Velocity;
+using ktsu.io.SignificantNumber;
+
+Length distance = 100.Meters();
+Time time = 10.Seconds();
+Velocity velocity = distance / time;
+
+Console.WriteLine($"Velocity: {velocity}"); // Output: Velocity: 10 m/s
+```
+
+#### Integrating Quantities
+
+To integrate quantities, you can use the appropriate operators. For example, integrating acceleration over time to get velocity:
+
+```csharp
+using ktsu.io.PhysicalQuantity.Acceleration;
+using ktsu.io.PhysicalQuantity.Time;
+using ktsu.io.PhysicalQuantity.Velocity;
+using ktsu.io.SignificantNumber;
+
+Acceleration acceleration = 9.8.MetersPerSecondSquared();
+Time time = 5.Seconds();
+Velocity velocity = acceleration * time;
+
+Console.WriteLine($"Velocity: {velocity}"); // Output: Velocity: 49 m/s
+```
+
+### Example
+
+Here's a more comprehensive example that demonstrates both integration and derivation:
+
+```csharp
+using ktsu.io.PhysicalQuantity.Acceleration;
+using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.Time;
+using ktsu.io.PhysicalQuantity.Velocity;
+using ktsu.io.SignificantNumber;
+
+Length initialDistance = 0.Meters();
+Velocity initialVelocity = 0.MetersPerSecond();
+Acceleration acceleration = 9.8.MetersPerSecondSquared();
+Time time = 10.Seconds();
+
+// Calculate final velocity: v = u + at
+Velocity finalVelocity = initialVelocity + acceleration * time;
+
+// Calculate distance traveled: s = ut + 0.5 * a * t^2
+Length distance = initialVelocity * time + 0.5 * acceleration * time * time;
+
+Console.WriteLine($"Final Velocity: {finalVelocity}"); // Output: Final Velocity: 98 m/s
+Console.WriteLine($"Distance Traveled: {distance}");   // Output: Distance Traveled: 490 m
+```
+
+By using these integration and derivation methods, you can handle a wide range of physical calculations with ease.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
