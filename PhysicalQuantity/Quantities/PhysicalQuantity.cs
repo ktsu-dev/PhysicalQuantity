@@ -15,9 +15,12 @@ using ktsu.io.SignificantNumber;
 /// <typeparam name="TSelf">The type of the derived class.</typeparam>
 public abstract record PhysicalQuantity<TSelf>
 	: SemanticQuantity<TSelf, SignificantNumber>
+	, IComparable<TSelf>
 	where TSelf : PhysicalQuantity<TSelf>, new()
 {
 	private static SIUnitAttribute SIUnitAttribute { get; } = typeof(TSelf).GetCustomAttribute<SIUnitAttribute>() ?? new SIUnitAttribute(string.Empty, string.Empty, string.Empty);
+
+	public int CompareTo(TSelf? other) => other is null ? 1 : Quantity.CompareTo(other.Quantity);
 
 	/// <summary>
 	/// Returns a string representation of the physical quantity, including its unit symbol and name.
@@ -32,6 +35,18 @@ public abstract record PhysicalQuantity<TSelf>
 		string nameComponent = string.IsNullOrWhiteSpace(pluralComponent) ? string.Empty : $" ({pluralComponent})";
 		return $"{Quantity}{symbolComponent}{nameComponent}";
 	}
+
+	public static bool operator <(PhysicalQuantity<TSelf> left, TSelf right) =>
+		left is null ? right is not null : left.CompareTo(right) < 0;
+
+	public static bool operator <=(PhysicalQuantity<TSelf> left, TSelf right) =>
+		left is null || left.CompareTo(right) <= 0;
+
+	public static bool operator >(PhysicalQuantity<TSelf> left, TSelf right) =>
+		left is not null && left.CompareTo(right) > 0;
+
+	public static bool operator >=(PhysicalQuantity<TSelf> left, TSelf right) =>
+		left is null ? right is null : left.CompareTo(right) >= 0;
 }
 
 /// <summary>
