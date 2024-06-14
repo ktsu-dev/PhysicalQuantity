@@ -1,7 +1,6 @@
 namespace ktsu.io.PhysicalQuantity.Length;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity;
 using ktsu.io.PhysicalQuantity.Generic;
 
 /// <summary>

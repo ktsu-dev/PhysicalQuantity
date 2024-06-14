@@ -6,7 +6,6 @@ namespace ktsu.io.PhysicalQuantity.Generic;
 using System;
 using System.Numerics;
 using System.Reflection;
-using ktsu.io.PhysicalQuantity;
 using ktsu.io.SemanticQuantity;
 using ktsu.io.SignificantNumber;
 
