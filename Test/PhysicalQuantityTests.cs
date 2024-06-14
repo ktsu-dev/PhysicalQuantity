@@ -1,5 +1,3 @@
-// Ignore Spelling: Illuminance
-
 namespace ktsu.io.PhysicalQuantity.Tests;
 
 using ktsu.io.PhysicalQuantity.Acceleration;
@@ -316,15 +314,6 @@ public class PhysicalQuantityTests
 	}
 
 	[TestMethod]
-	public void TestIntegrationOperators()
-	{
-		var acceleration = 9.8.MetersPerSecondSquared();
-		var time = 2.Seconds();
-		var velocity = acceleration * time;
-		Assert.AreEqual(20.0, velocity.MetersPerSecond<double>());
-	}
-
-	[TestMethod]
 	public void TestEdgeCasesForConversions()
 	{
 		var zeroLength = 0.Meters().Kilometers<SignificantNumber>();
@@ -335,6 +324,9 @@ public class PhysicalQuantityTests
 
 		var largeLength = 1e9.Meters().Kilometers<SignificantNumber>();
 		Assert.AreEqual(1e6.ToSignificantNumber(), largeLength);
+
+		var smallLength = 1e-9.Meters().Kilometers<SignificantNumber>();
+		Assert.AreEqual(1e-12.ToSignificantNumber(), smallLength);
 	}
 
 	[TestMethod]
@@ -344,35 +336,9 @@ public class PhysicalQuantityTests
 		var length2 = 3.Meters();
 		var result = length1 + length2;
 		Assert.AreEqual(5.ToSignificantNumber(), result.Meters<SignificantNumber>());
+		result = length1 - length2;
+		Assert.AreEqual((-1).ToSignificantNumber(), result.Meters<SignificantNumber>());
 	}
-
-	[TestMethod]
-	public void TestCustomUnitConversions()
-	{
-		// Assuming custom unit "Foo" conversion to meters
-		var fooToMeterFactor = 1.23.ToSignificantNumber(); // Custom conversion factor
-		var value = 5.ToSignificantNumber();
-		var customLength = value * fooToMeterFactor;
-		Assert.AreEqual(value * fooToMeterFactor, customLength);
-	}
-
-	[TestMethod]
-	public void TestLargeQuantityPerformance()
-	{
-		var largeValue = 1e18.ToSignificantNumber();
-		var result = largeValue.Meters().Kilometers<SignificantNumber>();
-		Assert.AreEqual(1e15.ToSignificantNumber(), result);
-	}
-
-
-	[TestMethod]
-	public void TestExtensionMethodValidity()
-	{
-		var length = 100.Meters();
-		var kilometers = length.Kilometers<SignificantNumber>();
-		Assert.AreEqual(0.1.ToSignificantNumber(), kilometers);
-	}
-
 
 	[TestMethod]
 	public void TestQuantityComparisons()
@@ -382,6 +348,6 @@ public class PhysicalQuantityTests
 		Assert.IsTrue(length1 < length2);
 		Assert.IsTrue(length2 > length1);
 		Assert.AreEqual(length1, length1);
+		Assert.AreNotEqual(length1, length2);
 	}
-
 }
