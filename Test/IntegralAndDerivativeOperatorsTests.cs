@@ -33,6 +33,9 @@ public class IntegralAndDerivativeOperatorsTests
 		var velocity = acceleration * time;
 
 		Assert.AreEqual(49.0.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
+
+		velocity = time * acceleration;
+		Assert.AreEqual(49.0.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -42,6 +45,9 @@ public class IntegralAndDerivativeOperatorsTests
 		var acceleration = 9.8.MetersPerSecondSquared();
 		var force = mass * acceleration;
 
+		Assert.AreEqual(98.0.ToSignificantNumber(), force.Newtons<SignificantNumber>());
+
+		force = acceleration * mass;
 		Assert.AreEqual(98.0.ToSignificantNumber(), force.Newtons<SignificantNumber>());
 	}
 
@@ -93,6 +99,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var energy = force * length;
 
 		Assert.AreEqual(50.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
+
+		energy = length * force;
+
+		Assert.AreEqual(50.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -123,6 +133,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var mass = density * volume;
 
 		Assert.AreEqual(6.0.ToSignificantNumber(), mass.Kilograms<SignificantNumber>());
+
+		mass = volume * density;
+
+		Assert.AreEqual(6.0.ToSignificantNumber(), mass.Kilograms<SignificantNumber>());
 	}
 
 	//[TestMethod]
@@ -131,6 +145,10 @@ public class IntegralAndDerivativeOperatorsTests
 	//	var molarMass = 18.01528.GramsPerMole();
 	//	var substanceAmount = 5.Moles();
 	//	var mass = molarMass * substanceAmount;
+
+	//	Assert.AreEqual(90.0764.ToSignificantNumber(), mass.Grams<SignificantNumber>());
+
+	//	mass = substanceAmount * molarMass;
 
 	//	Assert.AreEqual(90.0764.ToSignificantNumber(), mass.Grams<SignificantNumber>());
 	//}
@@ -173,6 +191,10 @@ public class IntegralAndDerivativeOperatorsTests
 	//	var charge = current * time;
 
 	//	Assert.AreEqual(10.0.ToSignificantNumber(), charge.Coulombs<SignificantNumber>());
+
+	//	charge = time * current;
+
+	//	Assert.AreEqual(10.0.ToSignificantNumber(), charge.Coulombs<SignificantNumber>());
 	//}
 
 	//[TestMethod]
@@ -181,6 +203,10 @@ public class IntegralAndDerivativeOperatorsTests
 	//	var potential = 10.Volts();
 	//	var charge = 10.Coulombs();
 	//	var energy = potential * charge;
+
+	//	Assert.AreEqual(100.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
+
+	//	energy = charge * potential;
 
 	//	Assert.AreEqual(100.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
 	//}
@@ -203,6 +229,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var luminousFlux = illuminance * area;
 
 		Assert.AreEqual(1000.0.ToSignificantNumber(), luminousFlux.Lumens<SignificantNumber>());
+
+		luminousFlux = area * illuminance;
+
+		Assert.AreEqual(1000.0.ToSignificantNumber(), luminousFlux.Lumens<SignificantNumber>());
 	}
 
 	//[TestMethod]
@@ -223,6 +253,10 @@ public class IntegralAndDerivativeOperatorsTests
 	//	var luminousFlux = luminousIntensity * solidAngle;
 
 	//	Assert.AreEqual(1000.0.ToSignificantNumber(), luminousFlux.Lumens<SignificantNumber>());
+
+	//	luminousFlux = solidAngle * luminousIntensity;
+
+	//	Assert.AreEqual(1000.0.ToSignificantNumber(), luminousFlux.Lumens<SignificantNumber>());
 	//}
 
 	[TestMethod]
@@ -231,6 +265,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var jerk = 5.MetersPerSecondCubed();
 		var time = 4.Seconds();
 		var acceleration = jerk * time;
+
+		Assert.AreEqual(20.0.ToSignificantNumber(), acceleration.MetersPerSecondSquared<SignificantNumber>());
+
+		acceleration = time * jerk;
 
 		Assert.AreEqual(20.0.ToSignificantNumber(), acceleration.MetersPerSecondSquared<SignificantNumber>());
 	}
@@ -253,6 +291,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var energy = power * time;
 
 		Assert.AreEqual(1000.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
+
+		energy = time * power;
+
+		Assert.AreEqual(1000.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -263,6 +305,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var power = voltage * current;
 
 		Assert.AreEqual(100.0.ToSignificantNumber(), power.Watts<SignificantNumber>());
+
+		power = current * voltage;
+
+		Assert.AreEqual(100.0.ToSignificantNumber(), power.Watts<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -271,6 +317,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var velocity = 10.MetersPerSecond();
 		var time = 5.Seconds();
 		var length = velocity * time;
+
+		Assert.AreEqual(50.0.ToSignificantNumber(), length.Meters<SignificantNumber>());
+
+		length = time * velocity;
 
 		Assert.AreEqual(50.0.ToSignificantNumber(), length.Meters<SignificantNumber>());
 	}
@@ -303,6 +353,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var volume = area * length;
 
 		Assert.AreEqual(50.0.ToSignificantNumber(), volume.CubicMeters<SignificantNumber>());
+
+		volume = length * area;
+
+		Assert.AreEqual(50.0.ToSignificantNumber(), volume.CubicMeters<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -321,6 +375,10 @@ public class IntegralAndDerivativeOperatorsTests
 		var angularAcceleration = 2.RadiansPerSecondSquared();
 		var time = 3.Seconds();
 		var angularVelocity = angularAcceleration * time;
+
+		Assert.AreEqual(6.0.ToSignificantNumber(), angularVelocity.RadiansPerSecond<SignificantNumber>());
+
+		angularVelocity = time * angularAcceleration;
 
 		Assert.AreEqual(6.0.ToSignificantNumber(), angularVelocity.RadiansPerSecond<SignificantNumber>());
 	}

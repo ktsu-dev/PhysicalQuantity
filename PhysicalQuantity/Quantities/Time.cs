@@ -1,7 +1,15 @@
 namespace ktsu.io.PhysicalQuantity.Time;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Acceleration;
+using ktsu.io.PhysicalQuantity.AngularAcceleration;
+using ktsu.io.PhysicalQuantity.AngularVelocity;
+using ktsu.io.PhysicalQuantity.Energy;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Jerk;
+using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.Power;
+using ktsu.io.PhysicalQuantity.Velocity;
 
 /// <summary>
 /// Represents a time quantity measured in seconds, minutes, hours, and days.
@@ -9,7 +17,18 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("s", "second", "seconds")]
 public sealed record Time
 	: PhysicalQuantity<Time>
-{ }
+	, IIntegralOperators<Time, Acceleration, Velocity>
+	, IIntegralOperators<Time, Velocity, Length>
+	, IIntegralOperators<Time, Jerk, Acceleration>
+	, IIntegralOperators<Time, Power, Energy>
+	, IIntegralOperators<Time, AngularAcceleration, AngularVelocity>
+{
+	public static Velocity operator *(Time left, Acceleration right) => (IIntegralOperators<Time, Acceleration, Velocity>)left * right;
+	public static Acceleration operator *(Time left, Jerk right) => (IIntegralOperators<Time, Jerk, Acceleration>)left * right;
+	public static Energy operator *(Time left, Power right) => (IIntegralOperators<Time, Power, Energy>)left * right;
+	public static Length operator *(Time left, Velocity right) => (IIntegralOperators<Time, Velocity, Length>)left * right;
+	public static AngularVelocity operator *(Time left, AngularAcceleration right) => (IIntegralOperators<Time, AngularAcceleration, AngularVelocity>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Time"/>.
