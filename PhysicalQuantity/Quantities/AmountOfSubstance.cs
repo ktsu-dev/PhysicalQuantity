@@ -1,9 +1,9 @@
-// Ignore Spelling: Kilomoles Millimoles Micromoles Nanomoles
-
 namespace ktsu.io.PhysicalQuantity.AmountOfSubstance;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Mass;
+using ktsu.io.PhysicalQuantity.MolarMass;
 
 /// <summary>
 /// Represents an amount of substance quantity measured in moles.
@@ -11,7 +11,11 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("mol", "mole", "moles")]
 public sealed record AmountOfSubstance
 	: PhysicalQuantity<AmountOfSubstance>
-{ }
+	, IIntegralOperators<AmountOfSubstance, MolarMass, Mass>
+{
+	public static Mass operator *(AmountOfSubstance left, MolarMass right) =>
+		IIntegralOperators<AmountOfSubstance, MolarMass, Mass>.Integrate(left, right);
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="AmountOfSubstance"/>.

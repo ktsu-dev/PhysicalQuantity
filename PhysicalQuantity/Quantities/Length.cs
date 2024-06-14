@@ -20,10 +20,18 @@ public sealed record Length
 	, IIntegralOperators<Length, Force, Energy>
 	, IDerivativeOperators<Length, Time, Velocity>
 {
-	public static Area operator *(Length left, Length right) => (IIntegralOperators<Length, Length, Area>)left * right;
-	public static Volume operator *(Length left, Area right) => (IIntegralOperators<Length, Area, Volume>)left * right;
-	public static Energy operator *(Length left, Force right) => (IIntegralOperators<Length, Force, Energy>)left * right;
-	public static Velocity operator /(Length left, Time right) => (IDerivativeOperators<Length, Time, Velocity>)left / right;
+	public static Area operator *(Length left, Length right) =>
+		IIntegralOperators<Length, Length, Area>.Integrate(left, right);
+
+	public static Volume operator *(Length left, Area right) =>
+		IIntegralOperators<Length, Area, Volume>.Integrate(left, right);
+
+	public static Energy operator *(Length left, Force right) =>
+		IIntegralOperators<Length, Force, Energy>.Integrate(left, right);
+
+	public static Velocity operator /(Length left, Time right) =>
+		IDerivativeOperators<Length, Time, Velocity>.Derive(left, right);
+
 }
 
 /// <summary>

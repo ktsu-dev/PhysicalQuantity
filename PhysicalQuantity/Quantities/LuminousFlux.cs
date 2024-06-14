@@ -1,11 +1,11 @@
-// Ignore Spelling: Lumens
-
 namespace ktsu.io.PhysicalQuantity.LuminousFlux;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Area;
 using ktsu.io.PhysicalQuantity.Generic;
 using ktsu.io.PhysicalQuantity.Illuminance;
+using ktsu.io.PhysicalQuantity.LuminousIntensity;
+using ktsu.io.PhysicalQuantity.SolidAngle;
 
 /// <summary>
 /// Represents a luminous flux quantity measured in lumens.
@@ -14,8 +14,12 @@ using ktsu.io.PhysicalQuantity.Illuminance;
 public sealed record LuminousFlux
 	: PhysicalQuantity<LuminousFlux>
 	, IDerivativeOperators<LuminousFlux, Area, Illuminance>
+	, IDerivativeOperators<LuminousFlux, SolidAngle, LuminousIntensity>
 {
-	public static Illuminance operator /(LuminousFlux left, Area right) => (IDerivativeOperators<LuminousFlux, Area, Illuminance>)left / right;
+	public static Illuminance operator /(LuminousFlux left, Area right) =>
+		IDerivativeOperators<LuminousFlux, Area, Illuminance>.Derive(left, right);
+	public static LuminousIntensity operator /(LuminousFlux left, SolidAngle right) =>
+		IDerivativeOperators<LuminousFlux, SolidAngle, LuminousIntensity>.Derive(left, right);
 }
 
 /// <summary>

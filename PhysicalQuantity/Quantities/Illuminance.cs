@@ -1,5 +1,3 @@
-// Ignore Spelling: Lux Illuminance
-
 namespace ktsu.io.PhysicalQuantity.Illuminance;
 
 using System.Numerics;
@@ -15,7 +13,9 @@ public sealed record Illuminance
 	: PhysicalQuantity<Illuminance>
 	, IIntegralOperators<Illuminance, Area, LuminousFlux>
 {
-	public static LuminousFlux operator *(Illuminance left, Area right) => (IIntegralOperators<Illuminance, Area, LuminousFlux>)left * right;
+	public static LuminousFlux operator *(Illuminance left, Area right) =>
+		IIntegralOperators<Illuminance, Area, LuminousFlux>.Integrate(left, right);
+
 }
 
 /// <summary>

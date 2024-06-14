@@ -1,5 +1,3 @@
-// Ignore Spelling: Megajoules Gigajoules Microjoules Nanojoules
-
 namespace ktsu.io.PhysicalQuantity.Energy;
 
 using System.Numerics;
@@ -19,9 +17,15 @@ public sealed record Energy
 	, IDerivativeOperators<Energy, Force, Length>
 	, IDerivativeOperators<Energy, Length, Force>
 {
-	public static Power operator /(Energy left, Time right) => (IDerivativeOperators<Energy, Time, Power>)left / right;
-	public static Length operator /(Energy left, Force right) => (IDerivativeOperators<Energy, Force, Length>)left / right;
-	public static Force operator /(Energy left, Length right) => (IDerivativeOperators<Energy, Length, Force>)left / right;
+	public static Power operator /(Energy left, Time right) =>
+		IDerivativeOperators<Energy, Time, Power>.Derive(left, right);
+
+	public static Length operator /(Energy left, Force right) =>
+		IDerivativeOperators<Energy, Force, Length>.Derive(left, right);
+
+	public static Force operator /(Energy left, Length right) =>
+		IDerivativeOperators<Energy, Length, Force>.Derive(left, right);
+
 }
 
 /// <summary>

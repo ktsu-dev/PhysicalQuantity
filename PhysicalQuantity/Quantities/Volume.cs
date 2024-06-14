@@ -17,9 +17,15 @@ public sealed record Volume
 	, IDerivativeOperators<Volume, Area, Length>
 	, IIntegralOperators<Volume, Density, Mass>
 {
-	public static Mass operator *(Volume left, Density right) => (IIntegralOperators<Volume, Density, Mass>)left * right;
-	public static Area operator /(Volume left, Length right) => (IDerivativeOperators<Volume, Length, Area>)left / right;
-	public static Length operator /(Volume left, Area right) => (IDerivativeOperators<Volume, Area, Length>)left / right;
+	public static Mass operator *(Volume left, Density right) =>
+		IIntegralOperators<Volume, Density, Mass>.Integrate(left, right);
+
+	public static Area operator /(Volume left, Length right) =>
+		IDerivativeOperators<Volume, Length, Area>.Derive(left, right);
+
+	public static Length operator /(Volume left, Area right) =>
+		IDerivativeOperators<Volume, Area, Length>.Derive(left, right);
+
 }
 
 /// <summary>

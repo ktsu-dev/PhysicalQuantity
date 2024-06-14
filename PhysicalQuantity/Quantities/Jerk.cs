@@ -10,7 +10,9 @@ public sealed record Jerk
 	: PhysicalQuantity<Jerk>
 	, IIntegralOperators<Jerk, Time, Acceleration>
 {
-	public static Acceleration operator *(Jerk left, Time right) => (IIntegralOperators<Jerk, Time, Acceleration>)left * right;
+	public static Acceleration operator *(Jerk left, Time right) =>
+		IIntegralOperators<Jerk, Time, Acceleration>.Integrate(left, right);
+
 }
 
 public static class JerkConversions

@@ -89,6 +89,7 @@ internal static class Constants
 	internal static SignificantNumber HoursToMinutesFactor { get; } = 60m.ToSignificantNumber();
 	internal static SignificantNumber DaysToMinutesFactor { get; } = 1440m.ToSignificantNumber();
 	internal static SignificantNumber DaysToHoursFactor { get; } = 24m.ToSignificantNumber();
+	internal static SignificantNumber YearsToSecondsFactor { get; } = 31556952m.ToSignificantNumber();
 
 	// Torque conversion factors
 	internal static SignificantNumber FootPoundsToNewtonMetersFactor { get; } = 1.3558179483314004m.ToSignificantNumber();
@@ -99,4 +100,7 @@ internal static class Constants
 
 	// Area conversion factors
 	internal static SignificantNumber AcresToSquareMetersFactor { get; } = 4046.8564224m.ToSignificantNumber();
+
+	// Solid Angle conversion factors
+	internal static SignificantNumber SquareDegreesToSteradiansFactor { get; } = 3282.80635001.ToSignificantNumber();
 }

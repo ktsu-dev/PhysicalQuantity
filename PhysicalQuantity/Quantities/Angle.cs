@@ -1,5 +1,3 @@
-// Ignore Spelling: Gradians
-
 namespace ktsu.io.PhysicalQuantity.Angle;
 
 using System.Numerics;
@@ -12,7 +10,8 @@ public sealed record Angle
 	: PhysicalQuantity<Angle>
 	, IDerivativeOperators<Angle, Time, AngularVelocity>
 {
-	public static AngularVelocity operator /(Angle left, Time right) => (IDerivativeOperators<Angle, Time, AngularVelocity>)left / right;
+	public static AngularVelocity operator /(Angle left, Time right) =>
+		IDerivativeOperators<Angle, Time, AngularVelocity>.Derive(left, right);
 }
 
 /// <summary>

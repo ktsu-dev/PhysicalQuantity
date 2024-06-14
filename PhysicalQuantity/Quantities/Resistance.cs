@@ -1,5 +1,3 @@
-// Ignore Spelling: Milliohms Kiloohms Megaohms
-
 namespace ktsu.io.PhysicalQuantity.Resistance;
 
 using System.Numerics;
@@ -15,7 +13,8 @@ public sealed record Resistance
 	: PhysicalQuantity<Resistance>
 	, IIntegralOperators<Resistance, ElectricCurrent, ElectricPotential>
 {
-	public static ElectricPotential operator *(Resistance left, ElectricCurrent right) => (IIntegralOperators<Resistance, ElectricCurrent, ElectricPotential>)left * right;
+	public static ElectricPotential operator *(Resistance left, ElectricCurrent right) =>
+		IIntegralOperators<Resistance, ElectricCurrent, ElectricPotential>.Integrate(left, right);
 }
 
 /// <summary>

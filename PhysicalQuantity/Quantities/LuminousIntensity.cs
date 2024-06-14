@@ -1,9 +1,9 @@
-// Ignore Spelling: Candelas
-
 namespace ktsu.io.PhysicalQuantity.LuminousIntensity;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.LuminousFlux;
+using ktsu.io.PhysicalQuantity.SolidAngle;
 
 /// <summary>
 /// Represents a luminous intensity quantity measured in candelas.
@@ -11,7 +11,12 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("cd", "candela", "candelas")]
 public sealed record LuminousIntensity
 	: PhysicalQuantity<LuminousIntensity>
-{ }
+	, IIntegralOperators<LuminousIntensity, SolidAngle, LuminousFlux>
+{
+	public static LuminousFlux operator *(LuminousIntensity left, SolidAngle right) =>
+		IIntegralOperators<LuminousIntensity, SolidAngle, LuminousFlux>.Integrate(left, right);
+
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="LuminousIntensity"/>.

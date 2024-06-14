@@ -1,5 +1,3 @@
-// Ignore Spelling: Gigawatts
-
 namespace ktsu.io.PhysicalQuantity.Power;
 
 using System.Numerics;
@@ -15,7 +13,9 @@ public sealed record Power
 	: PhysicalQuantity<Power>
 	, IIntegralOperators<Power, Time, Energy>
 {
-	public static Energy operator *(Power left, Time right) => (IIntegralOperators<Power, Time, Energy>)left * right;
+	public static Energy operator *(Power left, Time right) =>
+		IIntegralOperators<Power, Time, Energy>.Integrate(left, right);
+
 }
 
 /// <summary>

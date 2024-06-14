@@ -1,5 +1,3 @@
-// Ignore Spelling: Gradians
-
 namespace ktsu.io.PhysicalQuantity.AngularVelocity;
 
 using System.Numerics;
@@ -14,8 +12,11 @@ public sealed record AngularVelocity
 	, IDerivativeOperators<AngularVelocity, Time, AngularAcceleration>
 	, IIntegralOperators<AngularVelocity, Time, Angle>
 {
-	public static Angle operator *(AngularVelocity left, Time right) => (IIntegralOperators<AngularVelocity, Time, Angle>)left * right;
-	public static AngularAcceleration operator /(AngularVelocity left, Time right) => (IDerivativeOperators<AngularVelocity, Time, AngularAcceleration>)left / right;
+	public static Angle operator *(AngularVelocity left, Time right) =>
+		IIntegralOperators<AngularVelocity, Time, Angle>.Integrate(left, right);
+
+	public static AngularAcceleration operator /(AngularVelocity left, Time right) =>
+		IDerivativeOperators<AngularVelocity, Time, AngularAcceleration>.Derive(left, right);
 }
 
 /// <summary>

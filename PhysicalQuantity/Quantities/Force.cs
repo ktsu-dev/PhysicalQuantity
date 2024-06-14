@@ -1,5 +1,3 @@
-// Ignore Spelling: Kilonewtons Millinewtons Micronewtons
-
 namespace ktsu.io.PhysicalQuantity.Force;
 
 using System.Numerics;
@@ -22,10 +20,18 @@ public sealed record Force
 	, IDerivativeOperators<Force, Area, Pressure>
 	, IIntegralOperators<Force, Length, Energy>
 {
-	public static Energy operator *(Force left, Length right) => (IIntegralOperators<Force, Length, Energy>)left * right;
-	public static Acceleration operator /(Force left, Mass right) => (IDerivativeOperators<Force, Mass, Acceleration>)left / right;
-	public static Mass operator /(Force left, Acceleration right) => (IDerivativeOperators<Force, Acceleration, Mass>)left / right;
-	public static Pressure operator /(Force left, Area right) => (IDerivativeOperators<Force, Area, Pressure>)left / right;
+	public static Energy operator *(Force left, Length right) =>
+		IIntegralOperators<Force, Length, Energy>.Integrate(left, right);
+
+	public static Acceleration operator /(Force left, Mass right) =>
+		IDerivativeOperators<Force, Mass, Acceleration>.Derive(left, right);
+
+	public static Mass operator /(Force left, Acceleration right) =>
+		IDerivativeOperators<Force, Acceleration, Mass>.Derive(left, right);
+
+	public static Pressure operator /(Force left, Area right) =>
+		IDerivativeOperators<Force, Area, Pressure>.Derive(left, right);
+
 }
 
 /// <summary>

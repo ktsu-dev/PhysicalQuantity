@@ -1,5 +1,3 @@
-// Ignore Spelling: Microamperes Nanoamperes Kiloamperes Megaamperes
-
 namespace ktsu.io.PhysicalQuantity.ElectricCurrent;
 
 using System.Numerics;
@@ -17,8 +15,12 @@ public sealed record ElectricCurrent
 	, IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>
 	, IIntegralOperators<ElectricCurrent, ElectricPotential, Power>
 {
-	public static ElectricPotential operator *(ElectricCurrent left, Resistance right) => (IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>)left * right;
-	public static Power operator *(ElectricCurrent left, ElectricPotential right) => (IIntegralOperators<ElectricCurrent, ElectricPotential, Power>)left * right;
+	public static ElectricPotential operator *(ElectricCurrent left, Resistance right) =>
+		IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>.Integrate(left, right);
+
+	public static Power operator *(ElectricCurrent left, ElectricPotential right) =>
+		IIntegralOperators<ElectricCurrent, ElectricPotential, Power>.Integrate(left, right);
+
 }
 
 /// <summary>

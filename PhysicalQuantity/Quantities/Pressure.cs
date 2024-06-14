@@ -13,7 +13,8 @@ public sealed record Pressure
 	: PhysicalQuantity<Pressure>
 	, IIntegralOperators<Pressure, Area, Force>
 {
-	public static Force operator *(Pressure left, Area right) => (IIntegralOperators<Pressure, Area, Force>)left * right;
+	public static Force operator *(Pressure left, Area right) =>
+		IIntegralOperators<Pressure, Area, Force>.Integrate(left, right);
 }
 
 /// <summary>

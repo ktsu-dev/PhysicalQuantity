@@ -18,9 +18,14 @@ public sealed record Acceleration
 	, IIntegralOperators<Acceleration, Time, Velocity>
 	, IIntegralOperators<Acceleration, Mass, Force>
 {
-	public static Jerk operator /(Acceleration left, Time right) => (IDerivativeOperators<Acceleration, Time, Jerk>)left / right;
-	public static Velocity operator *(Acceleration left, Time right) => (IIntegralOperators<Acceleration, Time, Velocity>)left * right;
-	public static Force operator *(Acceleration left, Mass right) => (IIntegralOperators<Acceleration, Mass, Force>)left * right;
+	public static Jerk operator /(Acceleration left, Time right) =>
+		IDerivativeOperators<Acceleration, Time, Jerk>.Derive(left, right);
+
+	public static Velocity operator *(Acceleration left, Time right) =>
+		IIntegralOperators<Acceleration, Time, Velocity>.Integrate(left, right);
+
+	public static Force operator *(Acceleration left, Mass right) =>
+		IIntegralOperators<Acceleration, Mass, Force>.Integrate(left, right);
 }
 
 /// <summary>

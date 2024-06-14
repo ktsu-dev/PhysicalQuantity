@@ -1,5 +1,3 @@
-// Ignore Spelling: Nanovolts Megavolts
-
 namespace ktsu.io.PhysicalQuantity.ElectricPotential;
 
 using System.Numerics;
@@ -15,10 +13,18 @@ using ktsu.io.PhysicalQuantity.Resistance;
 public sealed record ElectricPotential
 	: PhysicalQuantity<ElectricPotential>
 	, IDerivativeOperators<ElectricPotential, ElectricCurrent, Resistance>
+	, IDerivativeOperators<ElectricPotential, Resistance, ElectricCurrent>
 	, IIntegralOperators<ElectricPotential, ElectricCurrent, Power>
 {
-	public static Power operator *(ElectricPotential left, ElectricCurrent right) => (IIntegralOperators<ElectricPotential, ElectricCurrent, Power>)left * right;
-	public static Resistance operator /(ElectricPotential left, ElectricCurrent right) => (IDerivativeOperators<ElectricPotential, ElectricCurrent, Resistance>)left / right;
+	public static Power operator *(ElectricPotential left, ElectricCurrent right) =>
+		IIntegralOperators<ElectricPotential, ElectricCurrent, Power>.Integrate(left, right);
+
+	public static Resistance operator /(ElectricPotential left, ElectricCurrent right) =>
+		IDerivativeOperators<ElectricPotential, ElectricCurrent, Resistance>.Derive(left, right);
+
+	public static ElectricCurrent operator /(ElectricPotential left, Resistance right) =>
+		IDerivativeOperators<ElectricPotential, Resistance, ElectricCurrent>.Derive(left, right);
+
 }
 
 /// <summary>

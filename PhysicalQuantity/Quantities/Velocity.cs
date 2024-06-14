@@ -18,9 +18,11 @@ public sealed record Velocity
 	, IIntegralOperators<Velocity, Time, Length>
 {
 	public static Acceleration operator /(Velocity left, Time right) =>
-		(IDerivativeOperators<Velocity, Time, Acceleration>)left / right;
+		IDerivativeOperators<Velocity, Time, Acceleration>.Derive(left, right);
+
 	public static Length operator *(Velocity left, Time right) =>
-		(IIntegralOperators<Velocity, Time, Length>)left * right;
+		IIntegralOperators<Velocity, Time, Length>.Integrate(left, right);
+
 }
 
 /// <summary>

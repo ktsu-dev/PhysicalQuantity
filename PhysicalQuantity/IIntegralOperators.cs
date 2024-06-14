@@ -9,6 +9,6 @@ public interface IIntegralOperators<TSelf, TOther, TResult>
 	where TOther : PhysicalQuantity<TOther>, new()
 	where TResult : PhysicalQuantity<TResult>, new()
 {
-	public static TResult operator *(IIntegralOperators<TSelf, TOther, TResult> left, TOther right) =>
-		PhysicalQuantity<TSelf>.Multiply<TResult>((TSelf)left, right);
+	public static TResult Integrate(TSelf left, TOther right) =>
+		PhysicalQuantity<TSelf>.Multiply<TResult>(left, right);
 }

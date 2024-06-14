@@ -1,5 +1,3 @@
-// Ignore Spelling: Micrograms Nanograms
-
 namespace ktsu.io.PhysicalQuantity.Density;
 
 using System.Numerics;
@@ -15,7 +13,8 @@ public sealed record Density
 	: PhysicalQuantity<Density>
 	, IIntegralOperators<Density, Volume, Mass>
 {
-	public static Mass operator *(Density left, Volume right) => (IIntegralOperators<Density, Volume, Mass>)left * right;
+	public static Mass operator *(Density left, Volume right) =>
+		IIntegralOperators<Density, Volume, Mass>.Integrate(left, right);
 }
 
 /// <summary>

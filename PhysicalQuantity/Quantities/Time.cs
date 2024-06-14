@@ -2,6 +2,7 @@ namespace ktsu.io.PhysicalQuantity.Time;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Acceleration;
+using ktsu.io.PhysicalQuantity.Angle;
 using ktsu.io.PhysicalQuantity.AngularAcceleration;
 using ktsu.io.PhysicalQuantity.AngularVelocity;
 using ktsu.io.PhysicalQuantity.Energy;
@@ -22,12 +23,26 @@ public sealed record Time
 	, IIntegralOperators<Time, Jerk, Acceleration>
 	, IIntegralOperators<Time, Power, Energy>
 	, IIntegralOperators<Time, AngularAcceleration, AngularVelocity>
+	, IIntegralOperators<Time, AngularVelocity, Angle>
 {
-	public static Velocity operator *(Time left, Acceleration right) => (IIntegralOperators<Time, Acceleration, Velocity>)left * right;
-	public static Acceleration operator *(Time left, Jerk right) => (IIntegralOperators<Time, Jerk, Acceleration>)left * right;
-	public static Energy operator *(Time left, Power right) => (IIntegralOperators<Time, Power, Energy>)left * right;
-	public static Length operator *(Time left, Velocity right) => (IIntegralOperators<Time, Velocity, Length>)left * right;
-	public static AngularVelocity operator *(Time left, AngularAcceleration right) => (IIntegralOperators<Time, AngularAcceleration, AngularVelocity>)left * right;
+	public static Velocity operator *(Time left, Acceleration right) =>
+		IIntegralOperators<Time, Acceleration, Velocity>.Integrate(left, right);
+
+	public static Acceleration operator *(Time left, Jerk right) =>
+		IIntegralOperators<Time, Jerk, Acceleration>.Integrate(left, right);
+
+	public static Energy operator *(Time left, Power right) =>
+		IIntegralOperators<Time, Power, Energy>.Integrate(left, right);
+
+	public static Length operator *(Time left, Velocity right) =>
+		IIntegralOperators<Time, Velocity, Length>.Integrate(left, right);
+
+	public static AngularVelocity operator *(Time left, AngularAcceleration right) =>
+		IIntegralOperators<Time, AngularAcceleration, AngularVelocity>.Integrate(left, right);
+
+	public static Angle operator *(Time left, AngularVelocity right) =>
+		IIntegralOperators<Time, AngularVelocity, Angle>.Integrate(left, right);
+
 }
 
 /// <summary>
@@ -114,4 +129,24 @@ public static class TimeConversions
 	public static TNumber Days<TNumber>(this Time value)
 		where TNumber : INumber<TNumber>
 		=> value.ConvertToNumber(Constants.DaysToSecondsFactor).To<TNumber>();
+
+	/// <summary>
+	/// Converts a numeric value to <see cref="Time"/> measured in years.
+	/// </summary>
+	/// <typeparam name="TNumber">The numeric type of the value.</typeparam>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A <see cref="Time"/> instance representing the specified value in years.</returns>
+	public static Time Years<TNumber>(this TNumber value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToQuantity<TNumber, Time>(Constants.YearsToSecondsFactor);
+
+	/// <summary>
+	/// Converts a <see cref="Time"/> value to a numeric value measured in years.
+	///  </summary>
+	/// <typeparam name="TNumber">The numeric type of the result.</typeparam>
+	/// <param name="value">The <see cref="Time"/> value to convert.</param>
+	/// <returns>The numeric value representing the time in years.</returns>
+	public static TNumber Years<TNumber>(this Time value)
+		where TNumber : INumber<TNumber>
+		=> value.ConvertToNumber(Constants.YearsToSecondsFactor).To<TNumber>();
 }

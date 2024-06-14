@@ -2,9 +2,11 @@ namespace ktsu.io.PhysicalQuantity.Mass;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Acceleration;
+using ktsu.io.PhysicalQuantity.AmountOfSubstance;
 using ktsu.io.PhysicalQuantity.Density;
 using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.MolarMass;
 using ktsu.io.PhysicalQuantity.Volume;
 
 /// <summary>
@@ -14,10 +16,26 @@ using ktsu.io.PhysicalQuantity.Volume;
 public sealed record Mass
 	: PhysicalQuantity<Mass>
 	, IDerivativeOperators<Mass, Volume, Density>
+	, IDerivativeOperators<Mass, Density, Volume>
+	, IDerivativeOperators<Mass, MolarMass, AmountOfSubstance>
+	, IDerivativeOperators<Mass, AmountOfSubstance, MolarMass>
 	, IIntegralOperators<Mass, Acceleration, Force>
 {
-	public static Force operator *(Mass left, Acceleration right) => (IIntegralOperators<Mass, Acceleration, Force>)left * right;
-	public static Density operator /(Mass left, Volume right) => (IDerivativeOperators<Mass, Volume, Density>)left / right;
+	public static Force operator *(Mass left, Acceleration right) =>
+		IIntegralOperators<Mass, Acceleration, Force>.Integrate(left, right);
+
+	public static Density operator /(Mass left, Volume right) =>
+		IDerivativeOperators<Mass, Volume, Density>.Derive(left, right);
+
+	public static Volume operator /(Mass left, Density right) =>
+		IDerivativeOperators<Mass, Density, Volume>.Derive(left, right);
+
+	public static AmountOfSubstance operator /(Mass left, MolarMass right) =>
+		IDerivativeOperators<Mass, MolarMass, AmountOfSubstance>.Derive(left, right);
+
+	public static MolarMass operator /(Mass left, AmountOfSubstance right) =>
+		IDerivativeOperators<Mass, AmountOfSubstance, MolarMass>.Derive(left, right);
+
 }
 
 /// <summary>

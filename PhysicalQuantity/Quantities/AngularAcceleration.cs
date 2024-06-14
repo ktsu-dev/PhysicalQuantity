@@ -1,5 +1,3 @@
-// Ignore Spelling: Gradians
-
 namespace ktsu.io.PhysicalQuantity.AngularAcceleration;
 
 using System.Numerics;
@@ -12,7 +10,8 @@ public sealed record AngularAcceleration
 	: PhysicalQuantity<AngularAcceleration>
 	, IIntegralOperators<AngularAcceleration, Time, AngularVelocity>
 {
-	public static AngularVelocity operator *(AngularAcceleration left, Time right) => (IIntegralOperators<AngularAcceleration, Time, AngularVelocity>)left * right;
+	public static AngularVelocity operator *(AngularAcceleration left, Time right) =>
+		IIntegralOperators<AngularAcceleration, Time, AngularVelocity>.Integrate(left, right);
 }
 
 /// <summary>
