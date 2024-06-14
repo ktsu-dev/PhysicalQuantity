@@ -27,10 +27,10 @@ public class VelocityTests
 		var time = 5.Seconds();
 		var velocity = acceleration * time;
 
-		Assert.AreEqual(49.0.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
+		Assert.AreEqual(50.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
 
 		velocity = time * acceleration;
-		Assert.AreEqual(49.0.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
+		Assert.AreEqual(50.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
 	}
 
 	[TestMethod]

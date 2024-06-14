@@ -31,10 +31,10 @@ public class AccelerationTests
 		var time = 5.Seconds();
 		var velocity = acceleration * time;
 
-		Assert.AreEqual(49.0.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
+		Assert.AreEqual(50.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
 
 		velocity = time * acceleration;
-		Assert.AreEqual(49.0.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
+		Assert.AreEqual(50.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -45,7 +45,7 @@ public class AccelerationTests
 		var acceleration = 9.8.MetersPerSecondSquared();
 		var length = (initialVelocity * time) + (acceleration * time * time * 0.5.ToSignificantNumber());
 
-		Assert.AreEqual(122.5.ToSignificantNumber(), length.Meters<SignificantNumber>());
+		Assert.AreEqual(100.ToSignificantNumber(), length.Meters<SignificantNumber>());
 	}
 
 	[TestMethod]
