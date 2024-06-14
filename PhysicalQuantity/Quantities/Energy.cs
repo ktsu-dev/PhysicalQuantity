@@ -3,7 +3,9 @@
 namespace ktsu.io.PhysicalQuantity.Energy;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Length;
 using ktsu.io.PhysicalQuantity.Power;
 using ktsu.io.PhysicalQuantity.Time;
 
@@ -14,8 +16,12 @@ using ktsu.io.PhysicalQuantity.Time;
 public sealed record Energy
 	: PhysicalQuantity<Energy>
 	, IDerivativeOperators<Energy, Time, Power>
+	, IDerivativeOperators<Energy, Force, Length>
+	, IDerivativeOperators<Energy, Length, Force>
 {
 	public static Power operator /(Energy left, Time right) => (IDerivativeOperators<Energy, Time, Power>)left / right;
+	public static Length operator /(Energy left, Force right) => (IDerivativeOperators<Energy, Force, Length>)left / right;
+	public static Force operator /(Energy left, Length right) => (IDerivativeOperators<Energy, Length, Force>)left / right;
 }
 
 /// <summary>

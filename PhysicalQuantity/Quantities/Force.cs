@@ -3,7 +3,13 @@
 namespace ktsu.io.PhysicalQuantity.Force;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Acceleration;
+using ktsu.io.PhysicalQuantity.Area;
+using ktsu.io.PhysicalQuantity.Energy;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.Mass;
+using ktsu.io.PhysicalQuantity.Pressure;
 
 /// <summary>
 /// Represents a force quantity measured in newtons.
@@ -11,7 +17,16 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("N", "newton", "newtons")]
 public sealed record Force
 	: PhysicalQuantity<Force>
-{ }
+	, IDerivativeOperators<Force, Mass, Acceleration>
+	, IDerivativeOperators<Force, Acceleration, Mass>
+	, IDerivativeOperators<Force, Area, Pressure>
+	, IIntegralOperators<Force, Length, Energy>
+{
+	public static Energy operator *(Force left, Length right) => (IIntegralOperators<Force, Length, Energy>)left * right;
+	public static Acceleration operator /(Force left, Mass right) => (IDerivativeOperators<Force, Mass, Acceleration>)left / right;
+	public static Mass operator /(Force left, Acceleration right) => (IDerivativeOperators<Force, Acceleration, Mass>)left / right;
+	public static Pressure operator /(Force left, Area right) => (IDerivativeOperators<Force, Area, Pressure>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Force"/>.

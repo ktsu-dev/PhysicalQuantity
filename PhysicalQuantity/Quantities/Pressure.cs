@@ -1,6 +1,8 @@
 namespace ktsu.io.PhysicalQuantity.Pressure;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Area;
+using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Generic;
 
 /// <summary>
@@ -9,7 +11,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("Pa", "pascal", "pascals")]
 public sealed record Pressure
 	: PhysicalQuantity<Pressure>
-{ }
+	, IIntegralOperators<Pressure, Area, Force>
+{
+	public static Force operator *(Pressure left, Area right) => (IIntegralOperators<Pressure, Area, Force>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Pressure"/>.

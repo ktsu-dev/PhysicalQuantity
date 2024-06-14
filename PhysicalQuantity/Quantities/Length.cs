@@ -2,6 +2,8 @@ namespace ktsu.io.PhysicalQuantity.Length;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Area;
+using ktsu.io.PhysicalQuantity.Energy;
+using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Generic;
 using ktsu.io.PhysicalQuantity.Time;
 using ktsu.io.PhysicalQuantity.Velocity;
@@ -15,10 +17,12 @@ public sealed record Length
 	: PhysicalQuantity<Length>
 	, IIntegralOperators<Length, Length, Area>
 	, IIntegralOperators<Length, Area, Volume>
+	, IIntegralOperators<Length, Force, Energy>
 	, IDerivativeOperators<Length, Time, Velocity>
 {
 	public static Area operator *(Length left, Length right) => (IIntegralOperators<Length, Length, Area>)left * right;
 	public static Volume operator *(Length left, Area right) => (IIntegralOperators<Length, Area, Volume>)left * right;
+	public static Energy operator *(Length left, Force right) => (IIntegralOperators<Length, Force, Energy>)left * right;
 	public static Velocity operator /(Length left, Time right) => (IDerivativeOperators<Length, Time, Velocity>)left / right;
 }
 

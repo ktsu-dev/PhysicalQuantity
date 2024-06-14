@@ -1,8 +1,10 @@
 namespace ktsu.io.PhysicalQuantity.Area;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Generic;
 using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.Pressure;
 using ktsu.io.PhysicalQuantity.Volume;
 
 [SIUnit("m²", "square meter", "square meters")]
@@ -10,8 +12,10 @@ public sealed record Area
 	: PhysicalQuantity<Area>
 	, IDerivativeOperators<Area, Length, Length>
 	, IIntegralOperators<Area, Length, Volume>
+	, IIntegralOperators<Area, Pressure, Force>
 {
 	public static Volume operator *(Area left, Length right) => (IIntegralOperators<Area, Length, Volume>)left * right;
+	public static Force operator *(Area left, Pressure right) => (IIntegralOperators<Area, Pressure, Force>)left * right;
 	public static Length operator /(Area left, Length right) => (IDerivativeOperators<Area, Length, Length>)left / right;
 }
 

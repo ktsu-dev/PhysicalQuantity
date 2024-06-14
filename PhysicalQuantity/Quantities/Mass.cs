@@ -1,7 +1,9 @@
 namespace ktsu.io.PhysicalQuantity.Mass;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Acceleration;
 using ktsu.io.PhysicalQuantity.Density;
+using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Generic;
 using ktsu.io.PhysicalQuantity.Volume;
 
@@ -12,7 +14,9 @@ using ktsu.io.PhysicalQuantity.Volume;
 public sealed record Mass
 	: PhysicalQuantity<Mass>
 	, IDerivativeOperators<Mass, Volume, Density>
+	, IIntegralOperators<Mass, Acceleration, Force>
 {
+	public static Force operator *(Mass left, Acceleration right) => (IIntegralOperators<Mass, Acceleration, Force>)left * right;
 	public static Density operator /(Mass left, Volume right) => (IDerivativeOperators<Mass, Volume, Density>)left / right;
 }
 
