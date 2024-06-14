@@ -295,4 +295,93 @@ public class PhysicalQuantityTests
 		Assert.AreEqual(value * 35.314666721.ToSignificantNumber(), value.CubicMeters().CubicFeet<SignificantNumber>());
 		Assert.AreEqual(value * 61023.744094732284.ToSignificantNumber(), value.CubicMeters().CubicInches<SignificantNumber>());
 	}
+
+	[TestMethod]
+	public void TestSIUnitAttributeUsage()
+	{
+		object[] attributes = typeof(Length).GetCustomAttributes(typeof(SIUnitAttribute), false);
+		Assert.AreEqual(1, attributes.Length);
+		var siUnitAttribute = (SIUnitAttribute)attributes[0];
+		Assert.AreEqual("m", siUnitAttribute.Symbol);
+		Assert.AreEqual("meter", siUnitAttribute.Singular);
+		Assert.AreEqual("meters", siUnitAttribute.Plural);
+	}
+
+	[TestMethod]
+	public void TestLengthConversionAccuracy()
+	{
+		var value = 123.456.ToSignificantNumber();
+		var convertedValue = value.Meters().Kilometers<SignificantNumber>();
+		Assert.AreEqual(value / 1000.ToSignificantNumber(), convertedValue);
+	}
+
+	[TestMethod]
+	public void TestIntegrationOperators()
+	{
+		var acceleration = 9.8.MetersPerSecondSquared();
+		var time = 2.Seconds();
+		var velocity = acceleration * time;
+		Assert.AreEqual(20.0, velocity.MetersPerSecond<double>());
+	}
+
+	[TestMethod]
+	public void TestEdgeCasesForConversions()
+	{
+		var zeroLength = 0.Meters().Kilometers<SignificantNumber>();
+		Assert.AreEqual(0.ToSignificantNumber(), zeroLength);
+
+		var negativeLength = (-5).Meters().Kilometers<SignificantNumber>();
+		Assert.AreEqual((-0.005).ToSignificantNumber(), negativeLength);
+
+		var largeLength = 1e9.Meters().Kilometers<SignificantNumber>();
+		Assert.AreEqual(1e6.ToSignificantNumber(), largeLength);
+	}
+
+	[TestMethod]
+	public void TestOverloadedOperators()
+	{
+		var length1 = 2.Meters();
+		var length2 = 3.Meters();
+		var result = length1 + length2;
+		Assert.AreEqual(5.ToSignificantNumber(), result.Meters<SignificantNumber>());
+	}
+
+	[TestMethod]
+	public void TestCustomUnitConversions()
+	{
+		// Assuming custom unit "Foo" conversion to meters
+		var fooToMeterFactor = 1.23.ToSignificantNumber(); // Custom conversion factor
+		var value = 5.ToSignificantNumber();
+		var customLength = value * fooToMeterFactor;
+		Assert.AreEqual(value * fooToMeterFactor, customLength);
+	}
+
+	[TestMethod]
+	public void TestLargeQuantityPerformance()
+	{
+		var largeValue = 1e18.ToSignificantNumber();
+		var result = largeValue.Meters().Kilometers<SignificantNumber>();
+		Assert.AreEqual(1e15.ToSignificantNumber(), result);
+	}
+
+
+	[TestMethod]
+	public void TestExtensionMethodValidity()
+	{
+		var length = 100.Meters();
+		var kilometers = length.Kilometers<SignificantNumber>();
+		Assert.AreEqual(0.1.ToSignificantNumber(), kilometers);
+	}
+
+
+	[TestMethod]
+	public void TestQuantityComparisons()
+	{
+		var length1 = 100.Meters();
+		var length2 = 200.Meters();
+		Assert.IsTrue(length1 < length2);
+		Assert.IsTrue(length2 > length1);
+		Assert.AreEqual(length1, length1);
+	}
+
 }
