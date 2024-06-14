@@ -1,6 +1,8 @@
 namespace ktsu.io.PhysicalQuantity.Energy;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Charge;
+using ktsu.io.PhysicalQuantity.ElectricPotential;
 using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Generic;
 using ktsu.io.PhysicalQuantity.Length;
@@ -16,6 +18,7 @@ public sealed record Energy
 	, IDerivativeOperators<Energy, Time, Power>
 	, IDerivativeOperators<Energy, Force, Length>
 	, IDerivativeOperators<Energy, Length, Force>
+	, IDerivativeOperators<Energy, Charge, ElectricPotential>
 {
 	public static Power operator /(Energy left, Time right) =>
 		IDerivativeOperators<Energy, Time, Power>.Derive(left, right);
@@ -26,6 +29,8 @@ public sealed record Energy
 	public static Force operator /(Energy left, Length right) =>
 		IDerivativeOperators<Energy, Length, Force>.Derive(left, right);
 
+	public static ElectricPotential operator /(Energy left, Charge right) =>
+		IDerivativeOperators<Energy, Charge, ElectricPotential>.Derive(left, right);
 }
 
 /// <summary>

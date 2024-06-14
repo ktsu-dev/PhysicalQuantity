@@ -1,10 +1,12 @@
 namespace ktsu.io.PhysicalQuantity.ElectricCurrent;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Charge;
 using ktsu.io.PhysicalQuantity.ElectricPotential;
 using ktsu.io.PhysicalQuantity.Generic;
 using ktsu.io.PhysicalQuantity.Power;
 using ktsu.io.PhysicalQuantity.Resistance;
+using ktsu.io.PhysicalQuantity.Time;
 
 /// <summary>
 /// Represents an electric current quantity measured in amperes.
@@ -14,6 +16,7 @@ public sealed record ElectricCurrent
 	: PhysicalQuantity<ElectricCurrent>
 	, IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>
 	, IIntegralOperators<ElectricCurrent, ElectricPotential, Power>
+	, IIntegralOperators<ElectricCurrent, Time, Charge>
 {
 	public static ElectricPotential operator *(ElectricCurrent left, Resistance right) =>
 		IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>.Integrate(left, right);
@@ -21,6 +24,8 @@ public sealed record ElectricCurrent
 	public static Power operator *(ElectricCurrent left, ElectricPotential right) =>
 		IIntegralOperators<ElectricCurrent, ElectricPotential, Power>.Integrate(left, right);
 
+	public static Charge operator *(ElectricCurrent left, Time right) =>
+		IIntegralOperators<ElectricCurrent, Time, Charge>.Integrate(left, right);
 }
 
 /// <summary>

@@ -103,4 +103,8 @@ internal static class Constants
 
 	// Solid Angle conversion factors
 	internal static SignificantNumber SquareDegreesToSteradiansFactor { get; } = 3282.80635001.ToSignificantNumber();
+
+	// Charge conversion factors
+	internal static SignificantNumber MilliampereHoursToCoulombsFactor { get; } = 3.6.ToSignificantNumber();
+	internal static SignificantNumber AmpereHoursToCoulombsFactor { get; } = 3600.ToSignificantNumber();
 }

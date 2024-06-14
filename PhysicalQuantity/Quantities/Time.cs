@@ -5,6 +5,8 @@ using ktsu.io.PhysicalQuantity.Acceleration;
 using ktsu.io.PhysicalQuantity.Angle;
 using ktsu.io.PhysicalQuantity.AngularAcceleration;
 using ktsu.io.PhysicalQuantity.AngularVelocity;
+using ktsu.io.PhysicalQuantity.Charge;
+using ktsu.io.PhysicalQuantity.ElectricCurrent;
 using ktsu.io.PhysicalQuantity.Energy;
 using ktsu.io.PhysicalQuantity.Generic;
 using ktsu.io.PhysicalQuantity.Jerk;
@@ -24,6 +26,7 @@ public sealed record Time
 	, IIntegralOperators<Time, Power, Energy>
 	, IIntegralOperators<Time, AngularAcceleration, AngularVelocity>
 	, IIntegralOperators<Time, AngularVelocity, Angle>
+	, IIntegralOperators<Time, ElectricCurrent, Charge>
 {
 	public static Velocity operator *(Time left, Acceleration right) =>
 		IIntegralOperators<Time, Acceleration, Velocity>.Integrate(left, right);
@@ -43,6 +46,8 @@ public sealed record Time
 	public static Angle operator *(Time left, AngularVelocity right) =>
 		IIntegralOperators<Time, AngularVelocity, Angle>.Integrate(left, right);
 
+	public static Charge operator *(Time left, ElectricCurrent right) =>
+		IIntegralOperators<Time, ElectricCurrent, Charge>.Integrate(left, right);
 }
 
 /// <summary>
