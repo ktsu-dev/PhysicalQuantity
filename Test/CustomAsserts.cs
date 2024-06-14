@@ -1,4 +1,4 @@
-namespace ktsu.io.PhysicalQuantity.Test;
+namespace ktsu.io.PhysicalQuantity.Tests;
 using System.Numerics;
 
 using ktsu.io.SignificantNumber;
