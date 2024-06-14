@@ -5,6 +5,7 @@ namespace ktsu.io.PhysicalQuantity.ElectricCurrent;
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.ElectricPotential;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Power;
 using ktsu.io.PhysicalQuantity.Resistance;
 
 /// <summary>
@@ -14,8 +15,10 @@ using ktsu.io.PhysicalQuantity.Resistance;
 public sealed record ElectricCurrent
 	: PhysicalQuantity<ElectricCurrent>
 	, IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>
+	, IIntegralOperators<ElectricCurrent, ElectricPotential, Power>
 {
 	public static ElectricPotential operator *(ElectricCurrent left, Resistance right) => (IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>)left * right;
+	public static Power operator *(ElectricCurrent left, ElectricPotential right) => (IIntegralOperators<ElectricCurrent, ElectricPotential, Power>)left * right;
 }
 
 /// <summary>

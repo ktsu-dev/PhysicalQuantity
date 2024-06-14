@@ -9,7 +9,10 @@ using ktsu.io.PhysicalQuantity.ElectricCurrent;
 using ktsu.io.PhysicalQuantity.ElectricPotential;
 using ktsu.io.PhysicalQuantity.Energy;
 using ktsu.io.PhysicalQuantity.Force;
+using ktsu.io.PhysicalQuantity.Illuminance;
+using ktsu.io.PhysicalQuantity.Jerk;
 using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.LuminousFlux;
 using ktsu.io.PhysicalQuantity.Mass;
 using ktsu.io.PhysicalQuantity.Power;
 using ktsu.io.PhysicalQuantity.Pressure;
@@ -30,16 +33,6 @@ public class IntegralAndDerivativeOperatorsTests
 		var velocity = acceleration * time;
 
 		Assert.AreEqual(49.0.ToSignificantNumber(), velocity.MetersPerSecond<SignificantNumber>());
-	}
-
-	[TestMethod]
-	public void TestLengthIntegration()
-	{
-		var velocity = 10.MetersPerSecond();
-		var time = 5.Seconds();
-		var length = velocity * time;
-
-		Assert.AreEqual(50.0.ToSignificantNumber(), length.Meters<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -123,16 +116,6 @@ public class IntegralAndDerivativeOperatorsTests
 	}
 
 	[TestMethod]
-	public void TestVolumeIntegration()
-	{
-		var area = 10.SquareMeters();
-		var length = 5.Meters();
-		var volume = area * length;
-
-		Assert.AreEqual(50.0.ToSignificantNumber(), volume.CubicMeters<SignificantNumber>());
-	}
-
-	[TestMethod]
 	public void TestMassIntegration()
 	{
 		var density = 2.KilogramsPerCubicMeter();
@@ -142,58 +125,158 @@ public class IntegralAndDerivativeOperatorsTests
 		Assert.AreEqual(6.0.ToSignificantNumber(), mass.Kilograms<SignificantNumber>());
 	}
 
-	[TestMethod]
-	public void TestResistanceIntegration()
-	{
-		var voltage = 10.Volts();
-		var current = 2.Amperes();
-		var resistance = voltage / current;
+	//[TestMethod]
+	//public void TestAmountOfSubstanceIntegration()
+	//{
+	//	var molarMass = 18.01528.GramsPerMole();
+	//	var substanceAmount = 5.Moles();
+	//	var mass = molarMass * substanceAmount;
 
-		Assert.AreEqual(5.0.ToSignificantNumber(), resistance.Ohms<SignificantNumber>());
+	//	Assert.AreEqual(90.0764.ToSignificantNumber(), mass.Grams<SignificantNumber>());
+	//}
+
+	//[TestMethod]
+	//public void TestAmountOfSubstanceDerivative()
+	//{
+	//	var mass = 90.0764.Grams();
+	//	var molarMass = 18.01528.GramsPerMole();
+	//	var substanceAmount = mass / molarMass;
+
+	//	Assert.AreEqual(5.0.ToSignificantNumber(), substanceAmount.Moles<SignificantNumber>());
+	//}
+
+	//[TestMethod]
+	//public void TestElectricCurrentIntegration()
+	//{
+	//	var charge = 10.Coulombs();
+	//	var time = 5.Seconds();
+	//	var current = charge / time;
+
+	//	Assert.AreEqual(2.0.ToSignificantNumber(), current.Amperes<SignificantNumber>());
+	//}
+
+	//[TestMethod]
+	//public void TestElectricPotentialIntegration()
+	//{
+	//	var energy = 100.Joules();
+	//	var charge = 10.Coulombs();
+	//	var potential = energy / charge;
+
+	//	Assert.AreEqual(10.0.ToSignificantNumber(), potential.Volts<SignificantNumber>());
+	//}
+
+	//[TestMethod]
+	//public void TestElectricCurrentDerivative()
+	//{
+	//	var current = 2.Amperes();
+	//	var time = 5.Seconds();
+	//	var charge = current * time;
+
+	//	Assert.AreEqual(10.0.ToSignificantNumber(), charge.Coulombs<SignificantNumber>());
+	//}
+
+	//[TestMethod]
+	//public void TestElectricPotentialDerivative()
+	//{
+	//	var potential = 10.Volts();
+	//	var charge = 10.Coulombs();
+	//	var energy = potential * charge;
+
+	//	Assert.AreEqual(100.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
+	//}
+
+	[TestMethod]
+	public void TestIlluminanceIntegration()
+	{
+		var luminousFlux = 1000.Lumens();
+		var area = 10.SquareMeters();
+		var illuminance = luminousFlux / area;
+
+		Assert.AreEqual(100.0.ToSignificantNumber(), illuminance.Lux<SignificantNumber>());
 	}
 
 	[TestMethod]
-	public void TestAreaDerivative()
+	public void TestIlluminanceDerivative()
 	{
-		var area = 200.SquareMeters();
-		var length = 10.Meters();
-		var otherLength = area / length;
+		var illuminance = 100.Lux();
+		var area = 10.SquareMeters();
+		var luminousFlux = illuminance * area;
 
-		Assert.AreEqual(20.0.ToSignificantNumber(), otherLength.Meters<SignificantNumber>());
+		Assert.AreEqual(1000.0.ToSignificantNumber(), luminousFlux.Lumens<SignificantNumber>());
+	}
+
+	//[TestMethod]
+	//public void TestLuminousIntensityIntegration()
+	//{
+	//	var luminousFlux = 1000.Lumens();
+	//	var solidAngle = 2.Steradians();
+	//	var luminousIntensity = luminousFlux / solidAngle;
+
+	//	Assert.AreEqual(500.0.ToSignificantNumber(), luminousIntensity.Candelas<SignificantNumber>());
+	//}
+
+	//[TestMethod]
+	//public void TestLuminousIntensityDerivative()
+	//{
+	//	var luminousIntensity = 500.Candelas();
+	//	var solidAngle = 2.Steradians();
+	//	var luminousFlux = luminousIntensity * solidAngle;
+
+	//	Assert.AreEqual(1000.0.ToSignificantNumber(), luminousFlux.Lumens<SignificantNumber>());
+	//}
+
+	[TestMethod]
+	public void TestJerkIntegration()
+	{
+		var jerk = 5.MetersPerSecondCubed();
+		var time = 4.Seconds();
+		var acceleration = jerk * time;
+
+		Assert.AreEqual(20.0.ToSignificantNumber(), acceleration.MetersPerSecondSquared<SignificantNumber>());
 	}
 
 	[TestMethod]
-	public void TestEnergyDerivative()
+	public void TestJerkDerivative()
 	{
-		var energy = 50.Joules();
-		var length = 5.Meters();
-		var force = energy / length;
+		var acceleration = 20.MetersPerSecondSquared();
+		var time = 4.Seconds();
+		var jerk = acceleration / time;
 
-		Assert.AreEqual(10.0.ToSignificantNumber(), force.Newtons<SignificantNumber>());
+		Assert.AreEqual(5.0.ToSignificantNumber(), jerk.MetersPerSecondCubed<SignificantNumber>());
 	}
 
 	[TestMethod]
-	public void TestPowerDerivative()
+	public void TestEnergyDerivativeWithTime()
 	{
-		var power = 10.Watts();
+		var power = 100.Watts();
 		var time = 10.Seconds();
 		var energy = power * time;
 
-		Assert.AreEqual(100.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
+		Assert.AreEqual(1000.0.ToSignificantNumber(), energy.Joules<SignificantNumber>());
 	}
 
 	[TestMethod]
-	public void TestPressureDerivative()
+	public void TestPowerDerivativeWithCurrent()
 	{
-		var pressure = 50.Pascals();
-		var area = 2.SquareMeters();
-		var force = pressure * area;
+		var voltage = 10.Volts();
+		var current = 10.Amperes();
+		var power = voltage * current;
 
-		Assert.AreEqual(100.0.ToSignificantNumber(), force.Newtons<SignificantNumber>());
+		Assert.AreEqual(100.0.ToSignificantNumber(), power.Watts<SignificantNumber>());
 	}
 
 	[TestMethod]
-	public void TestVolumeDerivative()
+	public void TestVelocityIntegrationWithLength()
+	{
+		var velocity = 10.MetersPerSecond();
+		var time = 5.Seconds();
+		var length = velocity * time;
+
+		Assert.AreEqual(50.0.ToSignificantNumber(), length.Meters<SignificantNumber>());
+	}
+
+	[TestMethod]
+	public void TestVolumeDerivativeWithArea()
 	{
 		var volume = 50.CubicMeters();
 		var length = 5.Meters();
@@ -203,7 +286,7 @@ public class IntegralAndDerivativeOperatorsTests
 	}
 
 	[TestMethod]
-	public void TestMassDerivative()
+	public void TestDensityDerivativeWithMass()
 	{
 		var mass = 10.Kilograms();
 		var volume = 2.CubicMeters();
@@ -213,17 +296,27 @@ public class IntegralAndDerivativeOperatorsTests
 	}
 
 	[TestMethod]
-	public void TestResistanceDerivative()
+	public void TestVolumeIntegrationWithAreaAndLength()
 	{
-		var resistance = 5.Ohms();
-		var current = 2.Amperes();
-		var voltage = resistance * current;
+		var area = 10.SquareMeters();
+		var length = 5.Meters();
+		var volume = area * length;
 
-		Assert.AreEqual(10.0.ToSignificantNumber(), voltage.Volts<SignificantNumber>());
+		Assert.AreEqual(50.0.ToSignificantNumber(), volume.CubicMeters<SignificantNumber>());
 	}
 
 	[TestMethod]
-	public void TestAngularVelocityIntegration()
+	public void TestResistanceIntegrationWithVoltageAndCurrent()
+	{
+		var voltage = 10.Volts();
+		var current = 2.Amperes();
+		var resistance = voltage / current;
+
+		Assert.AreEqual(5.0.ToSignificantNumber(), resistance.Ohms<SignificantNumber>());
+	}
+
+	[TestMethod]
+	public void TestAngularVelocityIntegrationWithTime()
 	{
 		var angularAcceleration = 2.RadiansPerSecondSquared();
 		var time = 3.Seconds();
@@ -233,7 +326,7 @@ public class IntegralAndDerivativeOperatorsTests
 	}
 
 	[TestMethod]
-	public void TestAngularAccelerationDerivative()
+	public void TestAngularAccelerationDerivativeWithTime()
 	{
 		var angularVelocity = 6.RadiansPerSecond();
 		var time = 3.Seconds();

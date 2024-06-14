@@ -3,7 +3,9 @@
 namespace ktsu.io.PhysicalQuantity.Illuminance;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Area;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.LuminousFlux;
 
 /// <summary>
 /// Represents a physical quantity of illuminance.
@@ -11,7 +13,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("lx", "lux", "lux")]
 public sealed record Illuminance
 	: PhysicalQuantity<Illuminance>
-{ }
+	, IIntegralOperators<Illuminance, Area, LuminousFlux>
+{
+	public static LuminousFlux operator *(Illuminance left, Area right) => (IIntegralOperators<Illuminance, Area, LuminousFlux>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting numerical values to and from <see cref="Illuminance"/>.

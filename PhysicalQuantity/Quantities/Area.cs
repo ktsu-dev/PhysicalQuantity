@@ -3,7 +3,9 @@ namespace ktsu.io.PhysicalQuantity.Area;
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Force;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Illuminance;
 using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.LuminousFlux;
 using ktsu.io.PhysicalQuantity.Pressure;
 using ktsu.io.PhysicalQuantity.Volume;
 
@@ -13,9 +15,11 @@ public sealed record Area
 	, IDerivativeOperators<Area, Length, Length>
 	, IIntegralOperators<Area, Length, Volume>
 	, IIntegralOperators<Area, Pressure, Force>
+	, IIntegralOperators<Area, Illuminance, LuminousFlux>
 {
 	public static Volume operator *(Area left, Length right) => (IIntegralOperators<Area, Length, Volume>)left * right;
 	public static Force operator *(Area left, Pressure right) => (IIntegralOperators<Area, Pressure, Force>)left * right;
+	public static LuminousFlux operator *(Area left, Illuminance right) => (IIntegralOperators<Area, Illuminance, LuminousFlux>)left * right;
 	public static Length operator /(Area left, Length right) => (IDerivativeOperators<Area, Length, Length>)left / right;
 }
 

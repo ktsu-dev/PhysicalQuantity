@@ -3,7 +3,9 @@
 namespace ktsu.io.PhysicalQuantity.LuminousFlux;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Area;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Illuminance;
 
 /// <summary>
 /// Represents a luminous flux quantity measured in lumens.
@@ -11,7 +13,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("lm", "lumen", "lumens")]
 public sealed record LuminousFlux
 	: PhysicalQuantity<LuminousFlux>
-{ }
+	, IDerivativeOperators<LuminousFlux, Area, Illuminance>
+{
+	public static Illuminance operator /(LuminousFlux left, Area right) => (IDerivativeOperators<LuminousFlux, Area, Illuminance>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="LuminousFlux"/>.
