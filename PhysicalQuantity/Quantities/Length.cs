@@ -1,7 +1,11 @@
 namespace ktsu.io.PhysicalQuantity.Length;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Area;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Time;
+using ktsu.io.PhysicalQuantity.Velocity;
+using ktsu.io.PhysicalQuantity.Volume;
 
 /// <summary>
 /// Represents a length physical quantity.
@@ -9,7 +13,14 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("m", "meter", "meters")]
 public sealed record Length
 	: PhysicalQuantity<Length>
-{ }
+	, IIntegralOperators<Length, Length, Area>
+	, IIntegralOperators<Length, Area, Volume>
+	, IDerivativeOperators<Length, Time, Velocity>
+{
+	public static Area operator *(Length left, Length right) => (IIntegralOperators<Length, Length, Area>)left * right;
+	public static Volume operator *(Length left, Area right) => (IIntegralOperators<Length, Area, Volume>)left * right;
+	public static Velocity operator /(Length left, Time right) => (IDerivativeOperators<Length, Time, Velocity>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Length"/>.

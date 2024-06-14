@@ -1,12 +1,17 @@
 namespace ktsu.io.PhysicalQuantity.Jerk;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Acceleration;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Time;
 
 [SIUnit("m/s³", "meter per second cubed", "meters per second cubed")]
 public sealed record Jerk
 	: PhysicalQuantity<Jerk>
-{ }
+	, IIntegralOperators<Jerk, Time, Acceleration>
+{
+	public static Acceleration operator *(Jerk left, Time right) => (IIntegralOperators<Jerk, Time, Acceleration>)left * right;
+}
 
 public static class JerkConversions
 {

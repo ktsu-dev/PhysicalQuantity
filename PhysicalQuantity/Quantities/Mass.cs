@@ -1,7 +1,9 @@
 namespace ktsu.io.PhysicalQuantity.Mass;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Density;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Volume;
 
 /// <summary>
 /// Represents a mass quantity measured in kilograms.
@@ -9,7 +11,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("kg", "kilogram", "kilograms")]
 public sealed record Mass
 	: PhysicalQuantity<Mass>
-{ }
+	, IDerivativeOperators<Mass, Volume, Density>
+{
+	public static Density operator /(Mass left, Volume right) => (IDerivativeOperators<Mass, Volume, Density>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Mass"/>.

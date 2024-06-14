@@ -1,7 +1,9 @@
 namespace ktsu.io.PhysicalQuantity.Volume;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Area;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Length;
 
 /// <summary>
 /// Represents a volume quantity measured in cubic meters, liters, milliliters, cubic feet, and cubic inches.
@@ -9,7 +11,12 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("m³", "cubic meter", "cubic meters")]
 public sealed record Volume
 	: PhysicalQuantity<Volume>
-{ }
+	, IDerivativeOperators<Volume, Length, Area>
+	, IDerivativeOperators<Volume, Area, Length>
+{
+	public static Area operator /(Volume left, Length right) => (IDerivativeOperators<Volume, Length, Area>)left / right;
+	public static Length operator /(Volume left, Area right) => (IDerivativeOperators<Volume, Area, Length>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Volume"/>.

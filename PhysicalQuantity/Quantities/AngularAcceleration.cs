@@ -3,11 +3,17 @@
 namespace ktsu.io.PhysicalQuantity.AngularAcceleration;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.AngularVelocity;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Time;
 
 [SIUnit("rad/s²", "radian per second squared", "radians per second squared")]
-public sealed record AngularAcceleration : PhysicalQuantity<AngularAcceleration>
-{ }
+public sealed record AngularAcceleration
+	: PhysicalQuantity<AngularAcceleration>
+	, IIntegralOperators<AngularAcceleration, Time, AngularVelocity>
+{
+	public static AngularVelocity operator *(AngularAcceleration left, Time right) => (IIntegralOperators<AngularAcceleration, Time, AngularVelocity>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting numerical values to and from <see cref="AngularAcceleration"/> quantities.

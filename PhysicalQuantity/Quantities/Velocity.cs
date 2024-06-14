@@ -1,7 +1,10 @@
 namespace ktsu.io.PhysicalQuantity.Velocity;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Acceleration;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.Time;
 using ktsu.io.SignificantNumber;
 
 /// <summary>
@@ -11,7 +14,14 @@ using ktsu.io.SignificantNumber;
 [SIUnit("m/s", "meter per second", "meters per second")]
 public sealed record Velocity
 	: PhysicalQuantity<Velocity>
-{ }
+	, IDerivativeOperators<Velocity, Time, Acceleration>
+	, IIntegralOperators<Velocity, Time, Length>
+{
+	public static Acceleration operator /(Velocity left, Time right) =>
+		(IDerivativeOperators<Velocity, Time, Acceleration>)left / right;
+	public static Length operator *(Velocity left, Time right) =>
+		(IIntegralOperators<Velocity, Time, Length>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Velocity"/>.

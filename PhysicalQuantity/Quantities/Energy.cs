@@ -4,6 +4,8 @@ namespace ktsu.io.PhysicalQuantity.Energy;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Power;
+using ktsu.io.PhysicalQuantity.Time;
 
 /// <summary>
 /// Represents an energy quantity measured in joules.
@@ -11,7 +13,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("J", "joule", "joules")]
 public sealed record Energy
 	: PhysicalQuantity<Energy>
-{ }
+	, IDerivativeOperators<Energy, Time, Power>
+{
+	public static Power operator /(Energy left, Time right) => (IDerivativeOperators<Energy, Time, Power>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Energy"/>.

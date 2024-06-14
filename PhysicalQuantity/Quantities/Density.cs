@@ -4,6 +4,8 @@ namespace ktsu.io.PhysicalQuantity.Density;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Mass;
+using ktsu.io.PhysicalQuantity.Volume;
 
 /// <summary>
 /// Represents a density quantity measured in kilograms per cubic meter.
@@ -11,7 +13,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("kg/m³", "kilogram per cubic meter", "kilograms per cubic meter")]
 public sealed record Density
 	: PhysicalQuantity<Density>
-{ }
+	, IIntegralOperators<Density, Volume, Mass>
+{
+	public static Mass operator *(Density left, Volume right) => (IIntegralOperators<Density, Volume, Mass>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Density"/>.

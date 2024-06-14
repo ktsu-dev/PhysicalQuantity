@@ -3,7 +3,9 @@
 namespace ktsu.io.PhysicalQuantity.Power;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.Energy;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Time;
 
 /// <summary>
 /// Represents a power quantity measured in watts.
@@ -11,7 +13,10 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("W", "watt", "watts")]
 public sealed record Power
 	: PhysicalQuantity<Power>
-{ }
+	, IIntegralOperators<Power, Time, Energy>
+{
+	public static Energy operator *(Power left, Time right) => (IIntegralOperators<Power, Time, Energy>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting values to and from <see cref="Power"/>.

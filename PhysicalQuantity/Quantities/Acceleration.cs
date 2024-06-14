@@ -2,6 +2,9 @@ namespace ktsu.io.PhysicalQuantity.Acceleration;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Jerk;
+using ktsu.io.PhysicalQuantity.Time;
+using ktsu.io.PhysicalQuantity.Velocity;
 
 /// <summary>
 /// Represents the physical quantity of acceleration.
@@ -9,7 +12,12 @@ using ktsu.io.PhysicalQuantity.Generic;
 [SIUnit("m/s²", "meter per second squared", "meters per second squared")]
 public sealed record Acceleration
 	: PhysicalQuantity<Acceleration>
-{ }
+	, IDerivativeOperators<Acceleration, Time, Jerk>
+	, IIntegralOperators<Acceleration, Time, Velocity>
+{
+	public static Jerk operator /(Acceleration left, Time right) => (IDerivativeOperators<Acceleration, Time, Jerk>)left / right;
+	public static Velocity operator *(Acceleration left, Time right) => (IIntegralOperators<Acceleration, Time, Velocity>)left * right;
+}
 
 /// <summary>
 /// Provides extension methods for converting to and from <see cref="Acceleration"/>.

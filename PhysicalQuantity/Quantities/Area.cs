@@ -2,10 +2,18 @@ namespace ktsu.io.PhysicalQuantity.Area;
 
 using System.Numerics;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Length;
+using ktsu.io.PhysicalQuantity.Volume;
 
 [SIUnit("m²", "square meter", "square meters")]
-public sealed record Area : PhysicalQuantity<Area>
-{ }
+public sealed record Area
+	: PhysicalQuantity<Area>
+	, IDerivativeOperators<Area, Length, Length>
+	, IIntegralOperators<Area, Length, Volume>
+{
+	public static Volume operator *(Area left, Length right) => (IIntegralOperators<Area, Length, Volume>)left * right;
+	public static Length operator /(Area left, Length right) => (IDerivativeOperators<Area, Length, Length>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting numerical values to and from <see cref="Area"/> quantities.

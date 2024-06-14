@@ -3,11 +3,17 @@
 namespace ktsu.io.PhysicalQuantity.Angle;
 
 using System.Numerics;
+using ktsu.io.PhysicalQuantity.AngularVelocity;
 using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.io.PhysicalQuantity.Time;
 
 [SIUnit("rad", "radian", "radians")]
-public sealed record Angle : PhysicalQuantity<Angle>
-{ }
+public sealed record Angle
+	: PhysicalQuantity<Angle>
+	, IDerivativeOperators<Angle, Time, AngularVelocity>
+{
+	public static AngularVelocity operator /(Angle left, Time right) => (IDerivativeOperators<Angle, Time, AngularVelocity>)left / right;
+}
 
 /// <summary>
 /// Provides extension methods for converting numerical values to and from <see cref="Angle"/> quantities.
