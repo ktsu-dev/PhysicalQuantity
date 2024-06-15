@@ -10,11 +10,11 @@ using ktsu.io.PhysicalQuantity.Time;
 [SIUnit("C", "coulomb", "coulombs")]
 public sealed record Charge
 	: PhysicalQuantity<Charge>
-	, IIntegralOperators<Charge, Time, ElectricCurrent>
+	, IDerivativeOperators<Charge, Time, ElectricCurrent>
 	, IIntegralOperators<Charge, ElectricPotential, Energy>
 {
-	public static ElectricCurrent operator *(Charge left, Time right) =>
-		IIntegralOperators<Charge, Time, ElectricCurrent>.Integrate(left, right);
+	public static ElectricCurrent operator /(Charge left, Time right) =>
+		IDerivativeOperators<Charge, Time, ElectricCurrent>.Derive(left, right);
 	public static Energy operator *(Charge left, ElectricPotential right) =>
 		IIntegralOperators<Charge, ElectricPotential, Energy>.Integrate(left, right);
 }
