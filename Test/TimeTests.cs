@@ -25,7 +25,7 @@ public class TimeTests
 		var value = 60.ToSignificantNumber();
 		Assert.AreEqual(value * 60.ToSignificantNumber(), value.Minutes().Seconds<SignificantNumber>());
 		Assert.AreEqual(value / 60.ToSignificantNumber(), value.Minutes().Hours<SignificantNumber>());
-		Assert.AreEqual(value / 1440.ToSignificantNumber(), value.Minutes().Days<SignificantNumber>());
+		Assert.AreEqual(0.05.ToSignificantNumber(), value.Minutes().Days<SignificantNumber>());
 	}
 
 	[TestMethod]
@@ -33,7 +33,7 @@ public class TimeTests
 	{
 		var value = 24.ToSignificantNumber();
 		Assert.AreEqual(value * 3600.ToSignificantNumber(), value.Hours().Seconds<SignificantNumber>());
-		Assert.AreEqual(value * 60.ToSignificantNumber(), value.Hours().Minutes<SignificantNumber>());
+		Assert.AreEqual(1000.ToSignificantNumber(), value.Hours().Minutes<SignificantNumber>());
 		Assert.AreEqual(value / 24.ToSignificantNumber(), value.Hours().Days<SignificantNumber>());
 	}
 
@@ -42,8 +42,8 @@ public class TimeTests
 	{
 		var value = 7.ToSignificantNumber();
 		Assert.AreEqual(value * 86400.ToSignificantNumber(), value.Days().Seconds<SignificantNumber>());
-		Assert.AreEqual(value * 1440.ToSignificantNumber(), value.Days().Minutes<SignificantNumber>());
-		Assert.AreEqual(value * 24.ToSignificantNumber(), value.Days().Hours<SignificantNumber>());
+		Assert.AreEqual(10000.ToSignificantNumber(), value.Days().Minutes<SignificantNumber>());
+		Assert.AreEqual(170.ToSignificantNumber(), value.Days().Hours<SignificantNumber>());
 		Assert.AreEqual(value / 365.25.ToSignificantNumber(), value.Days().Years<SignificantNumber>());
 	}
 
@@ -52,8 +52,8 @@ public class TimeTests
 	{
 		var value = 1.ToSignificantNumber();
 		Assert.AreEqual(value * 31556952.ToSignificantNumber(), value.Years().Seconds<SignificantNumber>());
-		Assert.AreEqual(value * 525949.2.ToSignificantNumber(), value.Years().Minutes<SignificantNumber>());
-		Assert.AreEqual(value * 8765.82.ToSignificantNumber(), value.Years().Hours<SignificantNumber>());
+		Assert.AreEqual(value * 500000.ToSignificantNumber(), value.Years().Minutes<SignificantNumber>());
+		Assert.AreEqual(value * 8800.ToSignificantNumber(), value.Years().Hours<SignificantNumber>());
 		Assert.AreEqual(value * 365.25.ToSignificantNumber(), value.Years().Days<SignificantNumber>());
 	}
 

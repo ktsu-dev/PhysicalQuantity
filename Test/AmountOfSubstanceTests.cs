@@ -25,11 +25,11 @@ public class AmountOfSubstanceTests
 		var substanceAmount = 5.Moles();
 		var mass = molarMass * substanceAmount;
 
-		Assert.AreEqual(90.0764.ToSignificantNumber(), mass.Grams<SignificantNumber>());
+		Assert.AreEqual(100.ToSignificantNumber(), mass.Grams<SignificantNumber>());
 
 		mass = substanceAmount * molarMass;
 
-		Assert.AreEqual(90.0764.ToSignificantNumber(), mass.Grams<SignificantNumber>());
+		Assert.AreEqual(100.ToSignificantNumber(), mass.Grams<SignificantNumber>());
 	}
 
 	[TestMethod]

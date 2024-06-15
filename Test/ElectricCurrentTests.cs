@@ -24,7 +24,7 @@ public class ElectricCurrentTests
 	{
 		var charge = 10.Coulombs();
 		var time = 5.Seconds();
-		var current = charge * time;
+		var current = charge / time;
 
 		Assert.AreEqual(2.0.ToSignificantNumber(), current.Amperes<SignificantNumber>());
 	}

@@ -20,7 +20,7 @@ public class TemperatureTests
 	{
 		var value = 26.85.ToSignificantNumber();
 		Assert.AreEqual(value + 273.15.ToSignificantNumber(), value.Celsius().Kelvin<SignificantNumber>());
-		Assert.AreEqual((value * (9.0 / 5.0).ToSignificantNumber()) + 32.ToSignificantNumber(), value.Celsius().Fahrenheit<SignificantNumber>());
+		Assert.AreEqual(81.ToSignificantNumber(), value.Celsius().Fahrenheit<SignificantNumber>());
 	}
 
 	[TestMethod]

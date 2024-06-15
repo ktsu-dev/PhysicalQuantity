@@ -14,10 +14,10 @@ public class AngleTests
 		var value = 180.ToSignificantNumber();
 		Assert.AreEqual(value, value.Degrees().Degrees<SignificantNumber>());
 		Assert.AreEqual(value * 0.017453292519943295.ToSignificantNumber(), value.Degrees().Radians<SignificantNumber>());
-		Assert.AreEqual(value * 0.015707963267948966.ToSignificantNumber(), value.Degrees().Gradians<SignificantNumber>());
+		Assert.AreEqual(value * 200.ToSignificantNumber() / 180.ToSignificantNumber(), value.Degrees().Gradians<SignificantNumber>());
 		Assert.AreEqual(value * 0.0027777777777777778.ToSignificantNumber(), value.Degrees().Revolutions<SignificantNumber>());
-		Assert.AreEqual(value * 60.ToSignificantNumber(), value.Degrees().ArcMinutes<SignificantNumber>());
-		Assert.AreEqual(value * 3600.ToSignificantNumber(), value.Degrees().ArcSeconds<SignificantNumber>());
+		Assert.AreEqual(60.ToSignificantNumber(), 1.Degrees().ArcMinutes<SignificantNumber>());
+		Assert.AreEqual(3600.ToSignificantNumber(), 1.Degrees().ArcSeconds<SignificantNumber>());
 	}
 
 	[TestMethod]
