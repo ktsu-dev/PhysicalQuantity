@@ -77,10 +77,8 @@ internal static class Constants
 	// Temperature conversion factors
 	internal static SignificantNumber CelsiusToKelvinFactor { get; } = 1m.ToSignificantNumber();
 	internal static SignificantNumber CelsiusToKelvinOffset { get; } = 273.15m.ToSignificantNumber();
-	internal static SignificantNumber FahrenheitToCelsiusFactor { get; } = 5m.ToSignificantNumber() / 9m.ToSignificantNumber();
-	internal static SignificantNumber FahrenheitToCelsiusOffset { get; } = (-32m).ToSignificantNumber();
-	internal static SignificantNumber FahrenheitToKelvinFactor { get; } = 5m.ToSignificantNumber() / 9m.ToSignificantNumber();
-	internal static SignificantNumber FahrenheitToKelvinOffset { get; } = (459.67m * 5m / 9m).ToSignificantNumber();
+	internal static SignificantNumber FahrenheitToCelsiusFactor { get; } = (9m / 5m).ToSignificantNumber();
+	internal static SignificantNumber FahrenheitToCelsiusOffset { get; } = 32m.ToSignificantNumber();
 
 	// Time conversion factors
 	internal static SignificantNumber MinutesToSecondsFactor { get; } = 60m.ToSignificantNumber();
