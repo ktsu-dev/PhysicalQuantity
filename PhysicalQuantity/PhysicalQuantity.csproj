@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <NoWarn>$(NoWarn);CA1716;CA2260;</NoWarn>
+    <NoWarn>$(NoWarn);CA1716;CA2260;S4226;</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ktsu.io.SemanticQuantity" Version="1.0.0" />
-    <PackageReference Include="ktsu.io.SignificantNumber" Version="1.2.0" />
+    <PackageReference Include="ktsu.io.SignificantNumber" Version="1.2.1" />
   </ItemGroup>
 </Project>
