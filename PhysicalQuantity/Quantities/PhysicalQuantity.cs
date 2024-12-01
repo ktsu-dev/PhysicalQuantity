@@ -47,6 +47,28 @@ public abstract record PhysicalQuantity<TSelf>
 
 	public static bool operator >=(PhysicalQuantity<TSelf> left, TSelf right) =>
 		left is null ? right is null : left.CompareTo(right) >= 0;
+
+	public TSelf Pow<TPower>(TPower power)
+		where TPower : INumber<TPower>
+	{
+		ArgumentNullException.ThrowIfNull(power);
+
+		return Create(Quantity.Pow(power.ToSignificantNumber()));
+	}
+
+	public TSelf Abs() => Create(Quantity.Abs());
+
+	public TSelf Clamp<T1, T2>(T1 min, T2 max)
+		where T1 : INumber<T1>
+		where T2 : INumber<T2>
+		=> Create(Quantity.Clamp(min.ToSignificantNumber(), max.ToSignificantNumber()));
+
+	protected TSelf ConversionAdd(SignificantNumber other)
+	{
+		ArgumentNullException.ThrowIfNull(other);
+
+		return Create(Quantity + other);
+	}
 }
 
 /// <summary>

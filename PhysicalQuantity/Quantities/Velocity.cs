@@ -4,6 +4,8 @@ using System.Numerics;
 using ktsu.PhysicalQuantity.Acceleration;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.Momentum;
 using ktsu.PhysicalQuantity.Time;
 using ktsu.SignificantNumber;
 
@@ -16,13 +18,14 @@ public sealed record Velocity
 	: PhysicalQuantity<Velocity>
 	, IDerivativeOperators<Velocity, Time, Acceleration>
 	, IIntegralOperators<Velocity, Time, Length>
+	, IIntegralOperators<Velocity, Mass, Momentum>
 {
 	public static Acceleration operator /(Velocity left, Time right) =>
 		IDerivativeOperators<Velocity, Time, Acceleration>.Derive(left, right);
-
 	public static Length operator *(Velocity left, Time right) =>
 		IIntegralOperators<Velocity, Time, Length>.Integrate(left, right);
-
+	public static Momentum operator *(Velocity left, Mass right) =>
+		IIntegralOperators<Velocity, Mass, Momentum>.Integrate(left, right);
 }
 
 /// <summary>

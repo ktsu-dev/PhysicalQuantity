@@ -7,6 +7,8 @@ using ktsu.PhysicalQuantity.Density;
 using ktsu.PhysicalQuantity.Force;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.MolarMass;
+using ktsu.PhysicalQuantity.Momentum;
+using ktsu.PhysicalQuantity.Velocity;
 using ktsu.PhysicalQuantity.Volume;
 
 /// <summary>
@@ -19,11 +21,13 @@ public sealed record Mass
 	, IDerivativeOperators<Mass, Density, Volume>
 	, IDerivativeOperators<Mass, MolarMass, AmountOfSubstance>
 	, IDerivativeOperators<Mass, AmountOfSubstance, MolarMass>
+	, IIntegralOperators<Mass, Velocity, Momentum>
 	, IIntegralOperators<Mass, Acceleration, Force>
 {
 	public static Force operator *(Mass left, Acceleration right) =>
 		IIntegralOperators<Mass, Acceleration, Force>.Integrate(left, right);
-
+	public static Momentum operator *(Mass left, Velocity right) =>
+		IIntegralOperators<Mass, Velocity, Momentum>.Integrate(left, right);
 	public static Density operator /(Mass left, Volume right) =>
 		IDerivativeOperators<Mass, Volume, Density>.Derive(left, right);
 
