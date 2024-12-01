@@ -1,13 +1,13 @@
-namespace ktsu.io.PhysicalQuantity.Force;
+namespace ktsu.PhysicalQuantity.Force;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Energy;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.PhysicalQuantity.Pressure;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Energy;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.Pressure;
 
 /// <summary>
 /// Represents a force quantity measured in newtons.

@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.AngularAcceleration;
+namespace ktsu.PhysicalQuantity.AngularAcceleration;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.AngularVelocity;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.AngularVelocity;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Time;
 
 [SIUnit("rad/s²", "radian per second squared", "radians per second squared")]
 public sealed record AngularAcceleration

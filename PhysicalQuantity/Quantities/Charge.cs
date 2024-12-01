@@ -1,11 +1,11 @@
-namespace ktsu.io.PhysicalQuantity.Charge;
+namespace ktsu.PhysicalQuantity.Charge;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.ElectricCurrent;
-using ktsu.io.PhysicalQuantity.ElectricPotential;
-using ktsu.io.PhysicalQuantity.Energy;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.ElectricCurrent;
+using ktsu.PhysicalQuantity.ElectricPotential;
+using ktsu.PhysicalQuantity.Energy;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Time;
 
 [SIUnit("C", "coulomb", "coulombs")]
 public sealed record Charge

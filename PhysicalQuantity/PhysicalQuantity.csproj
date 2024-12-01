@@ -3,7 +3,7 @@
     <NoWarn>$(NoWarn);CA1716;CA2260;S4226;</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ktsu.io.SemanticQuantity" Version="1.0.0" />
-    <PackageReference Include="ktsu.io.SignificantNumber" Version="1.2.1" />
+    <PackageReference Include="ktsu.SemanticQuantity" Version="1.0.2" />
+    <PackageReference Include="ktsu.SignificantNumber" Version="1.2.3" />
   </ItemGroup>
 </Project>

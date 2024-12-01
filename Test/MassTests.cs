@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Density;
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.PhysicalQuantity.Volume;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Density;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.Volume;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class MassTests

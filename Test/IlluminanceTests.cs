@@ -1,9 +1,9 @@
-﻿namespace ktsu.io.PhysicalQuantity.Tests;
+﻿namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Illuminance;
-using ktsu.io.PhysicalQuantity.LuminousFlux;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Illuminance;
+using ktsu.PhysicalQuantity.LuminousFlux;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class IlluminanceTests

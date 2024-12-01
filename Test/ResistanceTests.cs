@@ -1,9 +1,9 @@
-﻿namespace ktsu.io.PhysicalQuantity.Tests;
+﻿namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.ElectricCurrent;
-using ktsu.io.PhysicalQuantity.ElectricPotential;
-using ktsu.io.PhysicalQuantity.Resistance;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.ElectricCurrent;
+using ktsu.PhysicalQuantity.ElectricPotential;
+using ktsu.PhysicalQuantity.Resistance;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class ResistanceTests

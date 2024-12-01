@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.LuminousFlux;
-using ktsu.io.PhysicalQuantity.LuminousIntensity;
-using ktsu.io.PhysicalQuantity.SolidAngle;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.LuminousFlux;
+using ktsu.PhysicalQuantity.LuminousIntensity;
+using ktsu.PhysicalQuantity.SolidAngle;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class LuminousIntensityTests

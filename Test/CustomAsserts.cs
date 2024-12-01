@@ -1,7 +1,7 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 using System.Numerics;
 
-using ktsu.io.SignificantNumber;
+using ktsu.SignificantNumber;
 
 internal static class CustomAsserts
 {

@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Angle;
+namespace ktsu.PhysicalQuantity.Angle;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.AngularVelocity;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.AngularVelocity;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Time;
 
 [SIUnit("rad", "radian", "radians")]
 public sealed record Angle

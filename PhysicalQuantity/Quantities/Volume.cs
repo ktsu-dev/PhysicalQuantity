@@ -1,11 +1,11 @@
-namespace ktsu.io.PhysicalQuantity.Volume;
+namespace ktsu.PhysicalQuantity.Volume;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Density;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Density;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Mass;
 
 /// <summary>
 /// Represents a volume quantity measured in cubic meters, liters, milliliters, cubic feet, and cubic inches.

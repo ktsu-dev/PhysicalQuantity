@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Resistance;
+namespace ktsu.PhysicalQuantity.Resistance;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.ElectricCurrent;
-using ktsu.io.PhysicalQuantity.ElectricPotential;
-using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.ElectricCurrent;
+using ktsu.PhysicalQuantity.ElectricPotential;
+using ktsu.PhysicalQuantity.Generic;
 
 /// <summary>
 /// Represents an electrical resistance quantity measured in ohms.

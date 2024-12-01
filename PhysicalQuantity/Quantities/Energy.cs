@@ -1,13 +1,13 @@
-namespace ktsu.io.PhysicalQuantity.Energy;
+namespace ktsu.PhysicalQuantity.Energy;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Charge;
-using ktsu.io.PhysicalQuantity.ElectricPotential;
-using ktsu.io.PhysicalQuantity.Force;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Power;
-using ktsu.io.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Charge;
+using ktsu.PhysicalQuantity.ElectricPotential;
+using ktsu.PhysicalQuantity.Force;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Power;
+using ktsu.PhysicalQuantity.Time;
 
 /// <summary>
 /// Represents an energy quantity measured in joules.

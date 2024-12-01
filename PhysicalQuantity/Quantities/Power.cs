@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Power;
+namespace ktsu.PhysicalQuantity.Power;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Energy;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Energy;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Time;
 
 /// <summary>
 /// Represents a power quantity measured in watts.

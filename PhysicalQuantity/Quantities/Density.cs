@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Density;
+namespace ktsu.PhysicalQuantity.Density;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.PhysicalQuantity.Volume;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.Volume;
 
 /// <summary>
 /// Represents a density quantity measured in kilograms per cubic meter.

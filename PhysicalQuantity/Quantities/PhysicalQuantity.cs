@@ -1,13 +1,13 @@
 [assembly: CLSCompliant(true)]
 [assembly: System.Runtime.InteropServices.ComVisible(false)]
 
-namespace ktsu.io.PhysicalQuantity.Generic;
+namespace ktsu.PhysicalQuantity.Generic;
 
 using System;
 using System.Numerics;
 using System.Reflection;
-using ktsu.io.SemanticQuantity;
-using ktsu.io.SignificantNumber;
+using ktsu.SemanticQuantity;
+using ktsu.SignificantNumber;
 
 /// <summary>
 /// Represents a physical quantity with a specific unit of measurement.

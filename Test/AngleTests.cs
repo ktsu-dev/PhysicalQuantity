@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Angle;
-using ktsu.io.PhysicalQuantity.AngularVelocity;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Angle;
+using ktsu.PhysicalQuantity.AngularVelocity;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class AngleTests

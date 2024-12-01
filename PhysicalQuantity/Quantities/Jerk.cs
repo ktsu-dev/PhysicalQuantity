@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Jerk;
+namespace ktsu.PhysicalQuantity.Jerk;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Time;
 
 [SIUnit("m/s³", "meter per second cubed", "meters per second cubed")]
 public sealed record Jerk

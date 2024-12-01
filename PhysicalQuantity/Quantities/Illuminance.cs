@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Illuminance;
+namespace ktsu.PhysicalQuantity.Illuminance;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.LuminousFlux;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.LuminousFlux;
 
 /// <summary>
 /// Represents a physical quantity of illuminance.

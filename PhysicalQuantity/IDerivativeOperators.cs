@@ -1,7 +1,7 @@
-namespace ktsu.io.PhysicalQuantity;
+namespace ktsu.PhysicalQuantity;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Generic;
 
 public interface IDerivativeOperators<TSelf, TOther, TResult>
 	: IDivisionOperators<TSelf, TOther, TResult>

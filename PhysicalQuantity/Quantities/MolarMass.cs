@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.MolarMass;
+namespace ktsu.PhysicalQuantity.MolarMass;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.AmountOfSubstance;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.AmountOfSubstance;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Mass;
 
 [SIUnit("kg/mol", "kilogram per mole", "kilograms per mole")]
 public sealed record MolarMass

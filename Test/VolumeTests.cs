@@ -1,11 +1,11 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Density;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.PhysicalQuantity.Volume;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Density;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.Volume;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class VolumeTests

@@ -1,7 +1,7 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Temperature;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Temperature;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class TemperatureTests

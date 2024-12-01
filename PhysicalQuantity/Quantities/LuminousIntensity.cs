@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.LuminousIntensity;
+namespace ktsu.PhysicalQuantity.LuminousIntensity;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.LuminousFlux;
-using ktsu.io.PhysicalQuantity.SolidAngle;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.LuminousFlux;
+using ktsu.PhysicalQuantity.SolidAngle;
 
 /// <summary>
 /// Represents a luminous intensity quantity measured in candelas.

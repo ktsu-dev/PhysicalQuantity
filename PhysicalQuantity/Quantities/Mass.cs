@@ -1,13 +1,13 @@
-namespace ktsu.io.PhysicalQuantity.Mass;
+namespace ktsu.PhysicalQuantity.Mass;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.AmountOfSubstance;
-using ktsu.io.PhysicalQuantity.Density;
-using ktsu.io.PhysicalQuantity.Force;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.MolarMass;
-using ktsu.io.PhysicalQuantity.Volume;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.AmountOfSubstance;
+using ktsu.PhysicalQuantity.Density;
+using ktsu.PhysicalQuantity.Force;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.MolarMass;
+using ktsu.PhysicalQuantity.Volume;
 
 /// <summary>
 /// Represents a mass quantity measured in kilograms.

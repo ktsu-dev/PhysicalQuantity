@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.Force;
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.Force;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class ForceTests

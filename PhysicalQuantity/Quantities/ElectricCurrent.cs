@@ -1,12 +1,12 @@
-namespace ktsu.io.PhysicalQuantity.ElectricCurrent;
+namespace ktsu.PhysicalQuantity.ElectricCurrent;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Charge;
-using ktsu.io.PhysicalQuantity.ElectricPotential;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Power;
-using ktsu.io.PhysicalQuantity.Resistance;
-using ktsu.io.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Charge;
+using ktsu.PhysicalQuantity.ElectricPotential;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Power;
+using ktsu.PhysicalQuantity.Resistance;
+using ktsu.PhysicalQuantity.Time;
 
 /// <summary>
 /// Represents an electric current quantity measured in amperes.

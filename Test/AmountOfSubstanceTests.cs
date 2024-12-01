@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.AmountOfSubstance;
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.PhysicalQuantity.MolarMass;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.AmountOfSubstance;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.MolarMass;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class AmountOfSubstanceTests

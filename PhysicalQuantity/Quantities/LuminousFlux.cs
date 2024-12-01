@@ -1,11 +1,11 @@
-namespace ktsu.io.PhysicalQuantity.LuminousFlux;
+namespace ktsu.PhysicalQuantity.LuminousFlux;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Illuminance;
-using ktsu.io.PhysicalQuantity.LuminousIntensity;
-using ktsu.io.PhysicalQuantity.SolidAngle;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Illuminance;
+using ktsu.PhysicalQuantity.LuminousIntensity;
+using ktsu.PhysicalQuantity.SolidAngle;
 
 /// <summary>
 /// Represents a luminous flux quantity measured in lumens.

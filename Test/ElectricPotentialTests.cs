@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Charge;
-using ktsu.io.PhysicalQuantity.ElectricPotential;
-using ktsu.io.PhysicalQuantity.Energy;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Charge;
+using ktsu.PhysicalQuantity.ElectricPotential;
+using ktsu.PhysicalQuantity.Energy;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class ElectricPotentialTests

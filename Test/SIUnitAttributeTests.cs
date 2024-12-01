@@ -1,4 +1,4 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
 [TestClass]
 public class SIUnitAttributeTests

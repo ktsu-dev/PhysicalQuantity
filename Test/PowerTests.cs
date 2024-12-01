@@ -1,9 +1,9 @@
-﻿namespace ktsu.io.PhysicalQuantity.Tests;
+﻿namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Energy;
-using ktsu.io.PhysicalQuantity.Power;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Energy;
+using ktsu.PhysicalQuantity.Power;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class PowerTests

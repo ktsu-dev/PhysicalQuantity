@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Pressure;
+namespace ktsu.PhysicalQuantity.Pressure;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Force;
-using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Force;
+using ktsu.PhysicalQuantity.Generic;
 
 /// <summary>
 /// Represents a pressure quantity measured in pascals.

@@ -1,8 +1,8 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class AreaTests

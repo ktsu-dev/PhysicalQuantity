@@ -1,7 +1,7 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Torque;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Torque;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class TorqueTests

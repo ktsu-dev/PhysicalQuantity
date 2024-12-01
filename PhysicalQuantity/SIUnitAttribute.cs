@@ -1,4 +1,4 @@
-namespace ktsu.io.PhysicalQuantity;
+namespace ktsu.PhysicalQuantity;
 
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class SIUnitAttribute(string symbol, string singular, string plural) : Attribute

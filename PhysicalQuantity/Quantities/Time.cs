@@ -1,18 +1,18 @@
-namespace ktsu.io.PhysicalQuantity.Time;
+namespace ktsu.PhysicalQuantity.Time;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.Angle;
-using ktsu.io.PhysicalQuantity.AngularAcceleration;
-using ktsu.io.PhysicalQuantity.AngularVelocity;
-using ktsu.io.PhysicalQuantity.Charge;
-using ktsu.io.PhysicalQuantity.ElectricCurrent;
-using ktsu.io.PhysicalQuantity.Energy;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Jerk;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Power;
-using ktsu.io.PhysicalQuantity.Velocity;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.Angle;
+using ktsu.PhysicalQuantity.AngularAcceleration;
+using ktsu.PhysicalQuantity.AngularVelocity;
+using ktsu.PhysicalQuantity.Charge;
+using ktsu.PhysicalQuantity.ElectricCurrent;
+using ktsu.PhysicalQuantity.Energy;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Jerk;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Power;
+using ktsu.PhysicalQuantity.Velocity;
 
 /// <summary>
 /// Represents a time quantity measured in seconds, minutes, hours, and days.

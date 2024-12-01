@@ -1,9 +1,9 @@
-﻿namespace ktsu.io.PhysicalQuantity.Tests;
+﻿namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.Jerk;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.Jerk;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class JerkTests

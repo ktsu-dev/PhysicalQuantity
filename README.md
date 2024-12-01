@@ -1,4 +1,4 @@
-# ktsu.io.PhysicalQuantity
+# ktsu.PhysicalQuantity
 
 `PhysicalQuantity` is a .NET library that provides a robust framework for working with physical quantities, supporting a wide range of units and conversions.
 
@@ -14,7 +14,7 @@
 To install PhysicalQuantity, run the following command in your .NET project:
 
 ```bash
-dotnet add package ktsu.io.PhysicalQuantity
+dotnet add package ktsu.PhysicalQuantity
 ```
 
 ## Usage
@@ -22,8 +22,8 @@ dotnet add package ktsu.io.PhysicalQuantity
 ### Basic Example
 
 ```csharp
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.SignificantNumber;
 
 Length lengthInMeters = 100.Meters();
 float lengthInKilometers = lengthInMeters.Kilometers<float>();
@@ -62,8 +62,8 @@ Console.WriteLine($"{lengthInMeters} is equal to {lengthInKilometers} kilometers
 ### Example Conversion
 
 ```csharp
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.SignificantNumber;
 
 Mass massInKilograms = 70.Kilograms();
 float massInPounds = massInKilograms.Pounds<float>();
@@ -80,10 +80,10 @@ The `PhysicalQuantity` library supports operations for integrating and deriving 
 To derive a quantity, you can use the appropriate operators provided by the `IIntegrationOperators` interface. For example, deriving velocity from distance and time:
 
 ```csharp
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.PhysicalQuantity.Velocity;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Velocity;
+using ktsu.SignificantNumber;
 
 Length distance = 100.Meters();
 Time time = 10.Seconds();
@@ -97,10 +97,10 @@ Console.WriteLine($"Velocity: {velocity}"); // Output: Velocity: 10 m/s
 To integrate quantities, you can use the appropriate operators. For example, integrating acceleration over time to get velocity:
 
 ```csharp
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.PhysicalQuantity.Velocity;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Velocity;
+using ktsu.SignificantNumber;
 
 Acceleration acceleration = 9.8.MetersPerSecondSquared();
 Time time = 5.Seconds();
@@ -114,11 +114,11 @@ Console.WriteLine($"Velocity: {velocity}"); // Output: Velocity: 49 m/s
 Here's a more comprehensive example that demonstrates both integration and derivation:
 
 ```csharp
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.PhysicalQuantity.Velocity;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Velocity;
+using ktsu.SignificantNumber;
 
 Length initialDistance = 0.Meters();
 Velocity initialVelocity = 0.MetersPerSecond();

@@ -1,7 +1,7 @@
-namespace ktsu.io.PhysicalQuantity.Torque;
+namespace ktsu.PhysicalQuantity.Torque;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Generic;
 
 /// <summary>
 /// Represents a torque quantity measured in newton meters, foot-pounds, and pound-inches.

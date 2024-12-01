@@ -1,13 +1,13 @@
-namespace ktsu.io.PhysicalQuantity.Length;
+namespace ktsu.PhysicalQuantity.Length;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Area;
-using ktsu.io.PhysicalQuantity.Energy;
-using ktsu.io.PhysicalQuantity.Force;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.PhysicalQuantity.Velocity;
-using ktsu.io.PhysicalQuantity.Volume;
+using ktsu.PhysicalQuantity.Area;
+using ktsu.PhysicalQuantity.Energy;
+using ktsu.PhysicalQuantity.Force;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Velocity;
+using ktsu.PhysicalQuantity.Volume;
 
 /// <summary>
 /// Represents a length physical quantity.

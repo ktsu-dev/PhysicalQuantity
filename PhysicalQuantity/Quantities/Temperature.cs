@@ -1,8 +1,8 @@
-namespace ktsu.io.PhysicalQuantity.Temperature;
+namespace ktsu.PhysicalQuantity.Temperature;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.SignificantNumber;
 
 /// <summary>
 /// Represents a temperature quantity measured in Kelvin, degrees Celsius, and degrees Fahrenheit.

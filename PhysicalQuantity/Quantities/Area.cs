@@ -1,13 +1,13 @@
-namespace ktsu.io.PhysicalQuantity.Area;
+namespace ktsu.PhysicalQuantity.Area;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Force;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Illuminance;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.LuminousFlux;
-using ktsu.io.PhysicalQuantity.Pressure;
-using ktsu.io.PhysicalQuantity.Volume;
+using ktsu.PhysicalQuantity.Force;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Illuminance;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.LuminousFlux;
+using ktsu.PhysicalQuantity.Pressure;
+using ktsu.PhysicalQuantity.Volume;
 
 [SIUnit("m²", "square meter", "square meters")]
 public sealed record Area

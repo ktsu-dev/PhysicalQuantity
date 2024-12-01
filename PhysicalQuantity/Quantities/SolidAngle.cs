@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.SolidAngle;
+namespace ktsu.PhysicalQuantity.SolidAngle;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.LuminousFlux;
-using ktsu.io.PhysicalQuantity.LuminousIntensity;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.LuminousFlux;
+using ktsu.PhysicalQuantity.LuminousIntensity;
 
 [SIUnit("sr", "steradian", "steradians")]
 public sealed record SolidAngle

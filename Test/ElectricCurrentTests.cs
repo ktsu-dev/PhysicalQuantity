@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.Tests;
+namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Charge;
-using ktsu.io.PhysicalQuantity.ElectricCurrent;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Charge;
+using ktsu.PhysicalQuantity.ElectricCurrent;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class ElectricCurrentTests

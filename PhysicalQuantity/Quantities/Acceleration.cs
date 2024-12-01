@@ -1,12 +1,12 @@
-namespace ktsu.io.PhysicalQuantity.Acceleration;
+namespace ktsu.PhysicalQuantity.Acceleration;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Force;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Jerk;
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.PhysicalQuantity.Velocity;
+using ktsu.PhysicalQuantity.Force;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Jerk;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Velocity;
 
 /// <summary>
 /// Represents the physical quantity of acceleration.

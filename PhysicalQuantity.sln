@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhysicalQuantity", "PhysicalQuantity\PhysicalQuantity.csproj", "{D83F509D-D4A6-406F-AEB2-5DAC1E3456CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{798FF963-CD6F-4A38-88F9-6027E394818E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicalQuantity.Test", "Test\PhysicalQuantity.Test.csproj", "{798FF963-CD6F-4A38-88F9-6027E394818E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

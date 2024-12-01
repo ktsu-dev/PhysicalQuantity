@@ -1,9 +1,9 @@
-namespace ktsu.io.PhysicalQuantity.AmountOfSubstance;
+namespace ktsu.PhysicalQuantity.AmountOfSubstance;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Mass;
-using ktsu.io.PhysicalQuantity.MolarMass;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Mass;
+using ktsu.PhysicalQuantity.MolarMass;
 
 /// <summary>
 /// Represents an amount of substance quantity measured in moles.

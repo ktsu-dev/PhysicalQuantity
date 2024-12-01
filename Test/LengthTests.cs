@@ -1,9 +1,9 @@
-﻿namespace ktsu.io.PhysicalQuantity.Tests;
+﻿namespace ktsu.PhysicalQuantity.Test;
 
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.PhysicalQuantity.Velocity;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.PhysicalQuantity.Velocity;
+using ktsu.SignificantNumber;
 
 [TestClass]
 public class LengthTests

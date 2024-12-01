@@ -1,11 +1,11 @@
-namespace ktsu.io.PhysicalQuantity.Velocity;
+namespace ktsu.PhysicalQuantity.Velocity;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Acceleration;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Length;
-using ktsu.io.PhysicalQuantity.Time;
-using ktsu.io.SignificantNumber;
+using ktsu.PhysicalQuantity.Acceleration;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Length;
+using ktsu.PhysicalQuantity.Time;
+using ktsu.SignificantNumber;
 
 /// <summary>
 /// Represents a velocity quantity measured in meters per second, feet per second, inches per second, 

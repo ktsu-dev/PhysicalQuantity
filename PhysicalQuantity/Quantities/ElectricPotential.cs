@@ -1,12 +1,12 @@
-namespace ktsu.io.PhysicalQuantity.ElectricPotential;
+namespace ktsu.PhysicalQuantity.ElectricPotential;
 
 using System.Numerics;
-using ktsu.io.PhysicalQuantity.Charge;
-using ktsu.io.PhysicalQuantity.ElectricCurrent;
-using ktsu.io.PhysicalQuantity.Energy;
-using ktsu.io.PhysicalQuantity.Generic;
-using ktsu.io.PhysicalQuantity.Power;
-using ktsu.io.PhysicalQuantity.Resistance;
+using ktsu.PhysicalQuantity.Charge;
+using ktsu.PhysicalQuantity.ElectricCurrent;
+using ktsu.PhysicalQuantity.Energy;
+using ktsu.PhysicalQuantity.Generic;
+using ktsu.PhysicalQuantity.Power;
+using ktsu.PhysicalQuantity.Resistance;
 
 /// <summary>
 /// Represents an electric potential quantity measured in volts.

@@ -1,6 +1,6 @@
-namespace ktsu.io.PhysicalQuantity;
+namespace ktsu.PhysicalQuantity;
 
-using ktsu.io.SignificantNumber;
+using ktsu.SignificantNumber;
 
 /// <summary>
 /// Provides conversion factors for various physical quantities and metric prefixes.
