@@ -63,12 +63,7 @@ public abstract record PhysicalQuantity<TSelf>
 		where T2 : INumber<T2>
 		=> Create(Quantity.Clamp(min.ToSignificantNumber(), max.ToSignificantNumber()));
 
-	protected TSelf ConversionAdd(SignificantNumber other)
-	{
-		ArgumentNullException.ThrowIfNull(other);
-
-		return Create(Quantity + other);
-	}
+	protected TSelf ConversionAdd(SignificantNumber other) => Create(Quantity + other);
 }
 
 /// <summary>
