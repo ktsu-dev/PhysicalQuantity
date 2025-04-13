@@ -1,12 +1,14 @@
 namespace ktsu.PhysicalQuantity.Torque;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Generic;
 
 /// <summary>
 /// Represents a torque quantity measured in newton meters, foot-pounds, and pound-inches.
 /// </summary>
 [SIUnit("Nm", "newton meter", "newton meters")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Torque
 	: PhysicalQuantity<Torque>
 { }

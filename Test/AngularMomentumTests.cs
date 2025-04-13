@@ -4,6 +4,7 @@ using ktsu.PhysicalQuantity.AngularMomentum;
 using ktsu.PhysicalQuantity.AngularVelocity;
 using ktsu.PhysicalQuantity.MomentOfInertia;
 using ktsu.SignificantNumber;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [TestClass]

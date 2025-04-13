@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Resistance;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.ElectricCurrent;
 using ktsu.PhysicalQuantity.ElectricPotential;
 using ktsu.PhysicalQuantity.Generic;
@@ -8,11 +9,25 @@ using ktsu.PhysicalQuantity.Generic;
 /// <summary>
 /// Represents an electrical resistance quantity measured in ohms.
 /// </summary>
+/// <remarks>
+/// This class provides functionality for representing and performing operations on electrical resistance values.
+/// It supports integration with other physical quantities such as electric current and electric potential.
+/// </remarks>
 [SIUnit("Ω", "ohm", "ohms")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Resistance
 	: PhysicalQuantity<Resistance>
 	, IIntegralOperators<Resistance, ElectricCurrent, ElectricPotential>
 {
+	/// <summary>
+	/// Multiplies a <see cref="Resistance"/> instance with an <see cref="ElectricCurrent"/> instance
+	/// to compute the resulting <see cref="ElectricPotential"/>.
+	/// </summary>
+	/// <param name="left">The resistance value.</param>
+	/// <param name="right">The electric current value.</param>
+	/// <returns>
+	/// A new <see cref="ElectricPotential"/> instance representing the product of the resistance and electric current.
+	/// </returns>
 	public static ElectricPotential operator *(Resistance left, ElectricCurrent right) =>
 		IIntegralOperators<Resistance, ElectricCurrent, ElectricPotential>.Integrate(left, right);
 }

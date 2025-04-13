@@ -48,7 +48,7 @@ public class SIUnitAttributeTests
 	}
 
 	[SIUnit("m", "meter", "meters")]
-	private sealed class Meter
+	public sealed class Meter
 	{
 	}
 }

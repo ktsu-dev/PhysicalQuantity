@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Temperature;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.SignificantNumber;
 
@@ -8,6 +9,7 @@ using ktsu.SignificantNumber;
 /// Represents a temperature quantity measured in Kelvin, degrees Celsius, and degrees Fahrenheit.
 /// </summary>
 [SIUnit("K", "kelvin", "kelvins")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Temperature
 	: PhysicalQuantity<Temperature>
 { }

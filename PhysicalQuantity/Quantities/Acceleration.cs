@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Acceleration;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Force;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Jerk;
@@ -12,18 +13,37 @@ using ktsu.PhysicalQuantity.Velocity;
 /// Represents the physical quantity of acceleration.
 /// </summary>
 [SIUnit("m/s²", "meter per second squared", "meters per second squared")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Acceleration
 	: PhysicalQuantity<Acceleration>
 	, IDerivativeOperators<Acceleration, Time, Jerk>
 	, IIntegralOperators<Acceleration, Time, Velocity>
 	, IIntegralOperators<Acceleration, Mass, Force>
 {
+	/// <summary>
+	/// Divides an <see cref="Acceleration"/> by a <see cref="Time"/> to compute the <see cref="Jerk"/>.
+	/// </summary>
+	/// <param name="left">The acceleration value.</param>
+	/// <param name="right">The time value.</param>
+	/// <returns>The resulting <see cref="Jerk"/>.</returns>
 	public static Jerk operator /(Acceleration left, Time right) =>
 		IDerivativeOperators<Acceleration, Time, Jerk>.Derive(left, right);
 
+	/// <summary>
+	/// Multiplies an <see cref="Acceleration"/> by a <see cref="Time"/> to compute the <see cref="Velocity"/>.
+	/// </summary>
+	/// <param name="left">The acceleration value.</param>
+	/// <param name="right">The time value.</param>
+	/// <returns>The resulting <see cref="Velocity"/>.</returns>
 	public static Velocity operator *(Acceleration left, Time right) =>
 		IIntegralOperators<Acceleration, Time, Velocity>.Integrate(left, right);
 
+	/// <summary>
+	/// Multiplies an <see cref="Acceleration"/> by a <see cref="Mass"/> to compute the <see cref="Force"/>.
+	/// </summary>
+	/// <param name="left">The acceleration value.</param>
+	/// <param name="right">The mass value.</param>
+	/// <returns>The resulting <see cref="Force"/>.</returns>
 	public static Force operator *(Acceleration left, Mass right) =>
 		IIntegralOperators<Acceleration, Mass, Force>.Integrate(left, right);
 }

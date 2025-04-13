@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Length;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Area;
 using ktsu.PhysicalQuantity.Energy;
 using ktsu.PhysicalQuantity.Force;
@@ -13,6 +14,7 @@ using ktsu.PhysicalQuantity.Volume;
 /// Represents a length physical quantity.
 /// </summary>
 [SIUnit("m", "meter", "meters")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Length
 	: PhysicalQuantity<Length>
 	, IIntegralOperators<Length, Length, Area>
@@ -20,18 +22,41 @@ public sealed record Length
 	, IIntegralOperators<Length, Force, Energy>
 	, IDerivativeOperators<Length, Time, Velocity>
 {
+	/// <summary>
+	/// Multiplies two <see cref="Length"/> instances to compute an <see cref="Area"/>.
+	/// </summary>
+	/// <param name="left">The first <see cref="Length"/> operand.</param>
+	/// <param name="right">The second <see cref="Length"/> operand.</param>
+	/// <returns>An <see cref="Area"/> representing the product of the two lengths.</returns>
 	public static Area operator *(Length left, Length right) =>
 		IIntegralOperators<Length, Length, Area>.Integrate(left, right);
 
+	/// <summary>
+	/// Multiplies a <see cref="Length"/> and an <see cref="Area"/> to compute a <see cref="Volume"/>.
+	/// </summary>
+	/// <param name="left">The <see cref="Length"/> operand.</param>
+	/// <param name="right">The <see cref="Area"/> operand.</param>
+	/// <returns>A <see cref="Volume"/> representing the product of the length and area.</returns>
 	public static Volume operator *(Length left, Area right) =>
 		IIntegralOperators<Length, Area, Volume>.Integrate(left, right);
 
+	/// <summary>
+	/// Multiplies a <see cref="Length"/> and a <see cref="Force"/> to compute an <see cref="Energy"/>.
+	/// </summary>
+	/// <param name="left">The <see cref="Length"/> operand.</param>
+	/// <param name="right">The <see cref="Force"/> operand.</param>
+	/// <returns>An <see cref="Energy"/> representing the product of the length and force.</returns>
 	public static Energy operator *(Length left, Force right) =>
 		IIntegralOperators<Length, Force, Energy>.Integrate(left, right);
 
+	/// <summary>
+	/// Divides a <see cref="Length"/> by a <see cref="Time"/> to compute a <see cref="Velocity"/>.
+	/// </summary>
+	/// <param name="left">The <see cref="Length"/> operand.</param>
+	/// <param name="right">The <see cref="Time"/> operand.</param>
+	/// <returns>A <see cref="Velocity"/> representing the result of the division.</returns>
 	public static Velocity operator /(Length left, Time right) =>
 		IDerivativeOperators<Length, Time, Velocity>.Derive(left, right);
-
 }
 
 /// <summary>

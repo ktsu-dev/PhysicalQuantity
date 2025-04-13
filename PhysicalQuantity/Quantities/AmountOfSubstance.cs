@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.AmountOfSubstance;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Mass;
 using ktsu.PhysicalQuantity.MolarMass;
@@ -9,10 +10,17 @@ using ktsu.PhysicalQuantity.MolarMass;
 /// Represents an amount of substance quantity measured in moles.
 /// </summary>
 [SIUnit("mol", "mole", "moles")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record AmountOfSubstance
 	: PhysicalQuantity<AmountOfSubstance>
 	, IIntegralOperators<AmountOfSubstance, MolarMass, Mass>
 {
+	/// <summary>
+	/// Multiplies an <see cref="AmountOfSubstance"/> by a <see cref="MolarMass"/> to calculate the resulting <see cref="Mass"/>.
+	/// </summary>
+	/// <param name="left">The amount of substance in moles.</param>
+	/// <param name="right">The molar mass in units of mass per mole.</param>
+	/// <returns>A <see cref="Mass"/> instance representing the product of the amount of substance and the molar mass.</returns>
 	public static Mass operator *(AmountOfSubstance left, MolarMass right) =>
 		IIntegralOperators<AmountOfSubstance, MolarMass, Mass>.Integrate(left, right);
 }

@@ -1,15 +1,26 @@
 namespace ktsu.PhysicalQuantity.MolarMass;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.AmountOfSubstance;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Mass;
 
+/// <summary>
+/// Represents the molar mass, a physical quantity defined as the mass of a substance divided by the amount of substance.
+/// </summary>
 [SIUnit("kg/mol", "kilogram per mole", "kilograms per mole")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record MolarMass
 	: PhysicalQuantity<MolarMass>
 	, IIntegralOperators<MolarMass, AmountOfSubstance, Mass>
 {
+	/// <summary>
+	/// Multiplies a <see cref="MolarMass"/> instance by an <see cref="AmountOfSubstance"/> instance to calculate the <see cref="Mass"/>.
+	/// </summary>
+	/// <param name="left">The molar mass.</param>
+	/// <param name="right">The amount of substance.</param>
+	/// <returns>The resulting mass.</returns>
 	public static Mass operator *(MolarMass left, AmountOfSubstance right) =>
 		IIntegralOperators<MolarMass, AmountOfSubstance, Mass>.Integrate(left, right);
 }

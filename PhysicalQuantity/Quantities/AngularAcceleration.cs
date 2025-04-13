@@ -1,15 +1,26 @@
 namespace ktsu.PhysicalQuantity.AngularAcceleration;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.AngularVelocity;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Time;
 
+/// <summary>
+/// Represents the angular acceleration, a measure of the rate of change of angular velocity over time.
+/// </summary>
 [SIUnit("rad/s²", "radian per second squared", "radians per second squared")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record AngularAcceleration
 	: PhysicalQuantity<AngularAcceleration>
 	, IIntegralOperators<AngularAcceleration, Time, AngularVelocity>
 {
+	/// <summary>
+	/// Multiplies an <see cref="AngularAcceleration"/> by a <see cref="Time"/> to compute the resulting <see cref="AngularVelocity"/>.
+	/// </summary>
+	/// <param name="left">The angular acceleration.</param>
+	/// <param name="right">The time duration.</param>
+	/// <returns>The resulting angular velocity.</returns>
 	public static AngularVelocity operator *(AngularAcceleration left, Time right) =>
 		IIntegralOperators<AngularAcceleration, Time, AngularVelocity>.Integrate(left, right);
 }

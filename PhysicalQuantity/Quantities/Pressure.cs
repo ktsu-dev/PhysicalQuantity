@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Pressure;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Area;
 using ktsu.PhysicalQuantity.Force;
 using ktsu.PhysicalQuantity.Generic;
@@ -8,11 +9,23 @@ using ktsu.PhysicalQuantity.Generic;
 /// <summary>
 /// Represents a pressure quantity measured in pascals.
 /// </summary>
+/// <remarks>
+/// This class is a sealed record that inherits from <see cref="PhysicalQuantity{Pressure}"/> 
+/// and implements <see cref="IIntegralOperators{Pressure, Area, Force}"/>.
+/// It provides functionality for performing integral operations with other physical quantities.
+/// </remarks>
 [SIUnit("Pa", "pascal", "pascals")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Pressure
 	: PhysicalQuantity<Pressure>
 	, IIntegralOperators<Pressure, Area, Force>
 {
+	/// <summary>
+	/// Multiplies a <see cref="Pressure"/> instance by an <see cref="Area"/> instance to compute a <see cref="Force"/>.
+	/// </summary>
+	/// <param name="left">The pressure value.</param>
+	/// <param name="right">The area value.</param>
+	/// <returns>A <see cref="Force"/> instance representing the result of the multiplication.</returns>
 	public static Force operator *(Pressure left, Area right) =>
 		IIntegralOperators<Pressure, Area, Force>.Integrate(left, right);
 }

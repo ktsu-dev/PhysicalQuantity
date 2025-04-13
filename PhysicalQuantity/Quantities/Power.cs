@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Power;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Energy;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Time;
@@ -9,13 +10,19 @@ using ktsu.PhysicalQuantity.Time;
 /// Represents a power quantity measured in watts.
 /// </summary>
 [SIUnit("W", "watt", "watts")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Power
 	: PhysicalQuantity<Power>
 	, IIntegralOperators<Power, Time, Energy>
 {
+	/// <summary>
+	/// Multiplies a <see cref="Power"/> instance by a <see cref="Time"/> instance to calculate the resulting <see cref="Energy"/>.
+	/// </summary>
+	/// <param name="left">The power value.</param>
+	/// <param name="right">The time value.</param>
+	/// <returns>An <see cref="Energy"/> instance representing the result of the multiplication.</returns>
 	public static Energy operator *(Power left, Time right) =>
 		IIntegralOperators<Power, Time, Energy>.Integrate(left, right);
-
 }
 
 /// <summary>

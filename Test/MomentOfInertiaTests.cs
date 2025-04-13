@@ -6,7 +6,6 @@ using ktsu.PhysicalQuantity.Length;
 using ktsu.PhysicalQuantity.Mass;
 using ktsu.PhysicalQuantity.MomentOfInertia;
 using ktsu.SignificantNumber;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [TestClass]
 public class MomentOfInertiaTests

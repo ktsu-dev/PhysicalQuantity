@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Velocity;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Acceleration;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Length;
@@ -14,16 +15,37 @@ using ktsu.SignificantNumber;
 /// miles per hour, and kilometers per hour.
 /// </summary>
 [SIUnit("m/s", "meter per second", "meters per second")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Velocity
 	: PhysicalQuantity<Velocity>
 	, IDerivativeOperators<Velocity, Time, Acceleration>
 	, IIntegralOperators<Velocity, Time, Length>
 	, IIntegralOperators<Velocity, Mass, Momentum>
 {
+	/// <summary>
+	/// Divides a <see cref="Velocity"/> instance by a <see cref="Time"/> instance to compute the <see cref="Acceleration"/>.
+	/// </summary>
+	/// <param name="left">The velocity value.</param>
+	/// <param name="right">The time value.</param>
+	/// <returns>An <see cref="Acceleration"/> instance representing the result of the division.</returns>
 	public static Acceleration operator /(Velocity left, Time right) =>
 		IDerivativeOperators<Velocity, Time, Acceleration>.Derive(left, right);
+
+	/// <summary>
+	/// Multiplies a <see cref="Velocity"/> instance by a <see cref="Time"/> instance to compute the <see cref="Length"/>.
+	/// </summary>
+	/// <param name="left">The velocity value.</param>
+	/// <param name="right">The time value.</param>
+	/// <returns>A <see cref="Length"/> instance representing the result of the multiplication.</returns>
 	public static Length operator *(Velocity left, Time right) =>
 		IIntegralOperators<Velocity, Time, Length>.Integrate(left, right);
+
+	/// <summary>
+	/// Multiplies a <see cref="Velocity"/> instance by a <see cref="Mass"/> instance to compute the <see cref="Momentum"/>.
+	/// </summary>
+	/// <param name="left">The velocity value.</param>
+	/// <param name="right">The mass value.</param>
+	/// <returns>A <see cref="Momentum"/> instance representing the result of the multiplication.</returns>
 	public static Momentum operator *(Velocity left, Mass right) =>
 		IIntegralOperators<Velocity, Mass, Momentum>.Integrate(left, right);
 }

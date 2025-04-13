@@ -1,24 +1,45 @@
 namespace ktsu.PhysicalQuantity.Charge;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.ElectricCurrent;
 using ktsu.PhysicalQuantity.ElectricPotential;
 using ktsu.PhysicalQuantity.Energy;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Time;
 
+/// <summary>
+/// Represents an electric charge, a fundamental physical quantity measured in coulombs (C).
+/// </summary>
 [SIUnit("C", "coulomb", "coulombs")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Charge
 	: PhysicalQuantity<Charge>
 	, IDerivativeOperators<Charge, Time, ElectricCurrent>
 	, IIntegralOperators<Charge, ElectricPotential, Energy>
 {
+	/// <summary>
+	/// Computes the electric current by dividing a charge by a time interval.
+	/// </summary>
+	/// <param name="left">The charge value.</param>
+	/// <param name="right">The time interval.</param>
+	/// <returns>The resulting electric current.</returns>
 	public static ElectricCurrent operator /(Charge left, Time right) =>
 		IDerivativeOperators<Charge, Time, ElectricCurrent>.Derive(left, right);
+
+	/// <summary>
+	/// Computes the energy by multiplying a charge by an electric potential.
+	/// </summary>
+	/// <param name="left">The charge value.</param>
+	/// <param name="right">The electric potential.</param>
+	/// <returns>The resulting energy.</returns>
 	public static Energy operator *(Charge left, ElectricPotential right) =>
 		IIntegralOperators<Charge, ElectricPotential, Energy>.Integrate(left, right);
 }
 
+/// <summary>
+/// Provides extension methods for converting numeric values to and from <see cref="Charge"/>.
+/// </summary>
 public static class ChargeConversions
 {
 	/// <summary>

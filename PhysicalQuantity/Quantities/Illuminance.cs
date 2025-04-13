@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Illuminance;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Area;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.LuminousFlux;
@@ -9,13 +10,19 @@ using ktsu.PhysicalQuantity.LuminousFlux;
 /// Represents a physical quantity of illuminance.
 /// </summary>
 [SIUnit("lx", "lux", "lux")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Illuminance
 	: PhysicalQuantity<Illuminance>
 	, IIntegralOperators<Illuminance, Area, LuminousFlux>
 {
+	/// <summary>
+	/// Multiplies an <see cref="Illuminance"/> value by an <see cref="Area"/> value to calculate the resulting <see cref="LuminousFlux"/>.
+	/// </summary>
+	/// <param name="left">The illuminance value.</param>
+	/// <param name="right">The area value.</param>
+	/// <returns>A <see cref="LuminousFlux"/> representing the result of the multiplication.</returns>
 	public static LuminousFlux operator *(Illuminance left, Area right) =>
 		IIntegralOperators<Illuminance, Area, LuminousFlux>.Integrate(left, right);
-
 }
 
 /// <summary>

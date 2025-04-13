@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Area;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Force;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Illuminance;
@@ -9,7 +10,11 @@ using ktsu.PhysicalQuantity.LuminousFlux;
 using ktsu.PhysicalQuantity.Pressure;
 using ktsu.PhysicalQuantity.Volume;
 
+/// <summary>
+/// Represents a physical quantity of area with various unit conversions and operations.
+/// </summary>
 [SIUnit("m²", "square meter", "square meters")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Area
 	: PhysicalQuantity<Area>
 	, IDerivativeOperators<Area, Length, Length>
@@ -17,15 +22,39 @@ public sealed record Area
 	, IIntegralOperators<Area, Pressure, Force>
 	, IIntegralOperators<Area, Illuminance, LuminousFlux>
 {
+	/// <summary>
+	/// Multiplies an <see cref="Area"/> by a <see cref="Length"/> to compute a <see cref="Volume"/>.
+	/// </summary>
+	/// <param name="left">The area operand.</param>
+	/// <param name="right">The length operand.</param>
+	/// <returns>A <see cref="Volume"/> resulting from the multiplication.</returns>
 	public static Volume operator *(Area left, Length right) =>
 		IIntegralOperators<Area, Length, Volume>.Integrate(left, right);
 
+	/// <summary>
+	/// Multiplies an <see cref="Area"/> by a <see cref="Pressure"/> to compute a <see cref="Force"/>.
+	/// </summary>
+	/// <param name="left">The area operand.</param>
+	/// <param name="right">The pressure operand.</param>
+	/// <returns>A <see cref="Force"/> resulting from the multiplication.</returns>
 	public static Force operator *(Area left, Pressure right) =>
 		IIntegralOperators<Area, Pressure, Force>.Integrate(left, right);
 
+	/// <summary>
+	/// Multiplies an <see cref="Area"/> by an <see cref="Illuminance"/> to compute a <see cref="LuminousFlux"/>.
+	/// </summary>
+	/// <param name="left">The area operand.</param>
+	/// <param name="right">The illuminance operand.</param>
+	/// <returns>A <see cref="LuminousFlux"/> resulting from the multiplication.</returns>
 	public static LuminousFlux operator *(Area left, Illuminance right) =>
 		IIntegralOperators<Area, Illuminance, LuminousFlux>.Integrate(left, right);
 
+	/// <summary>
+	/// Divides an <see cref="Area"/> by a <see cref="Length"/> to compute another <see cref="Length"/>.
+	/// </summary>
+	/// <param name="left">The area operand.</param>
+	/// <param name="right">The length operand.</param>
+	/// <returns>A <see cref="Length"/> resulting from the division.</returns>
 	public static Length operator /(Area left, Length right) =>
 		IDerivativeOperators<Area, Length, Length>.Derive(left, right);
 }

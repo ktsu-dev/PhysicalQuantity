@@ -1,20 +1,37 @@
 namespace ktsu.PhysicalQuantity.AngularVelocity;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Angle;
 using ktsu.PhysicalQuantity.AngularAcceleration;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Time;
 
+/// <summary>
+/// Represents the angular velocity, a measure of the rate of change of angular displacement.
+/// </summary>
 [SIUnit("rad/s", "radian per second", "radians per second")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record AngularVelocity
 	: PhysicalQuantity<AngularVelocity>
 	, IDerivativeOperators<AngularVelocity, Time, AngularAcceleration>
 	, IIntegralOperators<AngularVelocity, Time, Angle>
 {
+	/// <summary>
+	/// Multiplies an <see cref="AngularVelocity"/> by a <see cref="Time"/> to compute the resulting <see cref="Angle"/>.
+	/// </summary>
+	/// <param name="left">The angular velocity.</param>
+	/// <param name="right">The time duration.</param>
+	/// <returns>The resulting <see cref="Angle"/>.</returns>
 	public static Angle operator *(AngularVelocity left, Time right) =>
 		IIntegralOperators<AngularVelocity, Time, Angle>.Integrate(left, right);
 
+	/// <summary>
+	/// Divides an <see cref="AngularVelocity"/> by a <see cref="Time"/> to compute the resulting <see cref="AngularAcceleration"/>.
+	/// </summary>
+	/// <param name="left">The angular velocity.</param>
+	/// <param name="right">The time duration.</param>
+	/// <returns>The resulting <see cref="AngularAcceleration"/>.</returns>
 	public static AngularAcceleration operator /(AngularVelocity left, Time right) =>
 		IDerivativeOperators<AngularVelocity, Time, AngularAcceleration>.Derive(left, right);
 }

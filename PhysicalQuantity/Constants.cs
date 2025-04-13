@@ -1,6 +1,8 @@
 namespace ktsu.PhysicalQuantity;
 
-using ktsu.SignificantNumber;
+using ktsu.PreciseNumber;
+
+using StorageType = SignificantNumber.SignificantNumber;
 
 /// <summary>
 /// Provides conversion factors for various physical quantities and metric prefixes.
@@ -8,101 +10,101 @@ using ktsu.SignificantNumber;
 internal static class Constants
 {
 	// Metric prefixes
-	internal static SignificantNumber Deca { get; } = 1e1.ToSignificantNumber();
-	internal static SignificantNumber Hecto { get; } = 1e2.ToSignificantNumber();
-	internal static SignificantNumber Kilo { get; } = 1e3.ToSignificantNumber();
-	internal static SignificantNumber Mega { get; } = 1e6.ToSignificantNumber();
-	internal static SignificantNumber Giga { get; } = 1e9.ToSignificantNumber();
-	internal static SignificantNumber Tera { get; } = 1e12.ToSignificantNumber();
-	internal static SignificantNumber Peta { get; } = 1e15.ToSignificantNumber();
-	internal static SignificantNumber Exa { get; } = 1e18.ToSignificantNumber();
-	internal static SignificantNumber Zetta { get; } = 1e21.ToSignificantNumber();
-	internal static SignificantNumber Yotta { get; } = 1e24.ToSignificantNumber();
-	internal static SignificantNumber Deci { get; } = 1e-1.ToSignificantNumber();
-	internal static SignificantNumber Centi { get; } = 1e-2.ToSignificantNumber();
-	internal static SignificantNumber Milli { get; } = 1e-3.ToSignificantNumber();
-	internal static SignificantNumber Micro { get; } = 1e-6.ToSignificantNumber();
-	internal static SignificantNumber Nano { get; } = 1e-9.ToSignificantNumber();
-	internal static SignificantNumber Pico { get; } = 1e-12.ToSignificantNumber();
-	internal static SignificantNumber Femto { get; } = 1e-15.ToSignificantNumber();
-	internal static SignificantNumber Atto { get; } = 1e-18.ToSignificantNumber();
-	internal static SignificantNumber Zepto { get; } = 1e-21.ToSignificantNumber();
-	internal static SignificantNumber Yocto { get; } = 1e-24.ToSignificantNumber();
+	internal static StorageType Deca { get; } = 1e1.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Hecto { get; } = 1e2.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Kilo { get; } = 1e3.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Mega { get; } = 1e6.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Giga { get; } = 1e9.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Tera { get; } = 1e12.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Peta { get; } = 1e15.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Exa { get; } = 1e18.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Zetta { get; } = 1e21.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Yotta { get; } = 1e24.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Deci { get; } = 1e-1.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Centi { get; } = 1e-2.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Milli { get; } = 1e-3.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Micro { get; } = 1e-6.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Nano { get; } = 1e-9.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Pico { get; } = 1e-12.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Femto { get; } = 1e-15.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Atto { get; } = 1e-18.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Zepto { get; } = 1e-21.ToPreciseNumber().As<StorageType>();
+	internal static StorageType Yocto { get; } = 1e-24.ToPreciseNumber().As<StorageType>();
 
 	// Length conversion factors
-	internal static SignificantNumber FeetToMetersFactor { get; } = 0.3048m.ToSignificantNumber();
-	internal static SignificantNumber InchesToMetersFactor { get; } = 0.0254m.ToSignificantNumber();
-	internal static SignificantNumber YardsToMetersFactor { get; } = 0.9144m.ToSignificantNumber();
-	internal static SignificantNumber MilesToMetersFactor { get; } = 1609.344m.ToSignificantNumber();
-	internal static SignificantNumber NauticalMilesToMetersFactor { get; } = 1852m.ToSignificantNumber();
-	internal static SignificantNumber FathomsToMetersFactor { get; } = 1.8288m.ToSignificantNumber();
-	internal static SignificantNumber AstronomicalUnitsToMetersFactor { get; } = 1.495978707e11m.ToSignificantNumber();
-	internal static SignificantNumber LightYearsToMetersFactor { get; } = 9.4607304725808e15m.ToSignificantNumber();
-	internal static SignificantNumber ParsecsToMetersFactor { get; } = 3.08567758149137e16m.ToSignificantNumber();
+	internal static StorageType FeetToMetersFactor { get; } = 0.3048m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType InchesToMetersFactor { get; } = 0.0254m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType YardsToMetersFactor { get; } = 0.9144m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType MilesToMetersFactor { get; } = 1609.344m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType NauticalMilesToMetersFactor { get; } = 1852m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType FathomsToMetersFactor { get; } = 1.8288m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType AstronomicalUnitsToMetersFactor { get; } = 1.495978707e11m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType LightYearsToMetersFactor { get; } = 9.4607304725808e15m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType ParsecsToMetersFactor { get; } = 3.08567758149137e16m.ToPreciseNumber().As<StorageType>();
 
 	// Angular conversion factors
-	internal static SignificantNumber DegreesToRadiansFactor { get; } = 0.01745329251994329576923690768489m.ToSignificantNumber();
-	internal static SignificantNumber GradiansToRadiansFactor { get; } = 0.0157079632679489661923132169164m.ToSignificantNumber();
-	internal static SignificantNumber MinutesToRadiansFactor { get; } = 0.00029088820866572159615394846141459m.ToSignificantNumber();
-	internal static SignificantNumber SecondsToRadiansFactor { get; } = 4.8481368110953599358991410235795e-6m.ToSignificantNumber();
-	internal static SignificantNumber RevolutionsToRadiansFactor { get; } = 6.283185307179586476925286766559m.ToSignificantNumber();
-	internal static SignificantNumber CyclesToRadiansFactor { get; } = 6.283185307179586476925286766559m.ToSignificantNumber();
-	internal static SignificantNumber TurnsToRadiansFactor { get; } = 6.283185307179586476925286766559m.ToSignificantNumber();
+	internal static StorageType DegreesToRadiansFactor { get; } = 0.01745329251994329576923690768489m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType GradiansToRadiansFactor { get; } = 0.0157079632679489661923132169164m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType MinutesToRadiansFactor { get; } = 0.00029088820866572159615394846141459m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType SecondsToRadiansFactor { get; } = 4.8481368110953599358991410235795e-6m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType RevolutionsToRadiansFactor { get; } = 6.283185307179586476925286766559m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType CyclesToRadiansFactor { get; } = 6.283185307179586476925286766559m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType TurnsToRadiansFactor { get; } = 6.283185307179586476925286766559m.ToPreciseNumber().As<StorageType>();
 
 	// Mass conversion factors
-	internal static SignificantNumber PoundsToKilogramsFactor { get; } = 0.45359237m.ToSignificantNumber();
-	internal static SignificantNumber OuncesToKilogramsFactor { get; } = 0.028349523125m.ToSignificantNumber();
-	internal static SignificantNumber StonesToKilogramsFactor { get; } = 6.35029318m.ToSignificantNumber();
-	internal static SignificantNumber ImperialTonsToKilogramsFactor { get; } = 1016.0469088m.ToSignificantNumber();
-	internal static SignificantNumber USTonsToKilogramsFactor { get; } = 907.18474m.ToSignificantNumber();
-	internal static SignificantNumber MetricTonsToKilogramsFactor { get; } = 1000m.ToSignificantNumber();
+	internal static StorageType PoundsToKilogramsFactor { get; } = 0.45359237m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType OuncesToKilogramsFactor { get; } = 0.028349523125m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType StonesToKilogramsFactor { get; } = 6.35029318m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType ImperialTonsToKilogramsFactor { get; } = 1016.0469088m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType USTonsToKilogramsFactor { get; } = 907.18474m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType MetricTonsToKilogramsFactor { get; } = 1000m.ToPreciseNumber().As<StorageType>();
 
 	// Force conversion factors
-	internal static SignificantNumber PoundsForceToNewtonsFactor { get; } = 4.4482216152605m.ToSignificantNumber();
+	internal static StorageType PoundsForceToNewtonsFactor { get; } = 4.4482216152605m.ToPreciseNumber().As<StorageType>();
 
 	// Energy conversion factors
-	internal static SignificantNumber CaloriesToJoulesFactor { get; } = 4.184m.ToSignificantNumber();
-	internal static SignificantNumber BTUsToJoulesFactor { get; } = 1055.05585262m.ToSignificantNumber();
+	internal static StorageType CaloriesToJoulesFactor { get; } = 4.184m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType BTUsToJoulesFactor { get; } = 1055.05585262m.ToPreciseNumber().As<StorageType>();
 
 	// Power conversion factors
-	internal static SignificantNumber HorsepowerToWattsFactor { get; } = 745.69987158227022m.ToSignificantNumber();
-	internal static SignificantNumber MetricHorsePowerToWattsFactor { get; } = 735.49875m.ToSignificantNumber();
+	internal static StorageType HorsepowerToWattsFactor { get; } = 745.69987158227022m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType MetricHorsePowerToWattsFactor { get; } = 735.49875m.ToPreciseNumber().As<StorageType>();
 
 	// Pressure conversion factors
-	internal static SignificantNumber BarToPascalsFactor { get; } = 1e5m.ToSignificantNumber();
-	internal static SignificantNumber PsiToPascalsFactor { get; } = 6894.757293168361m.ToSignificantNumber();
-	internal static SignificantNumber AtmToPascalsFactor { get; } = 101325m.ToSignificantNumber();
-	internal static SignificantNumber TorrToPascalsFactor { get; } = 133.32236842105263m.ToSignificantNumber();
+	internal static StorageType BarToPascalsFactor { get; } = 1e5m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType PsiToPascalsFactor { get; } = 6894.757293168361m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType AtmToPascalsFactor { get; } = 101325m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType TorrToPascalsFactor { get; } = 133.32236842105263m.ToPreciseNumber().As<StorageType>();
 
 	// Temperature conversion factors
-	internal static SignificantNumber CelsiusToKelvinFactor { get; } = 1m.ToSignificantNumber();
-	internal static SignificantNumber CelsiusToKelvinOffset { get; } = 273.15m.ToSignificantNumber();
-	internal static SignificantNumber FahrenheitToCelsiusFactor { get; } = (9m / 5m).ToSignificantNumber();
-	internal static SignificantNumber FahrenheitToCelsiusOffset { get; } = 32m.ToSignificantNumber();
+	internal static StorageType CelsiusToKelvinFactor { get; } = 1m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType CelsiusToKelvinOffset { get; } = 273.15m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType FahrenheitToCelsiusFactor { get; } = (9m / 5m).ToPreciseNumber().As<StorageType>();
+	internal static StorageType FahrenheitToCelsiusOffset { get; } = 32m.ToPreciseNumber().As<StorageType>();
 
 	// Time conversion factors
-	internal static SignificantNumber MinutesToSecondsFactor { get; } = 60m.ToSignificantNumber();
-	internal static SignificantNumber HoursToSecondsFactor { get; } = 3600m.ToSignificantNumber();
-	internal static SignificantNumber DaysToSecondsFactor { get; } = 86400m.ToSignificantNumber();
-	internal static SignificantNumber HoursToMinutesFactor { get; } = 60m.ToSignificantNumber();
-	internal static SignificantNumber DaysToMinutesFactor { get; } = 1440m.ToSignificantNumber();
-	internal static SignificantNumber DaysToHoursFactor { get; } = 24m.ToSignificantNumber();
-	internal static SignificantNumber YearsToSecondsFactor { get; } = 31556952m.ToSignificantNumber();
+	internal static StorageType MinutesToSecondsFactor { get; } = 60m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType HoursToSecondsFactor { get; } = 3600m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType DaysToSecondsFactor { get; } = 86400m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType HoursToMinutesFactor { get; } = 60m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType DaysToMinutesFactor { get; } = 1440m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType DaysToHoursFactor { get; } = 24m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType YearsToSecondsFactor { get; } = 31556952m.ToPreciseNumber().As<StorageType>();
 
 	// Torque conversion factors
-	internal static SignificantNumber FootPoundsToNewtonMetersFactor { get; } = 1.3558179483314004m.ToSignificantNumber();
-	internal static SignificantNumber PoundInchesToNewtonMetersFactor { get; } = 0.1130057188312m.ToSignificantNumber();
+	internal static StorageType FootPoundsToNewtonMetersFactor { get; } = 1.3558179483314004m.ToPreciseNumber().As<StorageType>();
+	internal static StorageType PoundInchesToNewtonMetersFactor { get; } = 0.1130057188312m.ToPreciseNumber().As<StorageType>();
 
 	// Illuminance conversion factors
-	internal static SignificantNumber FootCandleToLuxFactor { get; } = 10.763910416709722m.ToSignificantNumber();
+	internal static StorageType FootCandleToLuxFactor { get; } = 10.763910416709722m.ToPreciseNumber().As<StorageType>();
 
 	// Area conversion factors
-	internal static SignificantNumber AcresToSquareMetersFactor { get; } = 4046.8564224m.ToSignificantNumber();
+	internal static StorageType AcresToSquareMetersFactor { get; } = 4046.8564224m.ToPreciseNumber().As<StorageType>();
 
 	// Solid Angle conversion factors
-	internal static SignificantNumber SquareDegreesToSteradiansFactor { get; } = 3282.80635001.ToSignificantNumber();
+	internal static StorageType SquareDegreesToSteradiansFactor { get; } = 3282.80635001.ToPreciseNumber().As<StorageType>();
 
 	// Charge conversion factors
-	internal static SignificantNumber MilliampereHoursToCoulombsFactor { get; } = 3.6.ToSignificantNumber();
-	internal static SignificantNumber AmpereHoursToCoulombsFactor { get; } = 3600.ToSignificantNumber();
+	internal static StorageType MilliampereHoursToCoulombsFactor { get; } = 3.6.ToPreciseNumber().As<StorageType>();
+	internal static StorageType AmpereHoursToCoulombsFactor { get; } = 3600.ToPreciseNumber().As<StorageType>();
 }

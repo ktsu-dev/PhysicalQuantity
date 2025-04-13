@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.LuminousIntensity;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.LuminousFlux;
 using ktsu.PhysicalQuantity.SolidAngle;
@@ -9,13 +10,20 @@ using ktsu.PhysicalQuantity.SolidAngle;
 /// Represents a luminous intensity quantity measured in candelas.
 /// </summary>
 [SIUnit("cd", "candela", "candelas")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record LuminousIntensity
 	: PhysicalQuantity<LuminousIntensity>
 	, IIntegralOperators<LuminousIntensity, SolidAngle, LuminousFlux>
 {
+	/// <summary>
+	/// Multiplies a <see cref="LuminousIntensity"/> instance by a <see cref="SolidAngle"/> instance
+	/// to compute the resulting <see cref="LuminousFlux"/>.
+	/// </summary>
+	/// <param name="left">The luminous intensity value.</param>
+	/// <param name="right">The solid angle value.</param>
+	/// <returns>A <see cref="LuminousFlux"/> instance representing the result of the multiplication.</returns>
 	public static LuminousFlux operator *(LuminousIntensity left, SolidAngle right) =>
 		IIntegralOperators<LuminousIntensity, SolidAngle, LuminousFlux>.Integrate(left, right);
-
 }
 
 /// <summary>

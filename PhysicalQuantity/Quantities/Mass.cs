@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Mass;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Acceleration;
 using ktsu.PhysicalQuantity.AmountOfSubstance;
 using ktsu.PhysicalQuantity.Density;
@@ -15,6 +16,7 @@ using ktsu.PhysicalQuantity.Volume;
 /// Represents a mass quantity measured in kilograms.
 /// </summary>
 [SIUnit("kg", "kilogram", "kilograms")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Mass
 	: PhysicalQuantity<Mass>
 	, IDerivativeOperators<Mass, Volume, Density>
@@ -24,22 +26,59 @@ public sealed record Mass
 	, IIntegralOperators<Mass, Velocity, Momentum>
 	, IIntegralOperators<Mass, Acceleration, Force>
 {
+	/// <summary>
+	/// Multiplies a <see cref="Mass"/> instance with an <see cref="Acceleration"/> instance to compute the resulting <see cref="Force"/>.
+	/// </summary>
+	/// <param name="left">The mass operand.</param>
+	/// <param name="right">The acceleration operand.</param>
+	/// <returns>A <see cref="Force"/> instance representing the result of the multiplication.</returns>
 	public static Force operator *(Mass left, Acceleration right) =>
 		IIntegralOperators<Mass, Acceleration, Force>.Integrate(left, right);
+
+	/// <summary>
+	/// Multiplies a <see cref="Mass"/> instance with a <see cref="Velocity"/> instance to compute the resulting <see cref="Momentum"/>.
+	/// </summary>
+	/// <param name="left">The mass operand.</param>
+	/// <param name="right">The velocity operand.</param>
+	/// <returns>A <see cref="Momentum"/> instance representing the result of the multiplication.</returns>
 	public static Momentum operator *(Mass left, Velocity right) =>
 		IIntegralOperators<Mass, Velocity, Momentum>.Integrate(left, right);
+
+	/// <summary>
+	/// Divides a <see cref="Mass"/> instance by a <see cref="Volume"/> instance to compute the resulting <see cref="Density"/>.
+	/// </summary>
+	/// <param name="left">The mass operand.</param>
+	/// <param name="right">The volume operand.</param>
+	/// <returns>A <see cref="Density"/> instance representing the result of the division.</returns>
 	public static Density operator /(Mass left, Volume right) =>
 		IDerivativeOperators<Mass, Volume, Density>.Derive(left, right);
 
+	/// <summary>
+	/// Divides a <see cref="Mass"/> instance by a <see cref="Density"/> instance to compute the resulting <see cref="Volume"/>.
+	/// </summary>
+	/// <param name="left">The mass operand.</param>
+	/// <param name="right">The density operand.</param>
+	/// <returns>A <see cref="Volume"/> instance representing the result of the division.</returns>
 	public static Volume operator /(Mass left, Density right) =>
 		IDerivativeOperators<Mass, Density, Volume>.Derive(left, right);
 
+	/// <summary>
+	/// Divides a <see cref="Mass"/> instance by a <see cref="MolarMass"/> instance to compute the resulting <see cref="AmountOfSubstance"/>.
+	/// </summary>
+	/// <param name="left">The mass operand.</param>
+	/// <param name="right">The molar mass operand.</param>
+	/// <returns>An <see cref="AmountOfSubstance"/> instance representing the result of the division.</returns>
 	public static AmountOfSubstance operator /(Mass left, MolarMass right) =>
 		IDerivativeOperators<Mass, MolarMass, AmountOfSubstance>.Derive(left, right);
 
+	/// <summary>
+	/// Divides a <see cref="Mass"/> instance by an <see cref="AmountOfSubstance"/> instance to compute the resulting <see cref="MolarMass"/>.
+	/// </summary>
+	/// <param name="left">The mass operand.</param>
+	/// <param name="right">The amount of substance operand.</param>
+	/// <returns>A <see cref="MolarMass"/> instance representing the result of the division.</returns>
 	public static MolarMass operator /(Mass left, AmountOfSubstance right) =>
 		IDerivativeOperators<Mass, AmountOfSubstance, MolarMass>.Derive(left, right);
-
 }
 
 /// <summary>

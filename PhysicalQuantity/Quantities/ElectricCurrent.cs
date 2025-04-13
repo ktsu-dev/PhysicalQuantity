@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.ElectricCurrent;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Charge;
 using ktsu.PhysicalQuantity.ElectricPotential;
 using ktsu.PhysicalQuantity.Generic;
@@ -12,18 +13,37 @@ using ktsu.PhysicalQuantity.Time;
 /// Represents an electric current quantity measured in amperes.
 /// </summary>
 [SIUnit("A", "ampere", "amperes")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record ElectricCurrent
 	: PhysicalQuantity<ElectricCurrent>
 	, IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>
 	, IIntegralOperators<ElectricCurrent, ElectricPotential, Power>
 	, IIntegralOperators<ElectricCurrent, Time, Charge>
 {
+	/// <summary>
+	/// Multiplies an <see cref="ElectricCurrent"/> by a <see cref="Resistance"/> to calculate the resulting <see cref="ElectricPotential"/>.
+	/// </summary>
+	/// <param name="left">The electric current value.</param>
+	/// <param name="right">The resistance value.</param>
+	/// <returns>The resulting electric potential.</returns>
 	public static ElectricPotential operator *(ElectricCurrent left, Resistance right) =>
 		IIntegralOperators<ElectricCurrent, Resistance, ElectricPotential>.Integrate(left, right);
 
+	/// <summary>
+	/// Multiplies an <see cref="ElectricCurrent"/> by an <see cref="ElectricPotential"/> to calculate the resulting <see cref="Power"/>.
+	/// </summary>
+	/// <param name="left">The electric current value.</param>
+	/// <param name="right">The electric potential value.</param>
+	/// <returns>The resulting power.</returns>
 	public static Power operator *(ElectricCurrent left, ElectricPotential right) =>
 		IIntegralOperators<ElectricCurrent, ElectricPotential, Power>.Integrate(left, right);
 
+	/// <summary>
+	/// Multiplies an <see cref="ElectricCurrent"/> by a <see cref="Time"/> to calculate the resulting <see cref="Charge"/>.
+	/// </summary>
+	/// <param name="left">The electric current value.</param>
+	/// <param name="right">The time value.</param>
+	/// <returns>The resulting electric charge.</returns>
 	public static Charge operator *(ElectricCurrent left, Time right) =>
 		IIntegralOperators<ElectricCurrent, Time, Charge>.Integrate(left, right);
 }

@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.ElectricPotential;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Charge;
 using ktsu.PhysicalQuantity.ElectricCurrent;
 using ktsu.PhysicalQuantity.Energy;
@@ -12,6 +13,7 @@ using ktsu.PhysicalQuantity.Resistance;
 /// Represents an electric potential quantity measured in volts.
 /// </summary>
 [SIUnit("V", "volt", "volts")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record ElectricPotential
 	: PhysicalQuantity<ElectricPotential>
 	, IDerivativeOperators<ElectricPotential, ElectricCurrent, Resistance>
@@ -19,18 +21,41 @@ public sealed record ElectricPotential
 	, IIntegralOperators<ElectricPotential, ElectricCurrent, Power>
 	, IIntegralOperators<ElectricPotential, Charge, Energy>
 {
+	/// <summary>
+	/// Multiplies an <see cref="ElectricPotential"/> by an <see cref="ElectricCurrent"/> to calculate <see cref="Power"/>.
+	/// </summary>
+	/// <param name="left">The electric potential.</param>
+	/// <param name="right">The electric current.</param>
+	/// <returns>The resulting <see cref="Power"/>.</returns>
 	public static Power operator *(ElectricPotential left, ElectricCurrent right) =>
 		IIntegralOperators<ElectricPotential, ElectricCurrent, Power>.Integrate(left, right);
 
+	/// <summary>
+	/// Multiplies an <see cref="ElectricPotential"/> by a <see cref="Charge"/> to calculate <see cref="Energy"/>.
+	/// </summary>
+	/// <param name="left">The electric potential.</param>
+	/// <param name="right">The electric charge.</param>
+	/// <returns>The resulting <see cref="Energy"/>.</returns>
 	public static Energy operator *(ElectricPotential left, Charge right) =>
 		IIntegralOperators<ElectricPotential, Charge, Energy>.Integrate(left, right);
 
+	/// <summary>
+	/// Divides an <see cref="ElectricPotential"/> by an <see cref="ElectricCurrent"/> to calculate <see cref="Resistance"/>.
+	/// </summary>
+	/// <param name="left">The electric potential.</param>
+	/// <param name="right">The electric current.</param>
+	/// <returns>The resulting <see cref="Resistance"/>.</returns>
 	public static Resistance operator /(ElectricPotential left, ElectricCurrent right) =>
 		IDerivativeOperators<ElectricPotential, ElectricCurrent, Resistance>.Derive(left, right);
 
+	/// <summary>
+	/// Divides an <see cref="ElectricPotential"/> by a <see cref="Resistance"/> to calculate <see cref="ElectricCurrent"/>.
+	/// </summary>
+	/// <param name="left">The electric potential.</param>
+	/// <param name="right">The resistance.</param>
+	/// <returns>The resulting <see cref="ElectricCurrent"/>.</returns>
 	public static ElectricCurrent operator /(ElectricPotential left, Resistance right) =>
 		IDerivativeOperators<ElectricPotential, Resistance, ElectricCurrent>.Derive(left, right);
-
 }
 
 /// <summary>

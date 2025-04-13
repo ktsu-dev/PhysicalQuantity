@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Energy;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Charge;
 using ktsu.PhysicalQuantity.ElectricPotential;
 using ktsu.PhysicalQuantity.Force;
@@ -13,6 +14,7 @@ using ktsu.PhysicalQuantity.Time;
 /// Represents an energy quantity measured in joules.
 /// </summary>
 [SIUnit("J", "joule", "joules")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Energy
 	: PhysicalQuantity<Energy>
 	, IDerivativeOperators<Energy, Time, Power>
@@ -20,15 +22,39 @@ public sealed record Energy
 	, IDerivativeOperators<Energy, Length, Force>
 	, IDerivativeOperators<Energy, Charge, ElectricPotential>
 {
+	/// <summary>
+	/// Divides an energy quantity by a time quantity to compute power.
+	/// </summary>
+	/// <param name="left">The energy quantity.</param>
+	/// <param name="right">The time quantity.</param>
+	/// <returns>The resulting power quantity.</returns>
 	public static Power operator /(Energy left, Time right) =>
 		IDerivativeOperators<Energy, Time, Power>.Derive(left, right);
 
+	/// <summary>
+	/// Divides an energy quantity by a force quantity to compute length.
+	/// </summary>
+	/// <param name="left">The energy quantity.</param>
+	/// <param name="right">The force quantity.</param>
+	/// <returns>The resulting length quantity.</returns>
 	public static Length operator /(Energy left, Force right) =>
 		IDerivativeOperators<Energy, Force, Length>.Derive(left, right);
 
+	/// <summary>
+	/// Divides an energy quantity by a length quantity to compute force.
+	/// </summary>
+	/// <param name="left">The energy quantity.</param>
+	/// <param name="right">The length quantity.</param>
+	/// <returns>The resulting force quantity.</returns>
 	public static Force operator /(Energy left, Length right) =>
 		IDerivativeOperators<Energy, Length, Force>.Derive(left, right);
 
+	/// <summary>
+	/// Divides an energy quantity by a charge quantity to compute electric potential.
+	/// </summary>
+	/// <param name="left">The energy quantity.</param>
+	/// <param name="right">The charge quantity.</param>
+	/// <returns>The resulting electric potential quantity.</returns>
 	public static ElectricPotential operator /(Energy left, Charge right) =>
 		IDerivativeOperators<Energy, Charge, ElectricPotential>.Derive(left, right);
 }

@@ -1,15 +1,26 @@
 namespace ktsu.PhysicalQuantity.Angle;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.AngularVelocity;
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Time;
 
+/// <summary>
+/// Represents an angle as a physical quantity.
+/// </summary>
 [SIUnit("rad", "radian", "radians")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Angle
 	: PhysicalQuantity<Angle>
 	, IDerivativeOperators<Angle, Time, AngularVelocity>
 {
+	/// <summary>
+	/// Divides an <see cref="Angle"/> by a <see cref="Time"/> to compute the <see cref="AngularVelocity"/>.
+	/// </summary>
+	/// <param name="left">The angle to divide.</param>
+	/// <param name="right">The time to divide by.</param>
+	/// <returns>An instance of <see cref="AngularVelocity"/> representing the result of the division.</returns>
 	public static AngularVelocity operator /(Angle left, Time right) =>
 		IDerivativeOperators<Angle, Time, AngularVelocity>.Derive(left, right);
 }

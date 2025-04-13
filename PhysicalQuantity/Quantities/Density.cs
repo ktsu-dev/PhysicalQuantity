@@ -1,6 +1,7 @@
 namespace ktsu.PhysicalQuantity.Density;
 
 using System.Numerics;
+
 using ktsu.PhysicalQuantity.Generic;
 using ktsu.PhysicalQuantity.Mass;
 using ktsu.PhysicalQuantity.Volume;
@@ -9,10 +10,17 @@ using ktsu.PhysicalQuantity.Volume;
 /// Represents a density quantity measured in kilograms per cubic meter.
 /// </summary>
 [SIUnit("kg/m³", "kilogram per cubic meter", "kilograms per cubic meter")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "<Pending>")]
 public sealed record Density
 	: PhysicalQuantity<Density>
 	, IIntegralOperators<Density, Volume, Mass>
 {
+	/// <summary>
+	/// Multiplies a <see cref="Density"/> instance by a <see cref="Volume"/> instance to calculate the resulting <see cref="Mass"/>.
+	/// </summary>
+	/// <param name="left">The density value.</param>
+	/// <param name="right">The volume value.</param>
+	/// <returns>A <see cref="Mass"/> instance representing the product of the density and volume.</returns>
 	public static Mass operator *(Density left, Volume right) =>
 		IIntegralOperators<Density, Volume, Mass>.Integrate(left, right);
 }
