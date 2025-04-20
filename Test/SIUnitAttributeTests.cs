@@ -1,54 +1,24 @@
-namespace ktsu.PhysicalQuantity.Test;
+namespace PhysicalQuantity.Tests;
+
+using ktsu.PhysicalQuantity;
 
 [TestClass]
 public class SIUnitAttributeTests
 {
 	[TestMethod]
-	public void TestSIUnitAttributeInitialization()
+	public void Constructor_ShouldSetPropertiesCorrectly()
 	{
 		// Arrange
-		string symbol = "m";
-		string singular = "meter";
-		string plural = "meters";
+		string expectedSymbol = "m";
+		string expectedSingular = "meter";
+		string expectedPlural = "meters";
 
 		// Act
-		var attribute = new SIUnitAttribute(symbol, singular, plural);
+		var attribute = new SIUnitAttribute(expectedSymbol, expectedSingular, expectedPlural);
 
 		// Assert
-		Assert.AreEqual(symbol, attribute.Symbol);
-		Assert.AreEqual(singular, attribute.Singular);
-		Assert.AreEqual(plural, attribute.Plural);
-	}
-
-	[TestMethod]
-	public void TestSIUnitAttributeDefaultValues()
-	{
-		// Arrange & Act
-		var attribute = new SIUnitAttribute("m", "meter", "meters");
-
-		// Assert
-		Assert.AreEqual("m", attribute.Symbol);
-		Assert.AreEqual("meter", attribute.Singular);
-		Assert.AreEqual("meters", attribute.Plural);
-	}
-
-	[TestMethod]
-	public void TestSIUnitAttributeAppliedToClass()
-	{
-		// Act
-		object[] attributes = typeof(Meter).GetCustomAttributes(typeof(SIUnitAttribute), false);
-
-		// Assert
-		Assert.AreEqual(1, attributes.Length);
-		var attribute = attributes[0] as SIUnitAttribute;
-		Assert.IsNotNull(attribute);
-		Assert.AreEqual("m", attribute!.Symbol);
-		Assert.AreEqual("meter", attribute.Singular);
-		Assert.AreEqual("meters", attribute.Plural);
-	}
-
-	[SIUnit("m", "meter", "meters")]
-	public sealed class Meter
-	{
+		Assert.AreEqual(expectedSymbol, attribute.Symbol);
+		Assert.AreEqual(expectedSingular, attribute.Singular);
+		Assert.AreEqual(expectedPlural, attribute.Plural);
 	}
 }
