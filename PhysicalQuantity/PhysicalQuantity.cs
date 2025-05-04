@@ -1,3 +1,7 @@
+// Copyright (c) ktsu.dev
+// All rights reserved.
+// Licensed under the MIT license.
+
 [assembly: CLSCompliant(true)]
 [assembly: System.Runtime.InteropServices.ComVisible(false)]
 
@@ -41,11 +45,11 @@ public abstract record PhysicalQuantity<TSelf>
 	/// <returns>A string that represents the physical quantity.</returns>
 	public sealed override string ToString()
 	{
-		string symbolComponent = string.IsNullOrWhiteSpace(SIUnitAttribute.Symbol) ? string.Empty : $" {SIUnitAttribute.Symbol}";
+		var symbolComponent = string.IsNullOrWhiteSpace(SIUnitAttribute.Symbol) ? string.Empty : $" {SIUnitAttribute.Symbol}";
 		var absQuantity = Quantity.Abs();
-		bool isPlural = absQuantity.To<int>() > 1;
-		string pluralComponent = isPlural ? SIUnitAttribute.Plural : SIUnitAttribute.Singular;
-		string nameComponent = string.IsNullOrWhiteSpace(pluralComponent) ? string.Empty : $" ({pluralComponent})";
+		var isPlural = absQuantity.To<int>() > 1;
+		var pluralComponent = isPlural ? SIUnitAttribute.Plural : SIUnitAttribute.Singular;
+		var nameComponent = string.IsNullOrWhiteSpace(pluralComponent) ? string.Empty : $" ({pluralComponent})";
 		return $"{Quantity}{symbolComponent}{nameComponent}";
 	}
 
