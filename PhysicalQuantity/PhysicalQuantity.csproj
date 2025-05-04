@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="ktsu.Sdk.Lib/1.8.0">
   <PropertyGroup>
     <NoWarn>$(NoWarn);CA1716;CA2260;S4226;</NoWarn>
   </PropertyGroup>
