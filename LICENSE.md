@@ -1,6 +1,6 @@
 MIT License
 
-https://github.com/ktsu-dev/ktsu-dev/PhysicalQuantity
+https://github.com/ktsu-dev/PhysicalQuantity
 
 Copyright (c) 2023-2025 ktsu-dev
 
