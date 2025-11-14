@@ -1,3 +1,11 @@
+# ⚠️ DEPRECATED
+
+**This project is no longer maintained.** Its functionality has been moved to [ktsu.Semantics](https://github.com/ktsu-dev/Semantics).
+
+Please migrate to the new library for continued support and updates.
+
+---
+
 # ktsu.PhysicalQuantity
 
 `PhysicalQuantity` is a .NET library that provides a robust framework for working with physical quantities, supporting a wide range of units and conversions.
